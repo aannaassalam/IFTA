@@ -1,0 +1,120 @@
+.category {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  place-items: center;
+  max-width: 65%;
+  grid-gap: 10px;
+  margin: auto;
+  padding: 0.5rem;
+  font-family: "Oswald", sans-serif;
+}
+
+.category a {
+  text-decoration: none;
+  color: #fff;
+  width: 100%;
+}
+
+.category-1,
+.category-2,
+.category-3,
+.category-4 {
+  width: 100%;
+  min-height: 123px;
+  height: 420px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-direction: column;
+  cursor: pointer;
+  background-color: #333;
+  border-image-slice: 1 !important;
+  padding: 10px;
+  text-align: center;
+  box-sizing: border-box;
+  border-bottom: 2px solid;
+}
+
+.category-1 {
+  border-image-source: linear-gradient(
+    to bottom,
+    #1da2e7 0,
+    #0e7cb3 100%
+  ) !important;
+}
+
+.category-2 {
+  border-image-source: linear-gradient(
+    to bottom,
+    #09d7a7 0,
+    #0aa07d 100%
+  ) !important;
+}
+
+.category-3 {
+  border-image-source: linear-gradient(
+    to bottom,
+    #ca49c7 0,
+    #963898 100%
+  ) !important;
+}
+
+.category-4 {
+  border-image-source: linear-gradient(
+    to bottom,
+    #ff7062 0,
+    #c53e3a 100%
+  ) !important;
+}
+
+.category-1:hover,
+.category-2:hover,
+.category-3:hover,
+.category-4:hover {
+  border: 2px solid;
+}
+
+.category-1 > h3,
+.category-2 > h3,
+.category-3 > h3,
+.category-4 > h3 {
+  font-size: 28px;
+  font-weight: 600;
+  margin-bottom: 15px;
+}
+
+.category-1 > div > p,
+.category-2 > div > p,
+.category-3 > div > p,
+.category-4 > div > p {
+  font-weight: 500;
+  margin-bottom: 3px;
+}
+
+.category-1 > button,
+.category-2 > button,
+.category-3 > button,
+.category-4 > button {
+  padding: 10px 50px;
+  margin-top: 0.5rem;
+  border-radius: 999px;
+  border: none;
+  outline: none;
+  color: #fff;
+}
+
+.category-1 > button {
+  background: linear-gradient(to right, #1da2e7 0, #0e7cb3 100%);
+}
+
+.category-2 > button {
+  background: linear-gradient(to right, #09d7a7 0, #0aa07d 100%);
+}
+
+.category-3 > button {
+  background: linear-gradient(to right, #ca49c7 0, #963898 100%);
+}
+
+.category-4 > button {
+  background: linear-gradient(to right, #ff7062 0, #c53e3a 100%);
+}

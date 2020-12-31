@@ -1,0 +1,35 @@
+.voting {
+  background: linear-gradient(to bottom, #000, #222);
+  position: relative;
+}
+
+.voting > img {
+  width: 100%;
+  height: 50vh;
+  object-fit: contain;
+  margin-bottom: -62px;
+}
+
+.voting__video {
+  padding: 7rem 0;
+  margin: auto;
+  width: max-content;
+}
+
+.voting__category .category-1,
+.voting__category .category-2,
+.voting__category .category-3,
+.voting__category .category-4 {
+  min-height: unset;
+  height: 110px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.voting__category .category-1 > h3,
+.voting__category .category-2 > h3,
+.voting__category .category-3 > h3,
+.voting__category .category-4 > h3 {
+  margin-bottom: 0;
+}

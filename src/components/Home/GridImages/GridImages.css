@@ -1,0 +1,33 @@
+.gridImages {
+  margin: 0 auto;
+  height: 700px;
+  width: 70%;
+  -moz-column-count: 3;
+  -webkit-column-count: 3;
+  column-count: 3;
+  padding: 10px;
+  padding-bottom: 3px;
+  -moz-column-gap: 7px;
+  -webkit-column-gap: 7px;
+  column-gap: 7px;
+  color: black;
+}
+
+.gridImagesBox {
+  min-height: 250px;
+  width: 100%;
+  margin: 2px 0;
+  display: inline-block;
+  box-sizing: border-box;
+}
+
+.gridImages__1 {
+  height: 430px;
+}
+.gridImages__2 {
+  height: 430px;
+}
+
+.gridImages__5 {
+  height: 430px;
+}

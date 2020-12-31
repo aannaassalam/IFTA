@@ -1,0 +1,138 @@
+.home {
+  background: linear-gradient(to bottom, #000, #222);
+  color: #fff;
+}
+
+.home__first {
+  display: grid;
+  height: 100vh;
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.home__first > img,
+.home__first > div {
+  flex: 0.33;
+}
+
+.home__first > img {
+  width: 100%;
+  height: 100%;
+}
+
+.home__first > div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-family: "Manrope", sans-serif;
+}
+
+.home__first > div > h1 {
+  font-weight: 500;
+  font-size: 4rem;
+  margin-bottom: 15px;
+  font-family: "Crimson Text", serif;
+}
+
+.home__first > div > p {
+  font-weight: 500;
+  color: lightgray;
+  margin-bottom: 10px;
+}
+
+.home__first > div > button {
+  margin-top: 10px;
+  outline: none;
+  border: none;
+  padding: 15px 50px;
+  border-radius: 999px;
+  background: linear-gradient(to right, #000, #555);
+  color: #fff;
+  letter-spacing: 0.5px;
+  cursor: pointer;
+}
+
+.home__second {
+  padding: 5rem 0;
+  display: flex;
+  justify-content: center;
+}
+
+.home__third > div:first-of-type {
+  margin-bottom: 5rem;
+}
+
+.home__fourth {
+  margin-top: 4rem;
+}
+
+.home__footer {
+  display: flex;
+  background-color: #333;
+  padding: 10px 5rem;
+  margin-top: 5rem;
+  border-top: 1px solid #cbcdca;
+}
+
+.home__footerLeft {
+  flex: 0.7;
+}
+
+.home__footerLeft > h1 {
+  font-size: 1.5rem;
+  font-weight: 500;
+  font-family: "Crimson Text", serif;
+  margin-bottom: 5px;
+  margin-top: 5px;
+}
+
+.home__footerLeft > div {
+  display: flex;
+  justify-content: space-between;
+}
+
+.home__footerLeft > div > div > p {
+  font-size: 0.9rem;
+  margin-bottom: 3px;
+  cursor: pointer;
+  color: #bbb;
+}
+
+.home__footerRight {
+  flex: 0.3;
+  margin-left: 4rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.home__footerRight > h1 {
+  font-size: 1.3rem;
+  margin-bottom: 10px;
+  font-weight: 600;
+}
+
+.home__footerRight > div {
+  display: flex;
+  margin-bottom: 20px;
+}
+
+.home__footerRight > div > img {
+  width: 45px;
+  object-fit: contain;
+  margin-right: 15px;
+  background-color: #ff3f5f;
+  border-radius: 999px;
+}
+
+.home__footerRight > button {
+  width: 70%;
+  border: none;
+  outline: none;
+  padding: 10px 15px;
+  border-radius: 5px;
+  background-color: #ff3f5f;
+  color: #fff;
+  font-weight: 600;
+  font-size: 1rem;
+  letter-spacing: 0.5px;
+}
