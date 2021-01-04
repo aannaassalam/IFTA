@@ -1,0 +1,93 @@
+.movieGrid {
+  color: #fff;
+  margin-top: 7rem;
+}
+
+.movieGrid > h1 {
+  font-family: Oswald, sans-serif;
+  font-size: 2rem;
+  text-transform: uppercase;
+  text-align: center;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.movieGrid > span {
+  text-align: center;
+  color: #bbb;
+  text-decoration: underline;
+  text-transform: uppercase;
+  font-size: medium;
+  display: grid;
+  place-items: center;
+  padding-bottom: 2rem;
+}
+
+.movieGrid > div {
+  margin: auto;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  place-items: center;
+  max-width: 76.5%;
+  grid-row-gap: 12px;
+  margin-top: 1rem;
+  padding-bottom: 50px;
+}
+
+.movieGrid__movies {
+  display: flex;
+  width: 330px;
+  height: 120px;
+  background-color: #050505ad;
+}
+
+.movieGrid__movies > img {
+  width: 150px;
+  object-fit: contain;
+}
+
+.movieGrid__movies > div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  padding: 10px;
+  width: 100%;
+  text-align: center;
+}
+
+.movieGrid__movies > div > h2 {
+  text-transform: uppercase;
+  font-size: small;
+  font-family: Oswald, sans-serif;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+}
+
+.movieGrid__moviesWinner {
+  color: #1da2e7;
+  font-family: Oswald, sans-serif;
+  letter-spacing: 1.3px;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.movieGrid__moviesWinner > a {
+  font-size: 13px;
+  font-weight: 500;
+  font-family: Roboto, sans-serif;
+  text-decoration: underline;
+  color: #fff;
+  margin-left: 7px;
+  cursor: pointer;
+}
+
+.movieGrid__moviesLoser {
+  background-color: #000;
+  padding: 5px 20px;
+  text-transform: uppercase;
+  font-family: Oswald, sans-serif;
+  font-weight: 500;
+  font-size: 14px;
+  letter-spacing: 0.7px;
+}

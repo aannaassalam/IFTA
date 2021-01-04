@@ -4,12 +4,13 @@
   position: fixed;
   width: 100%;
   z-index: 999;
+  top: 0;
+  transform: translateY(360%);
   transition: all 0.5s ease-in;
 }
 
 .sticky {
-  /* top: 0; */
-  transform: translateY(-365%);
+  transform: translateY(0);
 }
 
 .navbar__nav {
@@ -47,22 +48,22 @@
 
 .nav__itemBolly:hover,
 .nav__itemBolly:focus {
-  background: linear-gradient(to right, #1da2e7 0, #0e7cb3 100%);
+  background: linear-gradient(to right, #1da2e7 0, #0e7cb3 100%) !important;
 }
 
 .nav__itemTele:hover,
 .nav__itemTele:focus {
-  background: linear-gradient(to right, #09d7a7 0, #0aa07d 100%);
+  background: linear-gradient(to right, #09d7a7 0, #0aa07d 100%) !important;
 }
 
 .nav__itemMusic:hover,
 .nav__itemMusic:focus {
-  background: linear-gradient(to right, #ca49c7 0, #963898 100%);
+  background: linear-gradient(to right, #ca49c7 0, #963898 100%) !important;
 }
 
 .nav__itemDigital:hover,
 .nav__itemDigital:focus {
-  background: linear-gradient(to right, #ff7062 0, #c53e3a 100%);
+  background: linear-gradient(to right, #ff7062 0, #c53e3a 100%) !important;
 }
 
 .navbar__dropdown {
@@ -75,7 +76,7 @@
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   place-items: center;
-  grid-gap: 7px;
+  grid-gap: 8px;
   overflow: hidden;
   cursor: default;
   z-index: 999;
@@ -86,24 +87,35 @@
 
 .navbar__dropdown > a {
   background-color: #000;
+  color: #fff;
   padding: 10px 20px;
   width: 87%;
   text-align: center;
   cursor: pointer;
+  border-width: 2px;
+  border-style: solid;
+  border-image-slice: 1 !important;
+  border-color: transparent;
+  text-decoration: none;
+  transition: all 5s ease-in;
 }
 
-.navbar__dropdownBolly {
+.navbar__dropdownBolly,
+.navbar__dropdownBolly > a:hover {
   border-image: linear-gradient(to right, #1da2e7 0, #0e7cb3 100%);
 }
 
-.navbar__dropdownTele {
+.navbar__dropdownTele,
+.navbar__dropdownTele > a:hover {
   border-image: linear-gradient(to right, #09d7a7 0, #0aa07d 100%);
 }
 
-.navbar__dropdownMusic {
+.navbar__dropdownMusic,
+.navbar__dropdownMusic > a:hover {
   border-image: linear-gradient(to right, #ca49c7 0, #963898 100%);
 }
 
-.navbar__dropdownDigital {
+.navbar__dropdownDigital,
+.navbar__dropdownDigital > a:hover {
   border-image: linear-gradient(to right, #ff7062 0, #c53e3a 100%);
 }

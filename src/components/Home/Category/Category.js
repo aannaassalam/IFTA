@@ -2,11 +2,33 @@ import React from "react";
 import { Link } from "react-router-dom";
 import "./Category.css";
 
-const Category = ({ show }) => {
+const Category = ({
+  show,
+  openBolly,
+  openTele,
+  openMusic,
+  openDigital,
+  setOpenBolly,
+  setOpenTele,
+  setOpenMusic,
+  setOpenDigital,
+}) => {
+  const ConditionalLink = ({ children, to, condition }) =>
+    condition && to ? <Link to={to}>{children}</Link> : <>{children}</>;
   return (
     <div className="category">
-      <Link to="/voting">
-        <div className="category-1">
+      <ConditionalLink to="/voting" condition={show}>
+        <div
+          className="category-1"
+          onClick={() => {
+            if (!show) {
+              setOpenTele(false);
+              setOpenMusic(false);
+              setOpenDigital(false);
+              setOpenBolly(!openBolly);
+            }
+          }}
+        >
           <h3>BOLLYWOOD AWARDS 2020</h3>
           {show && (
             <div>
@@ -25,9 +47,20 @@ const Category = ({ show }) => {
           )}
           {show && <button>Vote</button>}
         </div>
-      </Link>
-      <Link to="/voting">
-        <div className="category-2">
+      </ConditionalLink>
+
+      <ConditionalLink to="/voting" condition={show}>
+        <div
+          className="category-2"
+          onClick={() => {
+            if (!show) {
+              setOpenBolly(false);
+              setOpenMusic(false);
+              setOpenDigital(false);
+              setOpenTele(!openTele);
+            }
+          }}
+        >
           <h3>TELEVISION AWARDS 2020</h3>
           {show && (
             <div>
@@ -46,9 +79,19 @@ const Category = ({ show }) => {
           )}
           {show && <button>Vote</button>}
         </div>
-      </Link>
-      <Link to="/voting">
-        <div className="category-3">
+      </ConditionalLink>
+      <ConditionalLink to="/voting" condition={show}>
+        <div
+          className="category-3"
+          onClick={() => {
+            if (!show) {
+              setOpenBolly(false);
+              setOpenDigital(false);
+              setOpenTele(false);
+              setOpenMusic(!openMusic);
+            }
+          }}
+        >
           <h3>MUSIC AWARDS 2020</h3>
           {show && (
             <div>
@@ -62,9 +105,19 @@ const Category = ({ show }) => {
           )}
           {show && <button>Vote</button>}
         </div>
-      </Link>
-      <Link to="/voting">
-        <div className="category-4">
+      </ConditionalLink>
+      <ConditionalLink to="/voting" condition={show}>
+        <div
+          className="category-4"
+          onClick={() => {
+            if (!show) {
+              setOpenBolly(false);
+              setOpenTele(false);
+              setOpenMusic(false);
+              setOpenDigital(!openDigital);
+            }
+          }}
+        >
           <h3>DIGITAL ENTERTAINMENT AWARDS 2020</h3>
           {show && (
             <div>
@@ -78,7 +131,7 @@ const Category = ({ show }) => {
           )}
           {show && <button>Vote</button>}
         </div>
-      </Link>
+      </ConditionalLink>
     </div>
   );
 };

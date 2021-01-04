@@ -19,7 +19,8 @@ const GridImages = () => {
     <div className="gridImages">
       {images.map((image, index) => (
         <div
-          class={`gridImagesBox gridImages__${index}`}
+          key={image}
+          className={`gridImagesBox gridImages__${index}`}
           style={{
             background: `url('${image}') no-repeat center center`,
             backgroundSize: "cover",

@@ -1,0 +1,10 @@
+.bollywood {
+  background: linear-gradient(to bottom, #000, #222);
+}
+
+.bollywood > img {
+  width: 100%;
+  height: 50vh;
+  object-fit: contain;
+  margin-bottom: -62px;
+}

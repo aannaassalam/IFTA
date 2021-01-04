@@ -1,30 +1,24 @@
 import React, { useState, useEffect } from "react";
 import "./Navbar.css";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
-import { useHistory } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 
-const Navbar = () => {
-  const [openBolly, setOpenBolly] = useState(false);
-  const [openTele, setOpenTele] = useState(false);
-  const [openMusic, setOpenMusic] = useState(false);
-  const [openDigital, setOpenDigital] = useState(false);
-
+const Navbar = ({
+  openBolly,
+  openTele,
+  openMusic,
+  openDigital,
+  setOpenBolly,
+  setOpenTele,
+  setOpenMusic,
+  setOpenDigital,
+}) => {
   window.addEventListener("scroll", function () {
     let header = document.querySelector("#navbar");
     header.classList.toggle("sticky", window.scrollY > 100);
   });
 
-  console.log(window.pageYOffset);
   const history = useHistory();
-
-  useEffect(() => {
-    const unlisten = history.listen(() => {
-      window.scrollTo(0, 0);
-    });
-    return () => {
-      unlisten();
-    };
-  }, []);
 
   return (
     <nav className="navbar" id="navbar">
@@ -37,11 +31,23 @@ const Navbar = () => {
             setOpenDigital(false);
             setOpenBolly(!openBolly);
           }}
+          style={{
+            background: `${
+              openBolly ? "linear-gradient(to right, #1da2e7, #0e7cb3)" : "#222"
+            }`,
+          }}
         >
           BOLLYWOOD AWARDS <ExpandMoreIcon />
           {openBolly && (
             <div className="navbar__dropdown navbar__dropdownBolly">
-              <a>Best Film 2020</a>
+              <Link
+                to={{
+                  pathname: "/bollywood",
+                  query: "best-film-2020",
+                }}
+              >
+                Best Film 2020
+              </Link>
               <a>Best Actor in Lead Role</a>
               <a>Best Actress in Lead Role</a>
               <a>Best aerformance in negative Role</a>
@@ -62,6 +68,11 @@ const Navbar = () => {
             setOpenMusic(false);
             setOpenDigital(false);
             setOpenTele(!openTele);
+          }}
+          style={{
+            background: `${
+              openTele ? "linear-gradient(to right, #09d7a7, #0aa07d)" : "#222"
+            }`,
           }}
         >
           TELEVISION AWARDS <ExpandMoreIcon />
@@ -89,6 +100,11 @@ const Navbar = () => {
             setOpenTele(false);
             setOpenMusic(!openMusic);
           }}
+          style={{
+            background: `${
+              openMusic ? "linear-gradient(to right, #ca49c7, #963898)" : "#222"
+            }`,
+          }}
         >
           MUSIC AWARDS <ExpandMoreIcon />
           {openMusic && (
@@ -109,6 +125,13 @@ const Navbar = () => {
             setOpenTele(false);
             setOpenMusic(false);
             setOpenDigital(!openDigital);
+          }}
+          style={{
+            background: `${
+              openDigital
+                ? "linear-gradient(to right, #ff7062, #c53e3a)"
+                : "#222"
+            }`,
           }}
         >
           DIGITAL ENTERTAINMENT AWARDS <ExpandMoreIcon />
