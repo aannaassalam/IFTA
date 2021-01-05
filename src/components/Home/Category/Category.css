@@ -79,9 +79,10 @@
 .category-2 > h3,
 .category-3 > h3,
 .category-4 > h3 {
-  font-size: 28px;
+  font-size: 26px;
   font-weight: 600;
   margin-bottom: 15px;
+  letter-spacing: 1px;
 }
 
 .category-1 > div > p,
@@ -102,6 +103,7 @@
   border: none;
   outline: none;
   color: #fff;
+  cursor: pointer;
 }
 
 .category-1 > button {

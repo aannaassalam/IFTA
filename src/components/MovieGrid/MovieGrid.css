@@ -12,7 +12,7 @@
   margin-bottom: 0.5rem;
 }
 
-.movieGrid > span {
+.movieGrid > a {
   text-align: center;
   color: #bbb;
   text-decoration: underline;

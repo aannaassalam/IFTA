@@ -9,7 +9,7 @@ import twitter from "../../images/tw.png";
 import facebook from "../../images/fb.png";
 import insta from "../../images/insta.png";
 
-const Home = () => {
+const Home = ({ awards }) => {
   return (
     <div className="home">
       <section className="home__first">
@@ -35,7 +35,7 @@ const Home = () => {
         </div>
       </section>
       <section className="home__fourth">
-        <Category show />
+        <Category show awards={awards} />
       </section>
       <footer className="home__footer">
         <div className="home__footerLeft">

@@ -16,6 +16,10 @@
   width: max-content;
 }
 
+.voting__category {
+  margin-bottom: 3rem;
+}
+
 .voting__category .category-1,
 .voting__category .category-2,
 .voting__category .category-3,
