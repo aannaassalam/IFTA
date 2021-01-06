@@ -16,6 +16,10 @@
   user-select: none;
 }
 
+.nav-active-vote {
+  border-bottom: 1px solid red;
+}
+
 .sticky {
   transform: translateY(0);
 }

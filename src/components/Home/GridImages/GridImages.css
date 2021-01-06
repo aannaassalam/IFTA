@@ -19,6 +19,7 @@
   margin: 2px 0;
   display: inline-block;
   box-sizing: border-box;
+  background-size: cover !important;
 }
 
 .gridImages__1 {
@@ -27,7 +28,6 @@
 .gridImages__2 {
   height: 430px;
 }
-
 .gridImages__5 {
   height: 430px;
 }

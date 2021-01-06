@@ -8,10 +8,6 @@ import axios from "axios";
 
 function App() {
   const [awards, setAwards] = useState([]);
-  const [openBolly, setOpenBolly] = useState(false);
-  const [openTele, setOpenTele] = useState(false);
-  const [openMusic, setOpenMusic] = useState(false);
-  const [openDigital, setOpenDigital] = useState(false);
 
   useEffect(() => {
     axios
@@ -28,7 +24,7 @@ function App() {
           <Route path="/voting">
             <Voting awards={awards} />
           </Route>
-          <Route path="/bollywood/:award" component={Bollywood} />
+          <Route path="/vote/:award" component={Bollywood} />
           <Route path="/">
             <Home awards={awards} />
           </Route>
