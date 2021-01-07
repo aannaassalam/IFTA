@@ -1,6 +1,6 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
-import "./ExpiredGrid.css";
+import "../MovieGrid.css";
 
 function ExpiredGrid({ sesExpired }) {
   let movies = [];
@@ -10,8 +10,8 @@ function ExpiredGrid({ sesExpired }) {
         for (let image in sesExpired?.images) {
           if (vote === movie && movie === image) {
             let obj = {
-              movie: sesExpired.options[movie],
-              vote: sesExpired.votes[vote],
+              name: sesExpired.options[movie],
+              votes: sesExpired.votes[vote],
               image: sesExpired.images[image],
             };
             movies.push(obj);
@@ -19,29 +19,43 @@ function ExpiredGrid({ sesExpired }) {
         }
       }
     }
+
+    let obj = movies.findIndex((o) => o.name === sesExpired?.winner.name);
+    movies.splice(obj, 1);
+    movies.unshift(sesExpired?.winner);
   };
-
-  let maxVote = null;
   createArray();
-  setTimeout(
-    () => (maxVote = movies?.reduce((p, c) => (p.vote > c.vote ? p : c))),
-    1000
-  );
-
-  console.log(maxVote);
   return (
     <div className="movieGrid">
-      <h1>Heading</h1>
+      <h1>{sesExpired?.award.heading}</h1>
 
       <Link to="/voting">Main Categiries</Link>
 
       <div>
         {movies?.map((movie, index) => (
-          <div className="movieGrid__movies" key={index}>
-            <img src={movie.image} alt="img" />
+          <div
+            className="movieGrid__movies"
+            key={index}
+            style={{ opacity: `${index <= 0 ? "1" : "0.4"}` }}
+          >
+            <img src={movie?.image} alt="img" />
             <div>
-              <h2>{movie.movie}</h2>
-              <p className="movieGrid__moviesBtn">Votes: {movie.vote}</p>
+              <h2>{movie?.name}</h2>
+              {index === 0 && (
+                <span
+                  style={{
+                    color: "darkgreen",
+                    fontWeight: "bold",
+                    fontSize: "large",
+                    filter: "brightness(200%)",
+                  }}
+                >
+                  Winner
+                </span>
+              )}
+              <p className="movieGrid__moviesBtn expiredGrid__moviesBtn">
+                Votes: {movie?.votes}
+              </p>
             </div>
           </div>
         ))}

@@ -21,9 +21,7 @@ const MovieGrid = ({ award }) => {
   useEffect(() => {
     if (sessionExpired) {
       axios
-        .get(
-          `http://13.235.90.125:8000/award/results?id=5ff351ded2d84274b06e2787`
-        )
+        .get(`http://13.235.90.125:8000/award/results?id=${award}`)
         .then((res) => setSesExpired(res.data.payload));
     } else {
       fetchNominees(userIdentification);
