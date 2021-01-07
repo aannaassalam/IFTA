@@ -5,12 +5,27 @@ import Navbar from "../Navbar/Navbar";
 import YTVideo from "../Home/YTVideo/YTVideo";
 import Category from "../Home/Category/Category";
 import Footer from "../Footer/Footer";
+import LoginModal from "../LoginModal/LoginModal";
+import { useStateValue } from "../../StateProvider";
+import { actionTypes } from "../../Reducer";
 
 const Voting = ({ awards }) => {
-  useEffect(() => window.scrollTo(0, 0), []);
+  const [{}, dispatch] = useStateValue();
+  useEffect(() => {
+    window.scrollTo(0, 0);
+
+    const authToken = localStorage.getItem("authToken").split(" ")[1];
+    dispatch({
+      type: actionTypes.SET_TOKEN,
+      token: authToken,
+    });
+  }, []);
 
   return (
     <div className="voting">
+      <div className="voting__login">
+        <LoginModal />
+      </div>
       <img src={logo} alt="iifa-logo" />
       <Navbar />
       <div className="voting__video">

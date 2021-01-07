@@ -41,6 +41,18 @@
   background-color: #050505ad;
 }
 
+.movieGrid__votedOnce {
+  opacity: 0.5;
+}
+
+.movieGrid__votedOnce:first-of-type {
+  opacity: 1;
+}
+
+.movieGrid__moviesBtn0 {
+  background-color: #111 !important;
+}
+
 .movieGrid__movies > img {
   width: 150px;
   object-fit: contain;
@@ -64,25 +76,7 @@
   letter-spacing: 0.3px;
 }
 
-.movieGrid__moviesWinner {
-  color: #1da2e7;
-  font-family: Oswald, sans-serif;
-  letter-spacing: 1.3px;
-  font-size: 14px;
-  font-weight: 500;
-}
-
-.movieGrid__moviesWinner > a {
-  font-size: 13px;
-  font-weight: 500;
-  font-family: Roboto, sans-serif;
-  text-decoration: underline;
-  color: #fff;
-  margin-left: 7px;
-  cursor: pointer;
-}
-
-.movieGrid__moviesLoser {
+.movieGrid__moviesBtn {
   background-color: #000;
   padding: 5px 20px;
   text-transform: uppercase;
@@ -90,4 +84,81 @@
   font-weight: 500;
   font-size: 14px;
   letter-spacing: 0.7px;
+  cursor: pointer;
+  border-radius: 2px;
+  transition: all 0.2s ease-in;
+  outline: none;
+  border: none;
+  color: #fff;
+}
+
+.movieGrid__moviesBtn:disabled {
+  cursor: default;
+}
+
+.movieGrid__moviesBtn:hover {
+  background-color: #222;
+}
+
+/* MODAL */
+.movieGrid__modal {
+  height: 100%;
+  text-align: center;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.movieGrid__modal > h1 {
+  font-size: 1.7rem;
+}
+
+.movieGrid__modal > div {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 90%;
+}
+
+.movieGrid__modal > div > button {
+  outline: none;
+  border: none;
+  padding: 12px 30px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.2s ease-in;
+}
+
+.movieGrid__modal > div > button:hover {
+  filter: brightness(150%);
+}
+
+.movieGrid__modal > div > button:first-of-type {
+  background-color: #8b0000;
+}
+
+.movieGrid__modal > div > button:last-of-type {
+  background-color: #228b22;
+}
+
+/* SECOND MODAL */
+.movieGrid__modal > h1 {
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+
+.movieGrid__modal > h1 > span {
+  color: #000;
+}
+
+.movieGrid__modal > button {
+  outline: none;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  background-color: #222;
+  color: #fff;
+  cursor: pointer;
 }

@@ -117,6 +117,7 @@
 }
 
 .navbar__dropdown > a {
+  position: relative;
   background-color: #000;
   color: #fff;
   padding: 10px 20px;
@@ -129,4 +130,26 @@
   border-color: transparent;
   text-decoration: none;
   font-family: "Oswald", sans-serif;
+}
+
+.navbar__dropdown-voted {
+  position: absolute;
+  top: 6px;
+  left: -12px;
+  background-color: green !important;
+  transform: rotate(-90deg);
+  font-size: small;
+  padding: 5px 7px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.navbar__dropdown-voted::after {
+  background-color: green;
+  position: absolute;
+  bottom: -15px;
+  right: 6.5px;
+  width: 10px;
+  height: 15px;
+  transform: skew(-45deg);
 }
