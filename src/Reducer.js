@@ -35,7 +35,7 @@ const reducer = (state, action) => {
         awards: action.awards,
       };
 
-    case actionTypes.SET_AWARDS:
+    case actionTypes.SET_EXPIRED:
       return {
         ...state,
         sessionExpired: action.expired,

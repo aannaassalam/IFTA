@@ -115,28 +115,38 @@ const MovieGrid = ({ award }) => {
   };
 
   const handleVote = (key) => {
-    const authToken = localStorage.getItem("authToken").split(" ")[1];
-    const config = {
-      headers: { Authorization: `Bearer ${authToken}` },
-    };
+    if (userIdentification) {
+      const authToken = localStorage.getItem("authToken").split(" ")[1];
+      const config = {
+        headers: { Authorization: `Bearer ${authToken}` },
+      };
 
-    const bodyParameters = {
-      award: match.params.award,
-      answer: key,
-    };
+      const bodyParameters = {
+        award: match.params.award,
+        answer: key,
+      };
 
-    axios
-      .post(
-        "http://13.235.90.125:8000/award/add-answer",
-        bodyParameters,
-        config
-      )
-      .then((res) => {
-        setOpen(false);
-        setTimeout(() => setOpenConfirm(true), 500);
-        fetchNominees(userIdentification);
-      })
-      .catch((err) => console.log(err));
+      axios
+        .post(
+          "http://13.235.90.125:8000/award/add-answer",
+          bodyParameters,
+          config
+        )
+        .then((res) => {
+          setOpen(false);
+          setTimeout(() => setOpenConfirm(true), 500);
+          fetchNominees(userIdentification);
+        })
+        .catch((err) => console.log(err));
+    } else {
+      setOpen(false);
+      setTimeout(() => {
+        setModalData({
+          name: "Need to Login before voting",
+        });
+        setOpenConfirm(true);
+      }, 100);
+    }
   };
 
   return !sessionExpired ? (
@@ -205,11 +215,19 @@ const MovieGrid = ({ award }) => {
         </Dialog>
       </div>
       <Dialog open={openConfirm}>
-        <div className="movieGrid__modal">
+        <div className="movieGrid__modal movieGrid__modalSecond">
           <h1>
-            You have voted to: <span>{modalData.name}</span>
+            {userIdentification && "You have voted to: "}
+            <span>{modalData.name}</span>
           </h1>
-          <button onClick={() => setOpenConfirm(false)}>Close</button>
+          <button
+            onClick={() => {
+              setModalData({});
+              setOpenConfirm(false);
+            }}
+          >
+            Close
+          </button>
         </div>
       </Dialog>
     </div>
