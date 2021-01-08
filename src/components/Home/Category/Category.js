@@ -1,10 +1,14 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import "./Category.css";
+import { useStateValue } from "../../../StateProvider";
 
-const Category = ({ show, awards }) => {
+const Category = ({ show }) => {
+  const [{ awards }, _] = useStateValue();
+
   const ConditionalLink = ({ children, to, condition }) =>
     condition && to ? <Link to={to}>{children}</Link> : <>{children}</>;
+
   return (
     <div className="category">
       {awards?.map((award, index) => (

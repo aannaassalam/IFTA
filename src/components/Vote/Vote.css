@@ -1,8 +1,9 @@
-.bollywood {
+.vote {
   background: linear-gradient(to bottom, #000, #222);
+  overflow-y: hidden;
 }
 
-.bollywood > img {
+.vote > img {
   width: 100%;
   height: 50vh;
   object-fit: contain;

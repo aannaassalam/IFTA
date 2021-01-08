@@ -2,11 +2,13 @@ import React from "react";
 import "./MovieGrid.css";
 import { useState } from "react";
 import axios from "axios";
-import { Link, useRouteMatch } from "react-router-dom";
+import { Link, useHistory, useRouteMatch } from "react-router-dom";
 import { useEffect } from "react";
 import { Dialog } from "@material-ui/core";
 import { useStateValue } from "../../StateProvider";
 import ExpiredGrid from "./ExpiredGrid/ExpiredGrid";
+import NavigateNextIcon from "@material-ui/icons/NavigateNext";
+import NavigateBeforeIcon from "@material-ui/icons/NavigateBefore";
 
 const MovieGrid = ({ award }) => {
   const [{ userIdentification, sessionExpired }, dispatch] = useStateValue();
@@ -16,7 +18,9 @@ const MovieGrid = ({ award }) => {
   const [movies, setMovies] = useState({});
   const [modalData, setModalData] = useState({});
   const [sesExpired, setSesExpired] = useState(null);
+  const [carouselData, setCarouselData] = useState([]);
   const match = useRouteMatch();
+  const history = useHistory();
 
   useEffect(() => {
     if (sessionExpired) {
@@ -26,6 +30,12 @@ const MovieGrid = ({ award }) => {
     } else {
       fetchNominees(userIdentification);
     }
+
+    axios
+      .get(
+        "http://13.235.90.125:8000/show/fetchCategories?showId=5ff351bcd2d84274b06e2783"
+      )
+      .then((res) => fetchCarouselCategories(res.data.payload));
   }, [award]);
 
   const fetchNominees = (userIdentification) => {
@@ -64,6 +74,46 @@ const MovieGrid = ({ award }) => {
     }
   };
 
+  const fetchCarouselCategories = (arr) => {
+    let carouselArray = [];
+    arr.forEach((item) => {
+      item.awards.forEach((awd) => {
+        if (awd._id === award) {
+          item.awards.forEach((carousel) => carouselArray.push(carousel._id));
+        }
+      });
+    });
+    setCarouselData(carouselArray);
+  };
+  // SETS the CURRENT POSITION IN AN ARRAY
+  if (carouselData) {
+    localStorage.setItem(
+      "currentCarouselPosition",
+      carouselData.indexOf(award)
+    );
+  }
+
+  // PREV BUTTON
+  let current = parseInt(localStorage.getItem("currentCarouselPosition"));
+  const handlePrevious = () => {
+    const length = carouselData.length;
+    current--;
+    if (current < 0) {
+      current = length - 1;
+    }
+    history.replace(`/vote/${carouselData[current]}`);
+  };
+
+  // NEXT BUTTON
+  const handleNext = () => {
+    const length = carouselData.length;
+    current++;
+    if (current > length - 1) {
+      current = 0;
+    }
+    history.replace(`/vote/${carouselData[current]}`);
+  };
+
   const handleVote = (key) => {
     const authToken = localStorage.getItem("authToken").split(" ")[1];
     const config = {
@@ -91,7 +141,11 @@ const MovieGrid = ({ award }) => {
 
   return !sessionExpired ? (
     <div className="movieGrid">
-      <h1>{movies.heading}</h1>
+      <div className="movieGrid__carousel">
+        <NavigateBeforeIcon onClick={handlePrevious} />
+        <h1>{movies.heading}</h1>
+        <NavigateNextIcon onClick={handleNext} />
+      </div>
 
       <Link to="/voting">Main Categiries</Link>
 
@@ -160,7 +214,11 @@ const MovieGrid = ({ award }) => {
       </Dialog>
     </div>
   ) : (
-    <ExpiredGrid sesExpired={sesExpired} />
+    <ExpiredGrid
+      sesExpired={sesExpired}
+      handlePrevious={handlePrevious}
+      handleNext={handleNext}
+    />
   );
 };
 

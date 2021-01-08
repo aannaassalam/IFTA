@@ -3,7 +3,7 @@
   height: 70px;
   position: fixed;
   width: 100%;
-  z-index: 999;
+  z-index: 555;
   top: 0;
   transform: translateY(360%);
   transition: all 0.5s ease-in;
@@ -80,8 +80,7 @@
 .navbar__dropdown {
   position: absolute;
   top: 70px;
-  left: 161px;
-  width: 73.6%;
+  width: 985px;
   padding: 15px;
   background-color: #222;
   display: none;
@@ -90,7 +89,7 @@
   grid-gap: 8px;
   overflow: hidden;
   cursor: default;
-  z-index: 999;
+  z-index: 555;
   border-width: 2px;
   border-style: solid;
   border-image-slice: 1 !important;

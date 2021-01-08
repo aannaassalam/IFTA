@@ -5,21 +5,23 @@ import Navbar from "../Navbar/Navbar";
 import YTVideo from "../Home/YTVideo/YTVideo";
 import Category from "../Home/Category/Category";
 import Footer from "../Footer/Footer";
-import LoginModal from "../LoginModal/LoginModal";
 import { useStateValue } from "../../StateProvider";
 import { actionTypes } from "../../Reducer";
+import LoginModal from "../LoginModal/LoginModal";
 
-const Voting = ({ awards }) => {
-  const [{}, dispatch] = useStateValue();
+const Voting = () => {
+  const [{ userIdentification }, dispatch] = useStateValue();
   useEffect(() => {
     window.scrollTo(0, 0);
 
-    const authToken = localStorage.getItem("authToken").split(" ")[1];
-    dispatch({
-      type: actionTypes.SET_TOKEN,
-      token: authToken,
-    });
-  }, []);
+    if (userIdentification !== null) {
+      const authToken = localStorage.getItem("authToken").split(" ")[1];
+      dispatch({
+        type: actionTypes.SET_TOKEN,
+        token: authToken,
+      });
+    }
+  }, [userIdentification]);
 
   return (
     <div className="voting">
@@ -32,7 +34,7 @@ const Voting = ({ awards }) => {
         <YTVideo />
       </div>
       <div className="voting__category">
-        <Category awards={awards} />
+        <Category />
       </div>
       <Footer />
     </div>

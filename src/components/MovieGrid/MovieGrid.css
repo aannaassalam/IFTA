@@ -1,9 +1,29 @@
 .movieGrid {
   color: #fff;
   margin-top: 7rem;
+  text-align: center;
 }
 
-.movieGrid > h1 {
+.movieGrid__carousel {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between;
+}
+
+.movieGrid__carousel > .MuiSvgIcon-root {
+  border: 1px solid #fff;
+  padding: 3px;
+  border-radius: 50px;
+  cursor: pointer;
+  font-size: 2rem;
+  transition: all 0.1s ease-in;
+}
+
+.movieGrid__carousel > .MuiSvgIcon-root:hover {
+  border-color: #222;
+}
+
+.movieGrid__carousel > h1 {
   font-family: Oswald, sans-serif;
   font-size: 2rem;
   text-transform: uppercase;
@@ -13,13 +33,11 @@
 }
 
 .movieGrid > a {
-  text-align: center;
   color: #bbb;
   text-decoration: underline;
   text-transform: uppercase;
   font-size: medium;
-  display: grid;
-  place-items: center;
+  display: inline-block;
   padding-bottom: 2rem;
 }
 

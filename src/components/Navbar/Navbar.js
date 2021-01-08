@@ -9,9 +9,6 @@ const Navbar = () => {
   const [{ userIdentification }, dispatch] = useStateValue();
   const [navTitle, setNavTitle] = useState([]);
 
-  const [ansArr, setAnsArr] = useState([]);
-  const [awardsArr, setAwardsArr] = useState([]);
-
   const location = useLocation();
   const match = useRouteMatch();
 
@@ -34,15 +31,12 @@ const Navbar = () => {
         )
         .then((res) => setNavTitle(res.data.payload))
         .catch((err) => alert(err));
-
-      console.log(navTitle, true);
     } else {
       axios
         .get(
           "http://13.235.90.125:8000/show/fetchCategories?showId=5ff351bcd2d84274b06e2783"
         )
         .then((res) => setNavTitle(res.data.payload));
-      console.log(false);
     }
 
     if (location.pathname === "/voting" && location.state !== undefined) {
@@ -120,6 +114,7 @@ const Navbar = () => {
             <div className="navbar__dropdown" id={nav._id}>
               {nav.awards?.map((award) => (
                 <Link
+                  onClick={() => handleNav(nav._id)}
                   id={award._id}
                   key={award._id}
                   to={`/vote/${award._id}`}

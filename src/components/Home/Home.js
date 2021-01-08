@@ -10,7 +10,7 @@ import facebook from "../../images/fb.png";
 import insta from "../../images/insta.png";
 import gif from "../../images/zoomies-small.gif";
 
-const Home = ({ awards }) => {
+const Home = () => {
   return (
     <div className="home">
       <section className="home__first">
@@ -32,11 +32,11 @@ const Home = ({ awards }) => {
           <GridImages />
         </div>
         <div>
-          <GridImages />
+          <GridImages secId />
         </div>
       </section>
       <section className="home__fourth">
-        <Category show awards={awards} />
+        <Category show />
       </section>
       <footer className="home__footer">
         <div className="home__footerLeft">

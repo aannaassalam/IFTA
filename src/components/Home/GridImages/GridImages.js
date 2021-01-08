@@ -14,9 +14,8 @@ import actress1 from "../../../images/actress-1.jpg";
 import webSeries1 from "../../../images/webseries-poster-1.jpg";
 import tvActor1 from "../../../images/tv-actor-1.jpg";
 import $ from "jquery";
-import { render } from "@testing-library/react";
 
-const GridImages = () => {
+const GridImages = ({ secId }) => {
   let count = -1;
   let newImg = x.length; //6
 
@@ -25,10 +24,11 @@ const GridImages = () => {
       count >= x.length - 1 ? (count = 0) : count++;
 
       $(`#${count}`).fadeOut(800);
+      $(`#secGrid-${count}`).fadeOut(800);
 
       clearInterval(interval);
       fadeIn();
-    }, 1000);
+    }, 1500);
   };
 
   const fadeIn = () => {
@@ -36,9 +36,13 @@ const GridImages = () => {
       $(`#${count}`).css({
         background: `url('${y[newImg]}') no-repeat center center`,
       });
+      $(`#secGrid-${count}`).css({
+        background: `url('${y[newImg]}') no-repeat center center`,
+      });
       newImg >= y.length - 1 ? (newImg = 0) : newImg++;
 
       $(`#${count}`).fadeIn(400);
+      $(`#secGrid-${count}`).fadeIn(400);
 
       clearInterval(interval);
       fadeOutt();
@@ -52,8 +56,8 @@ const GridImages = () => {
         {x.map((image, index) => (
           <div
             key={index}
-            id={index}
-            className={`gridImagesBox gridImages__${index}`}
+            id={`${secId ? `secGrid-${index}` : `${index}`}`}
+            className={`gridImagesBox gridImages__${index} fadeInOut-${index}`}
             style={{
               background: `url('${image}') no-repeat center center`,
               // backgroundSize: "cover",

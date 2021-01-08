@@ -1,5 +1,6 @@
 export const initialState = {
   sessionExpired: true,
+  awards: [],
   userIdentification: null,
   phone: null,
   token: null,
@@ -8,6 +9,8 @@ export const initialState = {
 export const actionTypes = {
   SET_USER: "SET_USER",
   SET_TOKEN: "SET_TOKEN",
+  SET_AWARDS: "SET_AWARDS",
+  SET_EXPIRED: "SET_EXPIRED",
 };
 
 const reducer = (state, action) => {
@@ -24,6 +27,18 @@ const reducer = (state, action) => {
       return {
         ...state,
         token: action.token,
+      };
+
+    case actionTypes.SET_AWARDS:
+      return {
+        ...state,
+        awards: action.awards,
+      };
+
+    case actionTypes.SET_AWARDS:
+      return {
+        ...state,
+        sessionExpired: action.expired,
       };
 
     default:

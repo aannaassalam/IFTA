@@ -5,7 +5,7 @@
 
 .home__first {
   display: grid;
-  height: 500px;
+  height: 100vh;
   grid-template-columns: repeat(3, 1fr);
 }
 

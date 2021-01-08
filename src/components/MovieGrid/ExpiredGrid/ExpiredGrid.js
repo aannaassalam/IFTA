@@ -1,8 +1,10 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import "../MovieGrid.css";
+import NavigateNextIcon from "@material-ui/icons/NavigateNext";
+import NavigateBeforeIcon from "@material-ui/icons/NavigateBefore";
 
-function ExpiredGrid({ sesExpired }) {
+function ExpiredGrid({ sesExpired, handlePrevious, handleNext }) {
   let movies = [];
   const createArray = () => {
     for (let vote in sesExpired?.votes) {
@@ -27,7 +29,11 @@ function ExpiredGrid({ sesExpired }) {
   createArray();
   return (
     <div className="movieGrid">
-      <h1>{sesExpired?.award.heading}</h1>
+      <div className="movieGrid__carousel">
+        <NavigateBeforeIcon onClick={handlePrevious} />
+        <h1>{sesExpired?.award.heading}</h1>
+        <NavigateNextIcon onClick={handleNext} />
+      </div>
 
       <Link to="/voting">Main Categiries</Link>
 
