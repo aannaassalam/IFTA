@@ -39,7 +39,11 @@ const Navbar = () => {
         .then((res) => setNavTitle(res.data.payload));
     }
 
-    if (location.pathname === "/voting" && location.state !== undefined) {
+    if (
+      location.pathname === "/voting" &&
+      location.state !== undefined &&
+      userIdentification !== null
+    ) {
       // Getting the navId passed from category
       const { navId } = location.state;
       setTimeout(() => {

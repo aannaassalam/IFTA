@@ -72,6 +72,18 @@
   line-height: 1.7rem;
 }
 
+.modal__conatinerDesc {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.modal__conatinerDesc > h1 {
+  text-transform: capitalize;
+  line-height: 2rem;
+}
+
 .modal__conatiner > div {
   height: 70%;
   display: flex;
@@ -116,7 +128,8 @@
   color: #000;
 }
 
-.modal__conatiner > div > button {
+.modal__conatiner > div > button,
+.modal__conatinerDesc > button {
   margin-top: 0.2rem;
   padding: 10px 30px;
   outline: none;
@@ -128,7 +141,8 @@
   transition: all 0.3s ease-in;
 }
 
-.modal__conatiner > div > button:hover {
+.modal__conatiner > div > button:hover,
+.modal__conatinerDesc > button:hover {
   transform: scale(1.1);
 }
 

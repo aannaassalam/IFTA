@@ -11,6 +11,7 @@ const LoginTestModal = () => {
   const [inputValue, setInputValue] = useState("");
   const [OTP, setOTP] = useState("");
   const [userId, setUserId] = useState(null);
+  const [description, setDescription] = useState(null);
 
   const handleOTP = () => {
     axios
@@ -37,8 +38,7 @@ const LoginTestModal = () => {
           userIdentification: res.data.payload._id,
           phone: res.data.payload.phone,
         });
-        alert(res.data.description);
-        $("#popup1").css({ visibility: "hidden", opacity: "0" });
+        setDescription(res.data.description);
       })
       .catch((err) => {
         setUserId(null);
@@ -52,44 +52,66 @@ const LoginTestModal = () => {
   const closeModal = () => {
     $("#popup1").css({ visibility: "hidden", opacity: "0" });
     setUserId(null);
+    setDescription(null);
+  };
+
+  const handleLogout = () => {
+    localStorage.removeItem("authToken");
+    dispatch({
+      type: actionTypes.SET_USER,
+      userIdentification: null,
+      phone: null,
+    });
+    setDescription("You have logged out successfully");
+    openModal();
   };
 
   return (
     <div>
       <div class="box">
-        <button onClick={openModal} class="modal__btn">
+        <button
+          onClick={userIdentification ? handleLogout : openModal}
+          class="modal__btn"
+        >
           {userIdentification ? "Logout" : "Login"}
         </button>
       </div>
 
       <div id="popup1" class="overlay">
-        <div className="modal__conatiner">
-          <button class="close" href="#" onClick={closeModal}>
-            &times;
-          </button>
-          <h1>Login with Phone Number</h1>
-          <div>
-            <input
-              autoFocus
-              placeholder="Phone Number"
-              value={inputValue}
-              type="number"
-              onChange={(e) => setInputValue(e.target.value)}
-            />
-            {userId && (
+        {!description ? (
+          <div className="modal__conatiner">
+            <button class="close" href="#" onClick={closeModal}>
+              &times;
+            </button>
+            <h1>Login with Phone Number</h1>
+            <div>
               <input
                 autoFocus
-                placeholder="OTP"
-                value={OTP}
+                placeholder="Phone Number"
+                value={inputValue}
                 type="number"
-                onChange={(e) => setOTP(e.target.value)}
+                onChange={(e) => setInputValue(e.target.value)}
               />
-            )}
-            <button onClick={userId ? handleRegister : handleOTP}>
-              {userId ? "VERIFY OTP" : "GET OTP"}
-            </button>
+              {userId && (
+                <input
+                  autoFocus
+                  placeholder="OTP"
+                  value={OTP}
+                  type="number"
+                  onChange={(e) => setOTP(e.target.value)}
+                />
+              )}
+              <button onClick={userId ? handleRegister : handleOTP}>
+                {userId ? "VERIFY OTP" : "GET OTP"}
+              </button>
+            </div>
           </div>
-        </div>
+        ) : (
+          <div className="modal__conatiner modal__conatinerDesc">
+            <h1>{description}</h1>
+            <button onClick={closeModal}>Close</button>
+          </div>
+        )}
       </div>
     </div>
   );
