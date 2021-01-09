@@ -13,8 +13,10 @@ import NavigateBeforeIcon from "@material-ui/icons/NavigateBefore";
 const MovieGrid = ({ award }) => {
   const [{ userIdentification, sessionExpired }, dispatch] = useStateValue();
 
+  // OPEN OF MADALS
   const [open, setOpen] = useState(false);
   const [openConfirm, setOpenConfirm] = useState(false);
+  // DATA STORING
   const [movies, setMovies] = useState({});
   const [modalData, setModalData] = useState({});
   const [sesExpired, setSesExpired] = useState(null);
@@ -52,12 +54,14 @@ const MovieGrid = ({ award }) => {
             setMovies({
               nominations: nominations,
               heading: res.data.payload[0].heading,
+              voteCount: res.data.payload[0].voteCount,
               votedOnce: true,
             });
           } else {
             setMovies({
               nominations: res.data.payload[0].nominations,
               heading: res.data.payload[0].heading,
+              voteCount: res.data.payload[0].voteCount,
               votedOnce: false,
             });
           }
@@ -67,7 +71,6 @@ const MovieGrid = ({ award }) => {
       axios
         .get(`http://13.235.90.125:8000/award?id=${award}`)
         .then((res) => {
-          console.log(res.data.payload[0]);
           setMovies(res.data.payload[0]);
         })
         .catch((err) => console.log(err));
@@ -156,6 +159,10 @@ const MovieGrid = ({ award }) => {
         <h1>{movies.heading}</h1>
         <NavigateNextIcon onClick={handleNext} />
       </div>
+
+      <p className="movieGrid__votes">
+        Number of people Voted: <span>{movies.voteCount || "0"}</span>
+      </p>
 
       <Link to="/voting">Main Categiries</Link>
 

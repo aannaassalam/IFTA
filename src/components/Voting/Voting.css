@@ -5,8 +5,24 @@
 
 .voting__login {
   position: absolute;
-  top: 2rem;
-  right: 1rem;
+  top: 1.5rem;
+  left: 2.5%;
+  color: #fff;
+  width: 95%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.voting__login > h2 {
+  font-size: 1.4rem;
+  font-weight: 500;
+}
+
+.voting__login > h2 > span {
+  margin-left: 3px;
+  font-size: 1.6rem;
+  font-family: Oswald, sans-serif;
 }
 
 .voting > img {

@@ -12,12 +12,12 @@ const Navbar = () => {
   const location = useLocation();
   const match = useRouteMatch();
 
-  setTimeout(() => {
-    window.addEventListener("scroll", function () {
-      let header = document.querySelector("#navbar");
-      header.classList.toggle("sticky", window.scrollY > 100);
-    });
-  }, 500);
+  // setTimeout(() => {
+  //   window.addEventListener("scroll", function () {
+  //     let header = document.querySelector("#navbar");
+  //     header.classList.toggle("sticky", window.scrollY > 100);
+  //   });
+  // }, 500);
 
   useEffect(() => {
     if (userIdentification) {
@@ -39,11 +39,7 @@ const Navbar = () => {
         .then((res) => setNavTitle(res.data.payload));
     }
 
-    if (
-      location.pathname === "/voting" &&
-      location.state !== undefined &&
-      userIdentification !== null
-    ) {
+    if (location.pathname === "/voting" && location.state !== undefined) {
       // Getting the navId passed from category
       const { navId } = location.state;
       setTimeout(() => {

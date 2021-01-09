@@ -6,8 +6,12 @@ import { useStateValue } from "../../../StateProvider";
 const Category = ({ show }) => {
   const [{ awards }, _] = useStateValue();
 
-  const ConditionalLink = ({ children, to, condition }) =>
-    condition && to ? <Link to={to}>{children}</Link> : <>{children}</>;
+  const ConditionalLink = ({ children, to, condition, secTo }) =>
+    condition && to ? (
+      <Link to={to}>{children}</Link>
+    ) : (
+      <Link to={secTo}>{children}</Link>
+    );
 
   return (
     <div className="category">
@@ -21,6 +25,7 @@ const Category = ({ show }) => {
           }}
           condition={show}
           key={award._id}
+          secTo={`/vote/${award.awards[0]._id}`}
         >
           <div className={`category-${index + 1}`}>
             <h3>{award.title}</h3>

@@ -21,8 +21,9 @@ function App() {
       .get("http://13.235.90.125:8000/show/?showId=5ff351bcd2d84274b06e2783")
       .then((res) => {
         dispatch({
-          type: actionTypes.SET_EXPIRED,
+          type: actionTypes.SET_EXPIREDandTOTALVOTE,
           expired: res.data.payload.isExpired,
+          totalVotes: res.data.payload.voteCount,
         });
       });
   };

@@ -1,5 +1,6 @@
 export const initialState = {
   sessionExpired: true,
+  totalVotes: 0,
   awards: [],
   userIdentification: null,
   phone: null,
@@ -10,7 +11,7 @@ export const actionTypes = {
   SET_USER: "SET_USER",
   SET_TOKEN: "SET_TOKEN",
   SET_AWARDS: "SET_AWARDS",
-  SET_EXPIRED: "SET_EXPIRED",
+  SET_EXPIREDandTOTALVOTE: "SET_EXPIREDandTOTALVOTE",
 };
 
 const reducer = (state, action) => {
@@ -35,10 +36,11 @@ const reducer = (state, action) => {
         awards: action.awards,
       };
 
-    case actionTypes.SET_EXPIRED:
+    case actionTypes.SET_EXPIREDandTOTALVOTE:
       return {
         ...state,
         sessionExpired: action.expired,
+        totalVotes: action.totalVotes,
       };
 
     default:

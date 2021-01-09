@@ -8,9 +8,10 @@ import Footer from "../Footer/Footer";
 import { useStateValue } from "../../StateProvider";
 import { actionTypes } from "../../Reducer";
 import LoginModal from "../LoginModal/LoginModal";
+import CountUp from "react-countup";
 
 const Voting = () => {
-  const [{ userIdentification }, dispatch] = useStateValue();
+  const [{ userIdentification, totalVotes }, dispatch] = useStateValue();
   useEffect(() => {
     window.scrollTo(0, 0);
 
@@ -26,6 +27,9 @@ const Voting = () => {
   return (
     <div className="voting">
       <div className="voting__login">
+        <h2>
+          Total Votes casted: <CountUp end={totalVotes} duration={2.75} />
+        </h2>
         <LoginModal />
       </div>
       <img src={logo} alt="iifa-logo" />

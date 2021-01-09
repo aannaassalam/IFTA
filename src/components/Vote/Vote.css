@@ -1,6 +1,22 @@
 .vote {
   background: linear-gradient(to bottom, #000, #222);
   overflow-y: hidden;
+  position: relative;
+}
+
+.vote > h2 {
+  position: absolute;
+  color: #fff;
+  top: 1.5rem;
+  left: 1.5rem;
+  font-size: 1.4rem;
+  font-weight: 500;
+}
+
+.vote > h2 > span {
+  margin-left: 3px;
+  font-size: 1.6rem;
+  font-family: Oswald, sans-serif;
 }
 
 .vote > img {

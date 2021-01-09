@@ -1,6 +1,6 @@
 .movieGrid {
   color: #fff;
-  margin-top: 7rem;
+  margin-top: 4rem;
   text-align: center;
 }
 
@@ -8,6 +8,7 @@
   display: flex !important;
   align-items: center !important;
   justify-content: space-between;
+  padding-bottom: 10px !important;
 }
 
 .movieGrid__carousel > .MuiSvgIcon-root {
@@ -30,6 +31,20 @@
   text-align: center;
   font-weight: 600;
   margin-bottom: 0.5rem;
+}
+
+.movieGrid__votes {
+  font-size: 1.2rem;
+  font-family: Manrope, sans-serif;
+  font-weight: 500;
+  margin-bottom: 3rem;
+  color: #555;
+}
+
+.movieGrid__votes > span {
+  color: #fff;
+  font-size: 1.3rem;
+  font-weight: 700;
 }
 
 .movieGrid > a {
@@ -114,6 +129,10 @@
   cursor: default;
 }
 
+.movieGrid__moviesBtn:disabled:hover {
+  background: #000;
+}
+
 .movieGrid__moviesBtn:hover {
   background-color: #222;
 }
@@ -161,7 +180,8 @@
 }
 
 .movieGrid__modal > div > button:first-of-type {
-  background-color: #8b0000;
+  background-color: #444;
+  color: #fff;
 }
 
 .movieGrid__modal > div > button:last-of-type {

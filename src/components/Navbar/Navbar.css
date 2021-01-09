@@ -1,11 +1,11 @@
 .navbar {
   background-color: #222;
   height: 70px;
-  position: fixed;
+  position: relative;
   width: 100%;
   z-index: 555;
   top: 0;
-  transform: translateY(360%);
+  /* transform: translateY(360%); */
   transition: all 0.5s ease-in;
   -webkit-tap-highlight-color: transparent;
   -webkit-touch-callout: none;
@@ -20,9 +20,9 @@
   border-bottom: 1px solid red;
 }
 
-.sticky {
+/* .sticky {
   transform: translateY(0);
-}
+} */
 
 .navbar__nav {
   color: #fff;
