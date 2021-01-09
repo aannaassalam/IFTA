@@ -68,19 +68,19 @@ const LoginTestModal = () => {
 
   return (
     <div>
-      <div class="box">
+      <div className="box">
         <button
           onClick={userIdentification ? handleLogout : openModal}
-          class="modal__btn"
+          className="modal__btn"
         >
           {userIdentification ? "Logout" : "Login"}
         </button>
       </div>
 
-      <div id="popup1" class="overlay">
+      <div id="popup1" className="overlay">
         {!description ? (
           <div className="modal__conatiner">
-            <button class="close" href="#" onClick={closeModal}>
+            <button className="close" onClick={closeModal}>
               &times;
             </button>
             <h1>Login with Phone Number</h1>

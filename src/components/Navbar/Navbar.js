@@ -62,7 +62,10 @@ const Navbar = () => {
       handleVoteNav(null, dropdown);
     }
 
-    if (dropdown.classList.contains("navbar__dropdownShow")) {
+    if (
+      dropdown?.classList.contains("navbar__dropdownShow") &&
+      dropdown !== null
+    ) {
       dropdown.classList.remove("navbar__dropdownShow");
       // Removing Active Class
       dropdown?.previousSibling.classList.remove("nav-active");
@@ -70,7 +73,7 @@ const Navbar = () => {
       Array.from(allDropdown).forEach(function (el) {
         el.classList.remove("navbar__dropdownShow");
       });
-      dropdown.classList.add("navbar__dropdownShow");
+      dropdown?.classList.add("navbar__dropdownShow");
       // Adding Active Class
       Array.from(allNavItems).forEach(function (el) {
         el.classList.remove("nav-active");

@@ -31,3 +31,50 @@
 .gridImages__5 {
   height: 430px;
 }
+
+@media (max-width: 1150px) {
+  .gridImages {
+    width: 90%;
+  }
+}
+
+@media (max-width: 768px) {
+  .gridImages {
+    width: 95%;
+  }
+}
+
+@media (max-width: 650px) {
+  .gridImages {
+    height: max-content;
+    column-count: unset;
+  }
+
+  .gridImagesBox {
+    min-height: unset;
+    height: 500px;
+    width: 97%;
+    display: block;
+    margin: auto;
+    margin-bottom: 1.5rem;
+  }
+
+  .gridImages__1,
+  .gridImages__2,
+  .gridImages__5 {
+    height: 900px;
+    width: 90%;
+  }
+}
+
+@media (max-width: 500px) {
+  .gridImagesBox {
+    height: 300px;
+  }
+
+  .gridImages__1,
+  .gridImages__2,
+  .gridImages__5 {
+    height: 500px;
+  }
+}
