@@ -52,7 +52,7 @@ const Navbar = () => {
       setTimeout(() => handleVoteNav(award), 400);
     }
   }, [userIdentification]);
-
+  let closeId = '';
   const handleNav = (id) => {
     const dropdown = document.getElementById(id);
     const allDropdown = document.getElementsByClassName("navbar__dropdown");
@@ -61,16 +61,18 @@ const Navbar = () => {
     if (match.path === "/vote/:award") {
       handleVoteNav(null, dropdown);
     }
-
+    
     if (
       dropdown?.classList.contains("navbar__dropdownShow") &&
       dropdown !== null
     ) {
-      dropdown.classList.remove("navbar__dropdownShow");
-      // Removing Active Class
-      dropdown?.previousSibling.classList.remove("nav-active");
+      // dropdown.classList.remove("navbar__dropdownShow");
+      // // Removing Active Class
+      // dropdown?.previousSibling.classList.remove("nav-active");
+
       blurdiv.style.display = "none";
     } else {
+      if(closeId==id) return;
       Array.from(allDropdown).forEach(function (el) {
         el.classList.remove("navbar__dropdownShow");
       });
@@ -85,12 +87,10 @@ const Navbar = () => {
     }
   };
   const closeNav = (id)=>{
+    const dropdown = document.getElementById(id);
+    const blurdiv = document.getElementById('blur-div');
+    closeId = id;
     setTimeout(()=>{
-      const dropdown = document.getElementById(id);
-      const blurdiv = document.getElementById('blur-div');
-      // if(e.target.classList.contains('navbar__dropdownShow')){
-  
-      // }
       if (
         dropdown?.classList.contains("navbar__dropdownShow") &&
         dropdown !== null
@@ -100,7 +100,10 @@ const Navbar = () => {
         dropdown?.previousSibling.classList.remove("nav-active");
         blurdiv.style.display = "none";
       }
-    },200);
+    },0);
+    setTimeout(()=>{
+      closeId='';
+    },200)
  
   }
   const handleVoteNav = (id, dropdownId) => {
@@ -121,7 +124,7 @@ const Navbar = () => {
       prev.classList.add("nav-active-vote");
     }
   };
-
+  const goToVote = (id)=>{history.push(`/vote/${id}`)}
   return (
     <nav className="navbar" id="navbar">
       <ul className="navbar__nav">
@@ -139,6 +142,7 @@ const Navbar = () => {
               {nav.awards?.map((award) => (
                 <Link
                   id={award._id}
+                  onFocus={()=>goToVote(award._id)}
                   key={award._id}
                   to={`/vote/${award._id}`}
                   style={{
