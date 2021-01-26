@@ -32,7 +32,7 @@ const LoginTestModal = () => {
         setOTP("");
         setUserId(null);
         // Setting the token in local storage
-        localStorage.setItem("authToken", `bearer ${res.headers["x-auth"]}`);
+        sessionStorage.setItem("authToken", `bearer ${res.headers["x-auth"]}`);
         dispatch({
           type: actionTypes.SET_USER,
           userIdentification: res.data.payload._id,
@@ -56,7 +56,7 @@ const LoginTestModal = () => {
   };
 
   const handleLogout = () => {
-    localStorage.removeItem("authToken");
+    sessionStorage.removeItem("authToken");
     dispatch({
       type: actionTypes.SET_USER,
       userIdentification: null,

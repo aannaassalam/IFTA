@@ -9,13 +9,15 @@ import { useStateValue } from "../../StateProvider";
 import ExpiredGrid from "./ExpiredGrid/ExpiredGrid";
 import NavigateNextIcon from "@material-ui/icons/NavigateNext";
 import NavigateBeforeIcon from "@material-ui/icons/NavigateBefore";
-
+import $ from 'jquery'
 const MovieGrid = ({ award }) => {
   const [{ userIdentification, sessionExpired }, dispatch] = useStateValue();
 
   // OPEN OF MADALS
   const [open, setOpen] = useState(false);
   const [openConfirm, setOpenConfirm] = useState(false);
+  const [openWeblink, setOpenWeblink] = useState(false);
+  
   // DATA STORING
   const [movies, setMovies] = useState({});
   const [modalData, setModalData] = useState({});
@@ -42,7 +44,7 @@ const MovieGrid = ({ award }) => {
 
   const fetchNominees = (userIdentification) => {
     if (userIdentification) {
-      const authToken = localStorage.getItem("authToken").split(" ")[1];
+      const authToken = sessionStorage.getItem("authToken").split(" ")[1];
       axios
         .get(`http://13.235.90.125:8000/award/logedIn?id=${award}`, {
           headers: { Authorization: `Bearer ${authToken}` },
@@ -90,14 +92,14 @@ const MovieGrid = ({ award }) => {
   };
   // SETS the CURRENT POSITION IN AN ARRAY
   if (carouselData) {
-    localStorage.setItem(
+    sessionStorage.setItem(
       "currentCarouselPosition",
       carouselData.indexOf(award)
     );
   }
 
   // PREV BUTTON
-  let current = parseInt(localStorage.getItem("currentCarouselPosition"));
+  let current = parseInt(sessionStorage.getItem("currentCarouselPosition"));
   const handlePrevious = () => {
     const length = carouselData.length;
     current--;
@@ -119,7 +121,7 @@ const MovieGrid = ({ award }) => {
 
   const handleVote = (key) => {
     if (userIdentification) {
-      const authToken = localStorage.getItem("authToken").split(" ")[1];
+      const authToken = sessionStorage.getItem("authToken").split(" ")[1];
       const config = {
         headers: { Authorization: `Bearer ${authToken}` },
       };
@@ -173,7 +175,7 @@ const MovieGrid = ({ award }) => {
               movies?.votedOnce && "movieGrid__votedOnce"
             }`}
           >
-            <img src={movie?.image} alt="img" />
+            <img src={movie?.image} style={{cursor:'pointer'}} onClick={()=>{setModalData({name:movie.name,weblink:movie.weblink});setOpenWeblink(true)}} alt="img" />
             <div>
               <h2>{movie.name}</h2>
               <button
@@ -182,11 +184,16 @@ const MovieGrid = ({ award }) => {
                   movies?.votedOnce && `movieGrid__moviesBtn${index}`
                 }`}
                 onClick={() => {
-                  setModalData({
-                    name: movie.name,
-                    key: movie.key,
-                  });
-                  setOpen(true);
+                  if(userIdentification){
+                    setModalData({
+                      name: movie.name,
+                      key: movie.key,
+                    });
+                    setOpen(true);
+                  }else{
+                    $("#popup1").css({ visibility: "visible", opacity: "1" });
+                  }
+
                 }}
               >
                 {movies?.votedOnce && index == 0
@@ -237,6 +244,22 @@ const MovieGrid = ({ award }) => {
           </button>
         </div>
       </Dialog>
+      <Dialog open={openWeblink}>
+        <div className="movieGrid__modal movieGrid__modalSecond">
+          <h1 style={{cursor:'pointer'}}>
+            <a href={modalData.weblink} target="_blank">{modalData.weblink}</a>
+          </h1>
+          <button
+            onClick={() => {
+              setModalData({});
+              setOpenWeblink(false);
+            }}
+          >
+            Close
+          </button>
+        </div>
+      </Dialog>
+      
     </div>
   ) : (
     <ExpiredGrid

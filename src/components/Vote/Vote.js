@@ -4,21 +4,40 @@ import logo from "../../images/voting/iifa-voting-logo.jpg";
 import "./Vote.css";
 import MovieGrid from "../MovieGrid/MovieGrid";
 import Footer from "../Footer/Footer";
-import { withRouter } from "react-router-dom";
+import { withRouter ,useHistory} from "react-router-dom";
 import CountUp from "react-countup";
 import { useStateValue } from "../../StateProvider";
+import LoginModal from "../LoginModal/LoginModal";
 
 const Vote = ({ match }) => {
   const [{ totalVotes }, dispatch] = useStateValue();
 
   useEffect(() => window.scrollTo(0, 0), []);
   const award = match.params.award;
-
+  const history = useHistory();
+  const goToHome = ()=>{
+    history.push("/")
+  }
+  const goToBack = ()=>{
+    history.push("/voting")
+  }
+  
   return (
     <div className="vote">
-      <h2>
-        Total Votes casted: <CountUp end={totalVotes} duration={2.75} />
-      </h2>
+      <div className="voting__login">
+        <h2>
+          Total Votes casted: <CountUp end={totalVotes} duration={2.75} />
+        </h2>
+        <div style={{display:'flex',flexDirection:'row'}}>
+          <div className="box">
+            <button className="modal__btn" onClick={()=>goToHome()}>Home</button>
+          </div>
+          <div className="box">
+            <button className="modal__btn" onClick={()=>goToBack()}>Back</button>
+          </div>
+          <LoginModal />
+        </div>
+      </div>
       <img src={logo} alt="iifa-logo" />
       <Navbar />
       <MovieGrid award={award} />

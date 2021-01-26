@@ -2,7 +2,7 @@ export const initialState = {
   sessionExpired: true,
   totalVotes: 0,
   awards: [],
-  userIdentification: null,
+  userIdentification: sessionStorage.getItem('authToken')?true:null,
   phone: null,
   token: null,
 };

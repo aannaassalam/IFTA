@@ -1,5 +1,6 @@
 .voting {
   background: linear-gradient(to bottom, #000, #222);
+  overflow: hidden;
   position: relative;
 }
 

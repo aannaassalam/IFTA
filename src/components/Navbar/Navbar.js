@@ -21,7 +21,7 @@ const Navbar = () => {
 
   useEffect(() => {
     if (userIdentification) {
-      const authToken = localStorage.getItem("authToken").split(" ")[1];
+      const authToken = sessionStorage.getItem("authToken").split(" ")[1];
       axios
         .get(
           "http://13.235.90.125:8000/show/fetchCategories/logedIn?showId=5ff351bcd2d84274b06e2783",
@@ -91,7 +91,6 @@ const Navbar = () => {
       // if(e.target.classList.contains('navbar__dropdownShow')){
   
       // }
-      console.log("blurred")
       if (
         dropdown?.classList.contains("navbar__dropdownShow") &&
         dropdown !== null
@@ -122,7 +121,6 @@ const Navbar = () => {
       prev.classList.add("nav-active-vote");
     }
   };
-  const goToAwards = useCallback((award_id) => history.push(`/vote/${award_id}`), [history]);
 
   return (
     <nav className="navbar" id="navbar">
@@ -140,7 +138,6 @@ const Navbar = () => {
             <div tabIndex={0} className="navbar__dropdown"  onBlur={(e)=>closeNav(nav._id)} id={nav._id}>
               {nav.awards?.map((award) => (
                 <Link
-                  onClick={() => goToAwards(award._id)}
                   id={award._id}
                   key={award._id}
                   to={`/vote/${award._id}`}

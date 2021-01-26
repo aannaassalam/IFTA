@@ -13,6 +13,7 @@
   letter-spacing: 0.5px;
   transition: all 0.3s ease-in;
   text-decoration: none;
+  margin-right: 10px;
 }
 
 .modal__btn:hover {

@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useCallback, useEffect } from "react";
 import "./Voting.css";
 import logo from "../../images/voting/iifa-voting-logo.jpg";
 import Navbar from "../Navbar/Navbar";
@@ -9,6 +9,7 @@ import { useStateValue } from "../../StateProvider";
 import { actionTypes } from "../../Reducer";
 import LoginModal from "../LoginModal/LoginModal";
 import CountUp from "react-countup";
+import { useHistory } from "react-router-dom";
 
 const Voting = () => {
   const [{ userIdentification, totalVotes }, dispatch] = useStateValue();
@@ -16,21 +17,29 @@ const Voting = () => {
     window.scrollTo(0, 0);
 
     if (userIdentification !== null) {
-      const authToken = localStorage.getItem("authToken").split(" ")[1];
+      const authToken = sessionStorage.getItem("authToken").split(" ")[1];
       dispatch({
         type: actionTypes.SET_TOKEN,
         token: authToken,
       });
     }
   }, [userIdentification]);
-
+  const history = useHistory();
+  const goToHome = ()=>{
+    history.push("/")
+  }
   return (
     <div className="voting">
       <div className="voting__login">
         <h2>
           Total Votes casted: <CountUp end={totalVotes} duration={2.75} />
         </h2>
-        <LoginModal />
+        <div style={{display:'flex',flexDirection:'row'}}>
+          <div className="box">
+            <button className="modal__btn" onClick={()=>goToHome()}>Home</button>
+          </div>
+          <LoginModal />
+        </div>
       </div>
       <img src={logo} alt="iifa-logo" />
       <Navbar />

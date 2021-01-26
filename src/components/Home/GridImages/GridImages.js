@@ -28,7 +28,7 @@ const GridImages = ({ secId }) => {
 
       clearInterval(interval);
       fadeIn();
-    }, 1500);
+    }, 800);
   };
 
   const fadeIn = () => {
