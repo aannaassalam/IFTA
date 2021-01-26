@@ -40,7 +40,7 @@
   width: 300px;
   height: max-content;
   min-height: 200px;
-  padding: 20px;
+  padding: 40px 30px 30px 30px;
   position: relative;
   border-radius: 10px;
 }
@@ -49,7 +49,7 @@
   position: absolute;
   color: #aaa;
   text-decoration: none;
-  top: 5px;
+  top: 10px;
   right: 10px;
   font-size: 2rem;
   font-weight: bolder;
@@ -153,4 +153,11 @@
   .popup {
     width: 70%;
   }
+}
+
+.input-field{
+  color: white;
+}
+input::placeholder{
+  color: rgba(255, 255, 255, 0.7) !important;
 }

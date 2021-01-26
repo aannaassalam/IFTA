@@ -56,13 +56,26 @@
   padding-bottom: 2rem;
 }
 
-.movieGrid > div {
-  margin: auto;
+.movieGrid__carousel {
+  margin: auto;  
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(3,0.2fr);
   place-items: center;
   max-width: 76.5%;
   grid-row-gap: 12px;
+  grid-column-gap: 12px;
+  margin-top: 1rem;
+  padding-bottom: 50px;
+}
+
+.movieGrid__container{
+  margin: auto;  
+  display: grid;
+  grid-template-columns: repeat(3,0.2fr);
+  place-items: center;
+  max-width: 64%;
+  grid-row-gap: 12px;
+  grid-column-gap: 12px;
   margin-top: 1rem;
   padding-bottom: 50px;
 }

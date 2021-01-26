@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect , useRef} from "react";
 import "./Home.css";
 import iifa from "../../images/iifa.jpg";
 import trophy from "../../images/right-trophy.jpg";
@@ -11,6 +11,7 @@ import insta from "../../images/insta.png";
 import gif from "../../images/zoomies-small.gif";
 
 const Home = () => {
+  const catRef = useRef(null);
   return (
     <div className="home">
       <section className="home__first">
@@ -20,7 +21,7 @@ const Home = () => {
           <p>You Vote</p>
           <p>You Nominate</p>
           <p>You Decide the Winner</p>
-          <button>Vote</button>
+          <button onClick={()=>catRef.current.scrollIntoView()}>Vote</button>
         </div>
         <img src={trophy} alt="iifa-award" />
       </section>
@@ -35,7 +36,7 @@ const Home = () => {
           <GridImages secId />
         </div>
       </section>
-      <section className="home__fourth">
+      <section ref={catRef} className="home__fourth">
         <Category show />
       </section>
       <footer className="home__footer">

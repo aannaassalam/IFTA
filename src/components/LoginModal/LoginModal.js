@@ -90,6 +90,7 @@ const LoginTestModal = () => {
                 placeholder="Phone Number"
                 value={inputValue}
                 type="number"
+                className="input-field"
                 onChange={(e) => setInputValue(e.target.value)}
               />
               {userId && (
@@ -98,6 +99,7 @@ const LoginTestModal = () => {
                   placeholder="OTP"
                   value={OTP}
                   type="number"
+                  className="input-field"
                   onChange={(e) => setOTP(e.target.value)}
                 />
               )}

@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect ,useCallback} from "react";
 import "./Navbar.css";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
-import { Link, useLocation, useRouteMatch } from "react-router-dom";
+import { Link, useLocation, useRouteMatch , useHistory} from "react-router-dom";
 import axios from "axios";
 import { useStateValue } from "../../StateProvider";
 
@@ -11,7 +11,7 @@ const Navbar = () => {
 
   const location = useLocation();
   const match = useRouteMatch();
-
+  const history = useHistory();
   // setTimeout(() => {
   //   window.addEventListener("scroll", function () {
   //     let header = document.querySelector("#navbar");
@@ -57,7 +57,7 @@ const Navbar = () => {
     const dropdown = document.getElementById(id);
     const allDropdown = document.getElementsByClassName("navbar__dropdown");
     const allNavItems = document.getElementsByClassName("nav__items");
-
+    const blurdiv = document.getElementById('blur-div');
     if (match.path === "/vote/:award") {
       handleVoteNav(null, dropdown);
     }
@@ -69,6 +69,7 @@ const Navbar = () => {
       dropdown.classList.remove("navbar__dropdownShow");
       // Removing Active Class
       dropdown?.previousSibling.classList.remove("nav-active");
+      blurdiv.style.display = "none";
     } else {
       Array.from(allDropdown).forEach(function (el) {
         el.classList.remove("navbar__dropdownShow");
@@ -78,10 +79,31 @@ const Navbar = () => {
       Array.from(allNavItems).forEach(function (el) {
         el.classList.remove("nav-active");
       });
+      dropdown.focus()
+      blurdiv.style.display="block";
       dropdown?.previousSibling.classList.add("nav-active");
     }
   };
-
+  const closeNav = (id)=>{
+    setTimeout(()=>{
+      const dropdown = document.getElementById(id);
+      const blurdiv = document.getElementById('blur-div');
+      // if(e.target.classList.contains('navbar__dropdownShow')){
+  
+      // }
+      console.log("blurred")
+      if (
+        dropdown?.classList.contains("navbar__dropdownShow") &&
+        dropdown !== null
+      ) {
+        dropdown.classList.remove("navbar__dropdownShow");
+        // Removing Active Class
+        dropdown?.previousSibling.classList.remove("nav-active");
+        blurdiv.style.display = "none";
+      }
+    },200);
+ 
+  }
   const handleVoteNav = (id, dropdownId) => {
     if (id === null) {
       console.log(true);
@@ -100,11 +122,12 @@ const Navbar = () => {
       prev.classList.add("nav-active-vote");
     }
   };
+  const goToAwards = useCallback((award_id) => history.push(`/vote/${award_id}`), [history]);
 
   return (
     <nav className="navbar" id="navbar">
       <ul className="navbar__nav">
-        {navTitle.map((nav) => (
+        {navTitle.map((nav,i) => (
           <>
             <li
               className="nav__items"
@@ -114,10 +137,10 @@ const Navbar = () => {
               {nav.title} <ExpandMoreIcon />
             </li>
 
-            <div className="navbar__dropdown" id={nav._id}>
+            <div tabIndex={0} className="navbar__dropdown"  onBlur={(e)=>closeNav(nav._id)} id={nav._id}>
               {nav.awards?.map((award) => (
                 <Link
-                  onClick={() => handleNav(nav._id)}
+                  onClick={() => goToAwards(award._id)}
                   id={award._id}
                   key={award._id}
                   to={`/vote/${award._id}`}
@@ -140,6 +163,9 @@ const Navbar = () => {
             </div>
           </>
         ))}
+        <div id="blur-div">
+
+        </div>
       </ul>
     </nav>
   );

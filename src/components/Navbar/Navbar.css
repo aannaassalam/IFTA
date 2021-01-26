@@ -47,6 +47,7 @@
   letter-spacing: 0.4px;
   min-width: 200px;
   background-color: #222;
+  z-index: 20;
 }
 
 .nav__items:last-of-type {
@@ -93,6 +94,8 @@
   border-width: 2px;
   border-style: solid;
   border-image-slice: 1 !important;
+  outline: none;
+  z-index: 20;
 }
 
 .navbar__dropdownShow {
@@ -131,6 +134,22 @@
   font-family: "Oswald", sans-serif;
 }
 
+.navbar__dropdown:nth-child(2) a:hover{
+  border: 1px solid #1da2e7;
+}
+
+.navbar__dropdown:nth-child(4) a:hover{
+  border: 1px solid #09d7a7;
+}
+
+.navbar__dropdown:nth-child(6) a:hover{
+  border: 1px solid #ca49c7;
+}
+
+.navbar__dropdown:nth-child(8) a:hover{
+  border: 1px solid #ff7062;
+}
+
 .navbar__dropdown-voted {
   position: absolute;
   top: 6px;
@@ -151,4 +170,15 @@
   width: 10px;
   height: 15px;
   transform: skew(-45deg);
+}
+
+#blur-div{
+  width:100%;
+  height:100vh;
+  z-index: 10;
+  background-color: rgba(255, 255, 255,0.1);
+  position: absolute;
+  backdrop-filter: blur(3px);
+  display: none;
+
 }

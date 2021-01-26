@@ -164,9 +164,9 @@ const MovieGrid = ({ award }) => {
         Number of people Voted: <span>{movies.voteCount || "0"}</span>
       </p>
 
-      <Link to="/voting">Main Categiries</Link>
+      <Link to="/voting">Main Categories</Link>
 
-      <div>
+      <div className="movieGrid__container">
         {movies.nominations?.map((movie, index) => (
           <div
             className={`movieGrid__movies ${
