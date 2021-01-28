@@ -6,6 +6,7 @@
 .home__first {
   display: grid;
   height: 100vh;
+  vertical-align: middle;
   grid-template-columns: repeat(3, 1fr);
 }
 
