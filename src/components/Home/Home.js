@@ -1,4 +1,4 @@
-import React, { useEffect , useRef} from "react";
+import React, { useEffect , useRef, useState} from "react";
 import "./Home.css";
 import iifa from "../../images/iifa.jpg";
 import trophy from "../../images/screen-1_2.jpg";
@@ -8,10 +8,24 @@ import Category from "./Category/Category";
 import twitter from "../../images/tw.png";
 import facebook from "../../images/fb.png";
 import insta from "../../images/insta.png";
-import gif from "../../images/screen-1_1.gif";
+import gif_small from "../../images/screen-1_1_small.gif";
+import gif_large from "../../images/screen-1_1.gif";
 
 const Home = () => {
   const catRef = useRef(null);
+  const [gif,setGif] = useState(gif_small);
+  let loaded = false;
+  useEffect(()=>{
+    if(!loaded){
+      let img = new Image();
+      img.onload=()=>{
+        loaded = true;
+        setGif(gif_large);
+      }
+      img.src = gif_large;
+    }
+
+  })
   return (
     <div className="home">
       <section className="home__first">
