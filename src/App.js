@@ -7,7 +7,7 @@ import { useEffect } from "react";
 import axios from "axios";
 import { useStateValue } from "./StateProvider";
 import { actionTypes } from "./Reducer";
-
+import './components/Home/particles.scss';
 function App() {
   const [{}, dispatch] = useStateValue();
 
@@ -44,11 +44,18 @@ function App() {
   return (
     <Router>
       <div className="app">
+        
         <Switch>
           <Route path="/voting" component={Voting} />
           <Route path="/vote/:award" component={Bollywood} />
           <Route path="/" component={Home} />
         </Switch>
+        <div class="animation-wrapper">
+          <div class="particle particle-1"></div>
+          <div class="particle particle-2"></div>
+          <div class="particle particle-3"></div>
+          <div class="particle particle-4"></div>
+        </div>
       </div>
     </Router>
   );

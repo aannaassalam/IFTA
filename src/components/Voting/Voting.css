@@ -1,5 +1,5 @@
 .voting {
-  background: linear-gradient(to bottom, #000, #222);
+  /* background: linear-gradient(to bottom, #000, #222); */
   overflow: hidden;
   position: relative;
 }
@@ -29,16 +29,17 @@
 .top-img {
   width: 100%;
   height: 50vh;
-  object-fit: contain;
-  margin-bottom: -62px;
+  object-fit: cover;
+  margin-bottom: -40px;
 }
 
 .bottom-img{
   width:100%;
-  height: 21vh;
-  object-fit: contain;
-  margin-bottom: -62px;
+  height: 13vh;
+  object-fit: cover;
+  margin-bottom: -40px;
 }
+
 
 .voting__video {
   padding: 7rem 0;
