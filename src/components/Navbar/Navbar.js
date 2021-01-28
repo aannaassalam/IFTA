@@ -81,7 +81,7 @@ const Navbar = () => {
       Array.from(allNavItems).forEach(function (el) {
         el.classList.remove("nav-active");
       });
-      dropdown.focus()
+      dropdown?.focus()
       blurdiv.style.display="block";
       dropdown?.previousSibling.classList.add("nav-active");
     }
