@@ -1,14 +1,14 @@
 import React, { useEffect , useRef} from "react";
 import "./Home.css";
 import iifa from "../../images/iifa.jpg";
-import trophy from "../../images/right-trophy.jpg";
+import trophy from "../../images/screen-1_2.jpg";
 import YTVideo from "./YTVideo/YTVideo";
 import GridImages from "./GridImages/GridImages";
 import Category from "./Category/Category";
 import twitter from "../../images/tw.png";
 import facebook from "../../images/fb.png";
 import insta from "../../images/insta.png";
-import gif from "../../images/zoomies-small.gif";
+import gif from "../../images/screen-1_1.gif";
 
 const Home = () => {
   const catRef = useRef(null);

@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import Navbar from "../Navbar/Navbar";
-import logo from "../../images/voting/iifa-voting-logo.jpg";
+import logo1 from "../../images/screen-2_1.jpg";
+import logo2 from "../../images/screen-2_2.jpg";
 import "./Vote.css";
 import MovieGrid from "../MovieGrid/MovieGrid";
 import Footer from "../Footer/Footer";
@@ -38,8 +39,9 @@ const Vote = ({ match }) => {
           <LoginModal />
         </div>
       </div>
-      <img src={logo} alt="iifa-logo" />
+      <img className="top-img" src={logo1} alt="iifa-logo" />
       <Navbar />
+      <img className="bottom-img" src={logo2} alt="iifa-logo" />
       <MovieGrid award={award} />
       <Footer />
     </div>
