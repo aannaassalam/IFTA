@@ -1,24 +1,10 @@
 $color-bg: #1e1e1e;
-$color-particle: #fff;
+$color-particle: gold;
 $spacing: 2560px;
 $time-1: 60s;
 $time-2: 120s;
 $time-3: 180s;
 $time-4: 200s;
-
-/* mixins */
-@function particles($max) {
-  $val: 0px 0px $color-particle;
-  @for $i from 1 through $max {
-    $val: #{$val}, random($spacing)+px random($spacing)+px $color-particle;
-  }
-  @return $val;
-}
-
-@mixin particles($max) {
-  box-shadow: particles($max);
-  border-radius: 50%;
-}
 
 .animation-wrapper {
   position: fixed;
@@ -29,161 +15,148 @@ $time-4: 200s;
   background: linear-gradient(to bottom, #000, #222);
   z-index: -1;
 }
+
+// /* mixins */
+// @function particles($max) {
+//   $val: 0px 0px $color-particle;
+//   @for $i from 1 through $max {
+//     $val: #{$val}, random($spacing)+px random($spacing)+px $color-particle;
+//   }
+//   @return $val;
+// }
+
+// @mixin particles($max) {
+//   box-shadow: particles($max);
+//   border-radius: 50%;
+// }
+
+
   
+
+// .particle, .particle:after {
+//   background: transparent;
+// }
+
+// .particle:after {
+//   position: absolute;
+//   content: "";
+//   top: $spacing;
+// }
+
+// .particle-1 {
+//   animation: animParticle $time-1 linear infinite;
+//   @include particles(1000);
+//   height: 5px;
+//   width: 5px;
+// }
+
+// .particle-1:after {
+//   @include particles(900);
+//   height: 5px;
+//   width: 5px;
+// }
+
+// .particle-2 {
+//   animation: animParticle $time-2 linear infinite;
+//   @include particles(800);
+//   height: 2px;
+//   width: 2px;
+// }
+
+// .particle-2:after {
+//   @include particles(500);
+//   height: 3px;
+//   width: 3px;
+// }
+
+// .particle-3:after {
+//   @include particles(1100);
+//   height: 3px;
+//   width: 3px;
+//   border-radius: 50%;
+// }
+
+// .particle-4 {
+//   animation: animParticle $time-4 linear infinite;
+//   @include particles(1200);
+//   height: 6px;
+//   width: 6px;
+// }
+
+// .particle-4:after {
+//   @include particles(700);
+//   height: 6px;
+//   width: 6px;
+// }
+
+// @keyframes animParticle {
+//   from {
+//     transform: translateZ(0px);
+//     transform: translateY(0px);
+//     transform: translateX(0px);
+//     opacity: 1;
+//   }
+//   to {
+//     opacity: 0.5;
+//     transform: translateZ($spacing * -1);
+//     transform: translateY($spacing * -1);
+//     transform: translateX($spacing * -1);
+    
+//   }
+
+// }
+
+
+/*glow for webkit*/
+
+$d:15px;
+.particle {
+  position: absolute;
+  border-radius: 50%;
+  animation: shoot1 3s ease-out infinite;
+  animation-name: shoot1, fade;
   
-  .particle, .particle:after {
-    background: transparent;
-  }
-  
-  .particle:after {
-    position: absolute;
-    content: "";
-    top: $spacing;
-  }
-  
-  .particle-1 {
-    animation: animParticle $time-1 linear infinite;
-    @include particles(1000);
-    height: 2px;
-    width: 2px;
-  }
-  
-  .particle-1:after {
-    @include particles(900);
-    height: 2px;
-    width: 2px;
-  }
-  
-  .particle-2 {
-    animation: animParticle $time-2 linear infinite;
-    @include particles(800);
-    height: 2px;
-    width: 2px;
-  }
-  
-  .particle-2:after {
-    @include particles(500);
-    height: 3px;
-    width: 3px;
-  }
-  
-  .particle-3:after {
-    @include particles(1100);
-    height: 3px;
-    width: 3px;
-    border-radius: 50%;
-  }
-  
-  .particle-4 {
-    animation: animParticle $time-4 linear infinite;
-    @include particles(1200);
-    height: 1px;
-    width: 1px;
-  }
-  
-  .particle-4:after {
-    @include particles(700);
-    height: 1px;
-    width: 1px;
-  }
-  
-  @keyframes animParticle {
-    from {
-      transform: translateY(0px);
-    }
-    to {
-      transform: translateY($spacing * -1);
-    }
-  }
-  
-  
-  h4 {
-    color: #fff;
-    font-family: Monoton;
-    -webkit-animation: neon1 1.5s ease-in-out infinite alternate;
-    -moz-animation: neon1 1.5s ease-in-out infinite alternate;
-    animation: neon1 1.5s ease-in-out infinite alternate;
-  }
-  
-  h4:hover {
-    color: #FF1177;
-    -webkit-animation: none;
-    -moz-animation: none;
-    animation: none;
-  }
-  
-  /*glow for webkit*/
-  
-  @-webkit-keyframes neon1 {
-    from {
-      text-shadow: 0 0 10px #fff,
-        0 0 20px #fff,
-        0 0 30px #fff,
-        0 0 40px #FF1177,
-        0 0 70px #FF1177,
-        0 0 80px #FF1177,
-        0 0 100px #FF1177,
-        0 0 150px #FF1177;
-    }
-    to {
-      text-shadow: 0 0 5px #fff,
-        0 0 10px #fff,
-        0 0 15px #fff,
-        0 0 20px #FF1177,
-        0 0 35px #FF1177,
-        0 0 40px #FF1177,
-        0 0 50px #FF1177,
-        0 0 75px #FF1177;
-    }
-  }
-  
-  /*glow for mozilla*/
-  
-  @-moz-keyframes neon1 {
-    from {
-      text-shadow: 0 0 10px #fff,
-        0 0 20px #fff,
-        0 0 30px #fff,
-        0 0 40px #FF1177,
-        0 0 70px #FF1177,
-        0 0 80px #FF1177,
-        0 0 100px #FF1177,
-        0 0 150px #FF1177;
-    }
-    to {
-      text-shadow: 0 0 5px #fff,
-        0 0 10px #fff,
-        0 0 15px #fff,
-        0 0 20px #FF1177,
-        0 0 35px #FF1177,
-        0 0 40px #FF1177,
-        0 0 50px #FF1177,
-        0 0 75px #FF1177;
+  @for $i from 0 to 600 {
+    $t: (1 + .01*random(500))*1s;
+    $d: random(20)*1px;
+    &:nth-child(#{$i + 1}) {
+      transform: translate(random(100)*1vw, 
+                           random(100)*1vh);
+      background: rgb(223, 159, 22);
+      animation-duration: $t;
+      animation-delay: -.01*random(100)*$t;
+      width: $d;
+      height: $d;
     }
   }
+}
+
+.particle2 {
+  position: absolute;
+  border-radius: 50%;
+  animation: shoot2 3s ease-out infinite;
+  animation-name: shoot2, fade;
   
-  /*glow*/
-  
-  @keyframes neon1 {
-    from {
-      text-shadow: 0 0 10px #fff,
-        0 0 20px #fff,
-        0 0 30px #fff,
-        0 0 40px #FF1177,
-        0 0 70px #FF1177,
-        0 0 80px #FF1177,
-        0 0 100px #FF1177,
-        0 0 150px #FF1177;
-    }
-    to {
-      text-shadow: 0 0 5px #fff,
-        0 0 10px #fff,
-        0 0 15px #fff,
-        0 0 20px #FF1177,
-        0 0 35px #FF1177,
-        0 0 40px #FF1177,
-        0 0 50px #FF1177,
-        0 0 75px #FF1177;
+  @for $i from 0 to 600 {
+    $t: (1 + .01*random(500))*1s;
+    $d: random(20)*1px;
+    &:nth-child(#{$i + 1}) {
+      transform: translate(random(100)*1vw, 
+                           random(100)*1vh);
+      background: rgb(223, 159, 22);
+      animation-duration: $t;
+      animation-delay: -.01*random(100)*$t;
+      width: $d;
+      height: $d;
     }
   }
-  
+}
+
+@keyframes shoot2 {
+  0% { transform: translate(40vw, 70vh); }
+}
+
+@keyframes shoot1 {
+  0% { transform: translate(50vw, 20vh); }
+}
+@keyframes fade { to { opacity: 0 } }

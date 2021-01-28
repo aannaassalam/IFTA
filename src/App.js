@@ -8,6 +8,7 @@ import axios from "axios";
 import { useStateValue } from "./StateProvider";
 import { actionTypes } from "./Reducer";
 import './components/Home/particles.scss';
+import Particle from "./Particle";
 function App() {
   const [{}, dispatch] = useStateValue();
 
@@ -51,10 +52,7 @@ function App() {
           <Route path="/" component={Home} />
         </Switch>
         <div class="animation-wrapper">
-          <div class="particle particle-1"></div>
-          <div class="particle particle-2"></div>
-          <div class="particle particle-3"></div>
-          <div class="particle particle-4"></div>
+          <Particle />
         </div>
       </div>
     </Router>
