@@ -26,19 +26,6 @@
   font-family: Oswald, sans-serif;
 }
 
-.top-img {
-  width: 100%;
-  height: 50vh;
-  object-fit: cover;
-  margin-bottom: -40px;
-}
-
-.bottom-img{
-  width:100%;
-  height: 13vh;
-  object-fit: cover;
-  margin-bottom: -40px;
-}
 
 
 .voting__video {

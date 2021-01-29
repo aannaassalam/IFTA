@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect } from "react";
 import "./Voting.css";
-import logo1 from "../../images/screen-2_1.jpg";
-import logo2 from "../../images/screen-2_2.jpg";
+import logo1 from "../../images/s21.jpg";
+import logo2 from "../../images/s22.jpg";
 
 import Navbar from "../Navbar/Navbar";
 import YTVideo from "../Home/YTVideo/YTVideo";
