@@ -1,5 +1,5 @@
 import "./App.css";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch , HashRouter} from "react-router-dom";
 import Home from "./components/Home/Home";
 import Voting from "./components/Voting/Voting";
 import Bollywood from "./components/Vote/Vote";
@@ -46,7 +46,7 @@ function App() {
   };
 
   return (
-    <Router>
+    <HashRouter>
       <div className="app">
         
         <Switch>
@@ -58,7 +58,7 @@ function App() {
           <Particle />
         </div>
       </div>
-    </Router>
+    </HashRouter>
   );
 }
 
