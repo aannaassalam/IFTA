@@ -1,8 +1,6 @@
 import React, { useCallback, useEffect } from "react";
-import "./Voting.css";
+// import "./Voting.css";
 import logo1 from "../../images/sc2.jpg";
-import logo2 from "../../images/sc22.jpg";
-
 import Navbar from "../Navbar/Navbar";
 import YTVideo from "../Home/YTVideo/YTVideo";
 import Category from "../Home/Category/Category";

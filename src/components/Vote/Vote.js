@@ -1,8 +1,7 @@
 import React, { useEffect } from "react";
 import Navbar from "../Navbar/Navbar";
 import logo1 from "../../images/sc2.jpg";
-import logo2 from "../../images/s22.jpg";
-import "./Vote.css";
+// import "./Vote.css";
 import MovieGrid from "../MovieGrid/MovieGrid";
 import Footer from "../Footer/Footer";
 import { withRouter ,useHistory} from "react-router-dom";

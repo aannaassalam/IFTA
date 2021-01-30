@@ -9,6 +9,9 @@ import { useStateValue } from "./StateProvider";
 import { actionTypes } from "./Reducer";
 import './components/Home/particles.scss';
 import Particle from "./Particle";
+import "./components/Vote/Vote.css";
+import "./components/Voting/Voting.css";
+
 function App() {
   const [{}, dispatch] = useStateValue();
 
