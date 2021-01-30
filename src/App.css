@@ -1,17 +1,26 @@
 .top-img {
+  width: 100%;
+  max-height: 110vh;
+  object-fit: contain;
+  /* position: absolute; */
+  top:0;
+  left:0;
+  margin-bottom: -400px;
+}
+
+.bottom-img{
+  width:100%;
+  max-height: 30.8vh;
+  object-fit: contain;
+  margin-bottom: -210px;
+}
+
+@media screen and (max-width:768px){
+  .top-img {
     width: 100%;
-    max-height: 110vh;
+    max-height: 40vh;
     object-fit: contain;
-    /* position: absolute; */
-    top:0;
-    left:0;
-    margin-bottom: -400px;
+    margin-bottom: -80px;
   }
   
-  .bottom-img{
-    width:100%;
-    max-height: 30.8vh;
-    object-fit: contain;
-    margin-bottom: -210px;
-  }
-  
+}

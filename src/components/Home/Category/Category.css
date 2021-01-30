@@ -121,3 +121,12 @@
 .category-4 > button {
   background: linear-gradient(to right, #ff7062 0, #c53e3a 100%);
 }
+
+
+@media screen and (max-width:768px){
+
+    .category{
+      max-width: 100%;
+    }
+  
+}

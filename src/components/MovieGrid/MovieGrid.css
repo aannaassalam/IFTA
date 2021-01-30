@@ -229,3 +229,18 @@
 .expiredGrid__moviesBtn:hover {
   background-color: #000;
 }
+
+@media screen and (max-width:768px){
+  .movieGrid__container{
+    margin: auto;  
+    display: grid;
+    grid-template-columns: repeat(1,0fr);
+    place-items: center;
+    max-width: 90%;
+    grid-row-gap: 12px;
+    grid-column-gap: 12px;
+    margin-top: 1rem;
+    padding-bottom: 50px;
+  }
+  
+}

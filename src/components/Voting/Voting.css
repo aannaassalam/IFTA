@@ -55,3 +55,31 @@
 .voting__category .category-4 > h3 {
   margin-bottom: 0;
 }
+
+
+@media screen and (max-width:768px){
+  .voting__video {
+    margin: auto;
+    width: 90%;
+  }
+  .voting__login {
+    top: 0.5rem;
+    left:1.5%;
+  }
+
+
+  .voting__login > h2 {
+    font-size: 0.8rem;
+    font-weight: 500;
+  }
+
+  .voting__login > h2 > span {
+    margin-left: 3px;
+    font-size: 0.9rem;
+    font-family: Oswald, sans-serif;
+  }
+
+
+  
+  
+}

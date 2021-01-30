@@ -162,3 +162,17 @@
 input::placeholder{
   color: rgba(255, 255, 255, 0.7) !important;
 }
+
+@media screen and (max-width:768px){
+  .modal__btn {
+    padding: 5px 10px;
+    border-radius: 20px;
+    width: 46px;
+    font-size: 0.675rem;
+    letter-spacing: 0.2px;
+    transition: all 0.3s ease-in;
+    text-decoration: none;
+    margin-right: 2px;
+  }
+  
+}
