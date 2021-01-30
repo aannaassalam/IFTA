@@ -51,7 +51,7 @@ function App() {
         
         <Switch>
           <Route path="/voting" component={Voting} />
-          <Route path="/vote/:award" component={Bollywood} />
+          <Route path="/vote/:award/" component={Bollywood} />
           <Route path="/" component={Home} />
         </Switch>
         <div class="animation-wrapper">
