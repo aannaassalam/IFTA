@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import Navbar from "../Navbar/Navbar";
-import logo1 from "../../images/s21.jpg";
+import logo1 from "../../images/sc2.jpg";
 import logo2 from "../../images/s22.jpg";
 import "./Vote.css";
 import MovieGrid from "../MovieGrid/MovieGrid";
@@ -41,7 +41,7 @@ const Vote = ({ match }) => {
       </div>
       <img className="top-img" src={logo1} alt="iifa-logo" />
       <Navbar />
-      <img className="bottom-img" src={logo2} alt="iifa-logo" />
+      {/* <img className="bottom-img" src={logo2} alt="iifa-logo" /> */}
       <MovieGrid award={award} />
       <Footer />
     </div>
