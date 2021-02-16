@@ -22,7 +22,7 @@ function App() {
 
   const checkIfExpired = () => {
     axios
-      .get("http://13.235.90.125:8000/show/?showId=5ff351bcd2d84274b06e2783")
+      .get("http://13.235.90.125:8000/show/?showId=602a7e3c14367b662559c85f")
       .then((res) => {
         dispatch({
           type: actionTypes.SET_EXPIREDandTOTALVOTE,
@@ -35,7 +35,7 @@ function App() {
   const getAwards = () => {
     axios
       .get(
-        "http://13.235.90.125:8000/show/fetchCategories?showId=5ff351bcd2d84274b06e2783"
+        "http://13.235.90.125:8000/show/fetchCategories?showId=602a7e3c14367b662559c85f"
       )
       .then((res) => {
         dispatch({
