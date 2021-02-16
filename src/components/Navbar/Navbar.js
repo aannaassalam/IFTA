@@ -24,7 +24,7 @@ const Navbar = () => {
       const authToken = sessionStorage.getItem("authToken").split(" ")[1];
       axios
         .get(
-          "http://13.235.90.125:8000/show/fetchCategories/logedIn?showId=5ff351bcd2d84274b06e2783",
+          "http://13.235.90.125:8000/show/fetchCategories/logedIn?showId=602a7e3c14367b662559c85f",
           {
             headers: { Authorization: `Bearer ${authToken}` },
           }
@@ -34,7 +34,7 @@ const Navbar = () => {
     } else {
       axios
         .get(
-          "http://13.235.90.125:8000/show/fetchCategories?showId=5ff351bcd2d84274b06e2783"
+          "http://13.235.90.125:8000/show/fetchCategories?showId=602a7e3c14367b662559c85f"
         )
         .then((res) => setNavTitle(res.data.payload));
     }
