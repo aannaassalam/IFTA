@@ -37,7 +37,7 @@ const MovieGrid = ({ award }) => {
 
     axios
       .get(
-        "http://13.235.90.125:8000/show/fetchCategories?showId=5ff351bcd2d84274b06e2783"
+        "http://13.235.90.125:8000/show/fetchCategories?showId=602a7e3c14367b662559c85f"
       )
       .then((res) => fetchCarouselCategories(res.data.payload));
   }, [award]);
