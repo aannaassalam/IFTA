@@ -181,7 +181,7 @@ const MovieGrid = ({ award }) => {
           >
             <img src={movie?.image} style={{cursor:'pointer'}} onClick={()=>{setModalData({name:movie.name,weblink:movie.weblink});setOpenWeblink(true)}} alt="img" />
             <div>
-              <h2>{movie.name.split('(')[0]}<br /><span style="font-size:0.7rem">{movie.name.split('(')[1].replace(')','')}</span></h2>
+              <h2>{movie.name.split('(')[0]}<br /><span style={{fontSize:'0.7rem'}}>{movie.name.split('(')[1].replace(')','')}</span></h2>
               <button
                 disabled={movies?.votedOnce}
                 className={`movieGrid__moviesBtn ${
