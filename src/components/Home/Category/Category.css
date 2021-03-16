@@ -91,6 +91,7 @@
 .category-4 > div > p {
   font-weight: 500;
   margin-bottom: 3px;
+  font-size: small;
 }
 
 .category-1 > button,
