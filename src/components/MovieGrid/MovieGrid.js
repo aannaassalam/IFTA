@@ -9,6 +9,7 @@ import { useStateValue } from "../../StateProvider";
 import ExpiredGrid from "./ExpiredGrid/ExpiredGrid";
 import NavigateNextIcon from "@material-ui/icons/NavigateNext";
 import NavigateBeforeIcon from "@material-ui/icons/NavigateBefore";
+import { Modal } from '@material-ui/core'
 import $ from 'jquery'
 const MovieGrid = ({ award }) => {
   const [{ userIdentification, sessionExpired }, dispatch] = useStateValue();
@@ -17,7 +18,7 @@ const MovieGrid = ({ award }) => {
   const [open, setOpen] = useState(false);
   const [openConfirm, setOpenConfirm] = useState(false);
   const [openWeblink, setOpenWeblink] = useState(false);
-  
+
   // DATA STORING
   const [movies, setMovies] = useState({});
   const [modalData, setModalData] = useState({});
@@ -154,10 +155,6 @@ const MovieGrid = ({ award }) => {
     }
   };
 
-  const movieNameTransform = ()=>{
-
-  }
-
   return !sessionExpired ? (
     <div className="movieGrid">
       <div className="movieGrid__carousel">
@@ -175,26 +172,24 @@ const MovieGrid = ({ award }) => {
       <div className="movieGrid__container">
         {movies.nominations?.map((movie, index) => (
           <div
-            className={`movieGrid__movies ${
-              movies?.votedOnce && "movieGrid__votedOnce"
-            }`}
+            className={`movieGrid__movies ${movies?.votedOnce && "movieGrid__votedOnce"
+              }`}
           >
-            <img src={movie?.image} style={{cursor:'pointer'}} onClick={()=>{setModalData({name:movie.name,weblink:movie.weblink});setOpenWeblink(true)}} alt="img" />
+            <img src={movie?.image} style={{ cursor: 'pointer' }} onClick={() => { setModalData({ name: movie.name, weblink: movie.weblink, ytlink: movie.ytlink }); setOpenWeblink(true) }} alt="img" />
             <div>
-              <h2>{movie.name.split('(')[0]}<br /><span style={{fontSize:'0.7rem'}}>{movie.name.split('(')[1].replace(')','')}</span></h2>
+              <h2>{movie.name.split('(')[0]}<br /><span style={{ fontSize: '0.7rem' }}>{movie.name.split('(')[1].replace(')', '')}</span></h2>
               <button
                 disabled={movies?.votedOnce}
-                className={`movieGrid__moviesBtn ${
-                  movies?.votedOnce && `movieGrid__moviesBtn${index}`
-                }`}
+                className={`movieGrid__moviesBtn ${movies?.votedOnce && `movieGrid__moviesBtn${index}`
+                  }`}
                 onClick={() => {
-                  if(userIdentification){
+                  if (userIdentification) {
                     setModalData({
                       name: movie.name,
                       key: movie.key,
                     });
                     setOpen(true);
-                  }else{
+                  } else {
                     $("#popup1").css({ visibility: "visible", opacity: "1" });
                   }
 
@@ -203,9 +198,12 @@ const MovieGrid = ({ award }) => {
                 {movies?.votedOnce && index == 0
                   ? "Voted"
                   : !movies?.votedOnce
-                  ? "Vote"
-                  : "Closed"}
+                    ? "Vote"
+                    : "Closed"}
               </button>
+              <h6 style={{ cursor: 'pointer' }}>
+                <a href={movie.weblink} target="_blank">Read More</a>
+              </h6>
             </div>
           </div>
         ))}
@@ -248,11 +246,18 @@ const MovieGrid = ({ award }) => {
           </button>
         </div>
       </Dialog>
-      <Dialog open={openWeblink}>
-        <div className="movieGrid__modal movieGrid__modalSecond">
-          <h1 style={{cursor:'pointer'}}>
-            <a href={modalData.weblink} target="_blank">{modalData.weblink}</a>
-          </h1>
+      <Modal open={openWeblink}>
+        <div className="movieGrid__modalSecond" style={{
+          position: 'absolute',
+          top: '50%',
+          left: '50%',
+          marginRight: '-50%',
+          transform: 'translate(-50%, -50%)', height: '70vh', width: '80vw'
+        }
+        }>
+          <iframe width="100%" height="100%" title="youtbe"
+            src={"https://www.youtube.com/embed/" + modalData.ytlink + "?autoplay=1"}>
+          </iframe>
           <button
             onClick={() => {
               setModalData({});
@@ -262,7 +267,7 @@ const MovieGrid = ({ award }) => {
             Close
           </button>
         </div>
-      </Dialog>   
+      </Modal>
     </div>
   ) : (
     <ExpiredGrid
