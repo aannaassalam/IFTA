@@ -2,6 +2,7 @@ import React from "react";
 import "./GridImages.css";
 import poster from "../../../images/black-panther-poster.jpg";
 import actor from "../../../images/saif-ali-khan.jpg";
+import actor2 from "../../../images/actor.jpg"
 import tvShow from "../../../images/tvshow-poster.jpg";
 import actress from "../../../images/actress.jpg";
 import webSeries from "../../../images/webseries-poster.jpg";
@@ -59,7 +60,7 @@ const GridImages = ({ secId }) => {
             id={`${secId ? `secGrid-${index}` : `${index}`}`}
             className={`gridImagesBox gridImages__${index} fadeInOut-${index}`}
             style={{
-              background: `url('${image}') no-repeat center center`,
+              background: `url('${image}') no-repeat center center contain`,
               // backgroundSize: "cover",
             }}
           ></div>
@@ -82,6 +83,12 @@ const y = [
   poster1,
   actress1,
   actor1,
+  webSeries1,
+  tvShow1,
+  tvActor1,
+  poster1,
+  actress1,
+  actor2,
   webSeries1,
   tvShow1,
   tvActor1,
