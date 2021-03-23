@@ -119,7 +119,7 @@
   margin-bottom: 20px;
 }
 
-.home__footerRight > div > img {
+.home__footerRight > div > a > img {
   width: 45px;
   object-fit: contain;
   margin-right: 15px;

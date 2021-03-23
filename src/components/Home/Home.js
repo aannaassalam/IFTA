@@ -71,40 +71,17 @@ const Home = () => {
           <h1>IFTA</h1>
           <div>
             <div>
-              <p>Quizando Live!</p>
-              <p>Quizando classic</p>
-              <p>Free Games</p>
-              <p>Private Events</p>
-              <p>Closed Quizes</p>
-            </div>
-            <div>
-              <p>Quizando Live!</p>
-              <p>Quizando classic</p>
-              <p>Free Games</p>
-              <p>Private Events</p>
-              <p>Closed Quizes</p>
-            </div>
-            <div>
-              <p>Quizando Live!</p>
-              <p>Quizando classic</p>
-              <p>Free Games</p>
-              <p>Closed Quizes</p>
-            </div>
-            <div>
-              <p>Free Games</p>
-              <p>Private Events</p>
-              <p>Closed Quizes</p>
+              <p>Copyright © 2021 All rights reserved | This website is made by YBox Technologies</p>
             </div>
           </div>
         </div>
         <div className="home__footerRight">
           <h1>Connect with us:</h1>
           <div>
-            <img src={twitter} alt="twitter" />
-            <img src={facebook} alt="facebook" />
-            <img src={insta} alt="instagram" />
+            <a href="www.facebook.com"><img src={twitter} alt="twitter" /></a>
+            <a href="www.facebook.com"><img src={facebook} alt="facebook" /></a>
+            <a href="www.facebook.com"><img src={insta} alt="instagram" /></a>
           </div>
-          <button>Customer Support</button>
         </div>
       </footer>
       {/* To remove the eventListner error */}
