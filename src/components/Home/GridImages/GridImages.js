@@ -1,7 +1,7 @@
 import React from "react";
 import "./GridImages.css";
 import poster from "../../../images/black-panther-poster.jpg";
-import actor from "../../../images/actor.jpg";
+import actor from "../../../images/saif-ali-khan.jpg";
 import tvShow from "../../../images/tvshow-poster.jpg";
 import actress from "../../../images/actress.jpg";
 import webSeries from "../../../images/webseries-poster.jpg";
