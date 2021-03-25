@@ -48,36 +48,39 @@ for (let n = 0; n < 10; n++) {
 }
 
 $(window).on('load', function () {
+    let count = -1;
+
     let newImg1 = x1.length;
     let newImg2 = x2.length;
-    
-    const fadeIn = (self, grid) => {
-        let self1 = self;
-        let gridNumber = grid;
-        $(self1).css({
-            background: `url('${y1[newImg1]}') no-repeat center center`,
-        });
-        newImg1 >= y1.length - 1 && gridNumber === 1 ? (newImg1 = 0) : newImg1++;
-        newImg2 >= y2.length - 1 && gridNumber === 2 ? (newImg2 = 0) : newImg2++;
-        $(self1).fadeTo('fast', 1);
-        setInterval(() => {
-            $(self1).css({
-                background: `url('${y1[newImg1]}') no-repeat center center`,
-            });
-            newImg1 >= y1.length - 1 && gridNumber === 1 ? (newImg1 = 0) : newImg1++;
-            newImg2 >= y2.length - 1 && gridNumber === 2 ? (newImg2 = 0) : newImg2++;
-            $(self1).fadeTo('fast', 1).delay('5000').fadeTo('slow', 0);
-        }, 5850)
+
+    const fadeOutt = () => {
+        setTimeout(function () {
+            count >= x1.length - 1 ? (count = 0) : count++;
+            $(`#grid-${count}`).fadeOut(800);
+            $(`#secGrid-${count}`).fadeOut(800);
+            fadeIn();
+        }, 800);
     };
 
-    for (let start = 0; start < 6; start++) {
-        setTimeout(() => {
-            let self1 = $(`#grid-${start}`);
-            let self2 = $(`#secGrid-${start}`);
-            $(self1).fadeTo('slow', 0, fadeIn(self1, 1));
-            $(self2).fadeTo('slow', 0, fadeIn(self2, 2));
-        }, start * 5000);
-    }
+    const fadeIn = () => {
+        setTimeout(function () {
+            $(`#grid-${count}`).css({
+                background: `url('${y1[newImg1]}') no-repeat center center`,
+            });
+            $(`#secGrid-${count}`).css({
+                background: `url('${y2[newImg2]}') no-repeat center center`,
+            });
+
+            newImg1 >= y1.length - 1 ? (newImg1 = 0) : newImg1++;
+            newImg2 >= y2.length - 1 ? (newImg2 = 0) : newImg2++;
+
+            $(`#grid-${count}`).fadeIn(400);
+            $(`#secGrid-${count}`).fadeIn(400);
+            fadeOutt();
+        }, 700);
+    };
+
+    fadeOutt();
 })
 
 
