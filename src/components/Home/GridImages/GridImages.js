@@ -9,7 +9,7 @@ function importAll(r) {
 }
 
 const bigImages = importAll(require.context('../../../images/gridLong', false, /\.(png|jpe?g|svg)$/));
-const smallImages = importAll(require.context('../../../images/gridLong', false, /\.(png|jpe?g|svg)$/));
+const smallImages = importAll(require.context('../../../images/gridSmall', false, /\.(png|jpe?g|svg)$/));
 
 let x1 = [];
 let y1 = [];
@@ -40,11 +40,11 @@ let it2 = 0;
 
 for (let n = 0; n < 10; n++) {
   if (n === 0) {
-    x1.push(smallImages[smallKeys1[it1++]].default, bigImages[bigKeys1[it1++]].default, bigImages[bigKeys1[it1++]].default, smallImages[smallKeys1[it1++]].default, smallImages[smallKeys1[it1++]].default, bigImages[bigKeys1[it1++]].default);
-    x2.push(smallImages[smallKeys2[it2++]].default, bigImages[bigKeys2[it2++]].default, bigImages[bigKeys2[it2++]].default, smallImages[smallKeys2[it2++]].default, smallImages[smallKeys2[it2++]].default, bigImages[bigKeys2[it2++]].default);
+    x1.push(smallImages[smallKeys1[it1]].default, bigImages[bigKeys1[it1++]].default, bigImages[bigKeys1[it1]].default, smallImages[smallKeys1[it1++]].default, smallImages[smallKeys1[it1]].default, bigImages[bigKeys1[it1++]].default);
+    x2.push(smallImages[smallKeys2[it2]].default, bigImages[bigKeys2[it2++]].default, bigImages[bigKeys2[it2++]].default, smallImages[smallKeys2[it2]].default, smallImages[smallKeys2[it2]].default, bigImages[bigKeys2[it2++]].default);
   } else {
-    y1.push(smallImages[smallKeys1[it1++]].default, bigImages[bigKeys1[it1++]].default, bigImages[bigKeys1[it1++]].default, smallImages[smallKeys1[it1++]].default, smallImages[smallKeys1[it1++]].default, bigImages[bigKeys1[it1++]].default);
-    y2.push(smallImages[smallKeys2[it2++]].default, bigImages[bigKeys2[it2++]].default, bigImages[bigKeys2[it2++]].default, smallImages[smallKeys2[it2++]].default, smallImages[smallKeys2[it2++]].default, bigImages[bigKeys2[it2++]].default);
+    y1.push(smallImages[smallKeys1[it1]].default, bigImages[bigKeys1[it1++]].default, bigImages[bigKeys1[it1]].default, smallImages[smallKeys1[it1++]].default, smallImages[smallKeys1[it1]].default, bigImages[bigKeys1[it1++]].default);
+    y2.push(smallImages[smallKeys2[it2]].default, bigImages[bigKeys2[it2++]].default, bigImages[bigKeys2[it2]].default, smallImages[smallKeys2[it2++]].default, smallImages[smallKeys2[it2]].default, bigImages[bigKeys2[it2++]].default);
   }
 }
 
@@ -55,19 +55,16 @@ const GridImages = ({ secId }) => {
   let newImg2 = x2.length;
 
   const fadeOutt = () => {
-    let interval = setInterval(function () {
+    setTimeout(function () {
       count >= x1.length - 1 ? (count = 0) : count++;
-
       $(`#${count}`).fadeOut(800);
       $(`#secGrid-${count}`).fadeOut(800);
-
-      clearInterval(interval);
       fadeIn();
     }, 800);
   };
 
   const fadeIn = () => {
-    let interval = setInterval(function () {
+    setTimeout(function () {
       $(`#${count}`).css({
         background: `url('${y1[newImg1]}') no-repeat center center`,
       });
@@ -80,14 +77,12 @@ const GridImages = ({ secId }) => {
 
       $(`#${count}`).fadeIn(400);
       $(`#secGrid-${count}`).fadeIn(400);
-
-      clearInterval(interval);
       fadeOutt();
     }, 700);
   };
 
   const renderImage = () => {
-    fadeOutt();
+    fadeOutt()
     return (
       <div className="gridImages">
         {secId ? x2.map((image, index) => (
