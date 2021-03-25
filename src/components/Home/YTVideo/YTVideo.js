@@ -6,7 +6,7 @@ const YTVideo = () => {
     <ReactPlayer
       controls
       style={{maxWidth:'100%',maxHeight:'100%'}}
-      url="https://www.youtube.com/watch?v=6cdYr1rwT58&t=3s"
+      url="https://www.youtube.com/watch?v=5xQT7U5FBQ8"
     />
   );
 };
