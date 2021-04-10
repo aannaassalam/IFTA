@@ -4,11 +4,12 @@ import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import { Link, useLocation, useRouteMatch , useHistory} from "react-router-dom";
 import axios from "axios";
 import { useStateValue } from "../../StateProvider";
+import $ from 'jquery'
 
 const Navbar = () => {
   const [{ userIdentification }, dispatch] = useStateValue();
   const [navTitle, setNavTitle] = useState([]);
-
+  const [isLoading, setIsLoading] = useState(true);
   const location = useLocation();
   const match = useRouteMatch();
   const history = useHistory();
@@ -20,8 +21,27 @@ const Navbar = () => {
   // }, 500);
 
   useEffect(() => {
+    console.log('isloading',isLoading)
+    if (!isLoading) {
+      console.log('location',location)
+      if (location.pathname === "/voting" && location.state !== undefined) {
+        // Getting the navId passed from category
+        const { navId } = location.state;
+          handleNav(navId);
+      }
+
+      if (match.path === "/vote/:award") {
+        const { award } = match.params;
+        $(document).ready(() => {
+          handleVoteNav(award)
+        })
+      }
+    }
+  }, [isLoading])
+
+  useEffect(() => {
     if (userIdentification) {
-      const authToken = sessionStorage.getItem("authToken").split(" ")[1];
+      const authToken = localStorage.getItem("authToken").split(" ")[1];
       axios
         .get(
           "http://13.235.90.125:8000/show/fetchCategories/logedIn?showId=602a7e3c14367b662559c85f",
@@ -39,18 +59,6 @@ const Navbar = () => {
         .then((res) => setNavTitle(res.data.payload));
     }
 
-    if (location.pathname === "/voting" && location.state !== undefined) {
-      // Getting the navId passed from category
-      const { navId } = location.state;
-      setTimeout(() => {
-        handleNav(navId);
-      }, 700);
-    }
-
-    if (match.path === "/vote/:award") {
-      const { award } = match.params;
-      setTimeout(() => handleVoteNav(award), 400);
-    }
   }, [userIdentification]);
   let closeId = '';
   const handleNav = (id) => {
@@ -117,6 +125,7 @@ const Navbar = () => {
       prev.classList.add("nav-active-vote");
     } else {
       const prev = document.getElementById(id).parentElement.previousSibling;
+      console.log(document.getElementById(id));
       const allNavItems = document.getElementsByClassName("nav__items");
       Array.from(allNavItems).forEach(function (el) {
         el.classList.remove("nav-active-vote");
@@ -139,7 +148,7 @@ const Navbar = () => {
             </li>
 
             <div tabIndex={0} className="navbar__dropdown"  onBlur={(e)=>closeNav(nav._id)} id={nav._id}>
-              {nav.awards?.map((award) => (
+              {nav.awards?.map((award) => ( 
                 <Link
                   id={award._id}
                   onFocus={()=>goToVote(award._id)}
@@ -161,6 +170,7 @@ const Navbar = () => {
                   )}
                 </Link>
               ))}
+              {isLoading ? setIsLoading(false) : null}
             </div>
           </>
         ))}

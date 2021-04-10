@@ -9,8 +9,10 @@ import { useStateValue } from "../../StateProvider";
 import ExpiredGrid from "./ExpiredGrid/ExpiredGrid";
 import NavigateNextIcon from "@material-ui/icons/NavigateNext";
 import NavigateBeforeIcon from "@material-ui/icons/NavigateBefore";
+import PlayCircleOutlineIcon from '@material-ui/icons/PlayCircleOutline';
 import { Modal } from '@material-ui/core'
 import $ from 'jquery'
+import { actionTypes } from "../../Reducer";
 const MovieGrid = ({ award }) => {
   const [{ userIdentification, sessionExpired }, dispatch] = useStateValue();
 
@@ -24,28 +26,46 @@ const MovieGrid = ({ award }) => {
   const [modalData, setModalData] = useState({});
   const [sesExpired, setSesExpired] = useState(null);
   const [carouselData, setCarouselData] = useState([]);
+  const [loadingShowExpiry, setLoadingShowExpiry] = useState(true);
   const match = useRouteMatch();
   const history = useHistory();
 
   useEffect(() => {
-    if (sessionExpired) {
-      axios
-        .get(`http://13.235.90.125:8000/award/results?id=${award}`)
-        .then((res) => setSesExpired(res.data.payload));
-    } else {
-      fetchNominees(userIdentification);
-    }
-
     axios
-      .get(
-        "http://13.235.90.125:8000/show/fetchCategories?showId=602a7e3c14367b662559c85f"
-      )
-      .then((res) => fetchCarouselCategories(res.data.payload));
-  }, [award]);
+      .get("http://13.235.90.125:8000/show/?showId=602a7e3c14367b662559c85f")
+      .then((res) => {
+        dispatch({
+          type: actionTypes.SET_EXPIREDandTOTALVOTE,
+          expired: res.data.payload.isExpired,
+          totalVotes: res.data.payload.voteCount,
+        });
+        setLoadingShowExpiry(false);
+      });
+
+  }, [])
+
+  useEffect(() => {
+    if (!loadingShowExpiry) {
+      if (sessionExpired) {
+        axios
+          .get(`http://13.235.90.125:8000/award/results?id=${award}`)
+          .then((res) => setSesExpired(res.data.payload));
+      } else {
+        fetchNominees(userIdentification);
+      }
+
+      axios
+        .get(
+          "http://13.235.90.125:8000/show/fetchCategories?showId=602a7e3c14367b662559c85f"
+        )
+        .then((res) => fetchCarouselCategories(res.data.payload));
+    }
+  }, [award, loadingShowExpiry]);
 
   const fetchNominees = (userIdentification) => {
+    
     if (userIdentification) {
-      const authToken = sessionStorage.getItem("authToken").split(" ")[1];
+      const authToken = localStorage.getItem("authToken").split(" ")[1];
       axios
         .get(`http://13.235.90.125:8000/award/logedIn?id=${award}`, {
           headers: { Authorization: `Bearer ${authToken}` },
@@ -122,7 +142,7 @@ const MovieGrid = ({ award }) => {
 
   const handleVote = (key) => {
     if (userIdentification) {
-      const authToken = sessionStorage.getItem("authToken").split(" ")[1];
+      const authToken = localStorage.getItem("authToken").split(" ")[1];
       const config = {
         headers: { Authorization: `Bearer ${authToken}` },
       };
@@ -176,8 +196,10 @@ const MovieGrid = ({ award }) => {
               }`}
           >
             <img src={movie?.image} style={{ cursor: 'pointer' }} onClick={() => { setModalData({ name: movie.name, weblink: movie.weblink, ytlink: movie.ytlink }); setOpenWeblink(true) }} alt="img" />
+            <PlayCircleOutlineIcon style={{fontSize:'large'}}/>
+
             <div>
-              <h2>{movie.name.split('(')[0]}<br /><span style={{ fontSize: '0.7rem' }}>{movie.name.split('(')[1].replace(')', '')}</span></h2>
+              <h2>{movie.name.split('(')[0]}<br /><span style={{ fontSize: '0.7rem' , fontWeight:'normal' }}>{movie.name.split('(')[1].replace(')', '')}</span></h2>
               <button
                 disabled={movies?.votedOnce}
                 className={`movieGrid__moviesBtn ${movies?.votedOnce && `movieGrid__moviesBtn${index}`
@@ -202,7 +224,7 @@ const MovieGrid = ({ award }) => {
                     : "Closed"}
               </button>
               <h6 style={{ cursor: 'pointer' }}>
-                <a href={movie.weblink} target="_blank">Read More</a>
+                <a href={movie.weblink} target="_blank" style={{color:'white'}}>Read More</a>
               </h6>
             </div>
           </div>
@@ -246,7 +268,7 @@ const MovieGrid = ({ award }) => {
           </button>
         </div>
       </Dialog>
-      <Modal open={openWeblink}>
+      <Modal open={openWeblink} onBackdropClick={()=>{setModalData({});setOpenWeblink(false);}}>
         <div className="movieGrid__modalSecond" style={{
           position: 'absolute',
           top: '50%',

@@ -85,6 +85,7 @@
   width: 330px;
   height: 120px;
   background-color: #050505ad;
+  position: relative
 }
 
 .movieGrid__votedOnce {
@@ -102,6 +103,11 @@
 .movieGrid__movies > img {
   width: 150px;
   object-fit: contain;
+}
+.movieGrid__movies > svg {
+  position: absolute;
+  bottom: 5px;
+  left:115px;
 }
 
 .movieGrid__movies > div {
@@ -123,7 +129,7 @@
 }
 
 .movieGrid__moviesBtn {
-  background-color: #000;
+  background-color: white;
   padding: 5px 20px;
   text-transform: uppercase;
   font-family: Oswald, sans-serif;
@@ -135,7 +141,7 @@
   transition: all 0.2s ease-in;
   outline: none;
   border: none;
-  color: #fff;
+  color: black;
 }
 
 .movieGrid__moviesBtn:disabled {
@@ -148,6 +154,7 @@
 
 .movieGrid__moviesBtn:hover {
   background-color: #222;
+  color: white;
 }
 
 /* MODAL */

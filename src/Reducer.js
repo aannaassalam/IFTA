@@ -2,7 +2,7 @@ export const initialState = {
   sessionExpired: true,
   totalVotes: 0,
   awards: [],
-  userIdentification: sessionStorage.getItem('authToken')?true:null,
+  userIdentification: localStorage.getItem('authToken')?true:null,
   phone: null,
   token: null,
 };
@@ -14,7 +14,7 @@ export const actionTypes = {
   SET_EXPIREDandTOTALVOTE: "SET_EXPIREDandTOTALVOTE",
 };
 
-const reducer = (state, action) => {
+const reducer = (state = initialState, action) => {
   console.log(action);
 
   switch (action.type) {

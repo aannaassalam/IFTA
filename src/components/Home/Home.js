@@ -78,9 +78,8 @@ const Home = () => {
         <div className="home__footerRight">
           <h1>Connect with us:</h1>
           <div>
-            <a href="www.facebook.com"><img src={twitter} alt="twitter" /></a>
-            <a href="www.facebook.com"><img src={facebook} alt="facebook" /></a>
-            <a href="www.facebook.com"><img src={insta} alt="instagram" /></a>
+            <a href="https://www.facebook.com/iftaupdates/" target='_blank'><img src={facebook} alt="facebook" /></a>
+            <a href="https://www.instagram.com/invites/contact/?i=wx5knaabmc8r&utm_content=k3ecgpa" target='_blank'><img src={insta} alt="instagram" /></a>
           </div>
         </div>
       </footer>

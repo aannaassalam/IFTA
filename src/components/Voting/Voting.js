@@ -17,7 +17,7 @@ const Voting = () => {
     window.scrollTo(0, 0);
 
     if (userIdentification !== null) {
-      const authToken = sessionStorage.getItem("authToken").split(" ")[1];
+      const authToken = localStorage.getItem("authToken").split(" ")[1];
       dispatch({
         type: actionTypes.SET_TOKEN,
         token: authToken,

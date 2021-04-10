@@ -6,12 +6,13 @@ import { useStateValue } from "../../../StateProvider";
 const Category = ({ show }) => {
   const [{ awards }, _] = useStateValue();
 
-  const ConditionalLink = ({ children, to, condition, secTo }) =>
-    condition && to ? (
+  const ConditionalLink = ({ children, to, condition, secTo }) =>{
+    return condition && to ? (
       <Link to={to}>{children}</Link>
     ) : (
       <Link to={secTo}>{children}</Link>
     );
+  }
 
   return (
     <div className="category">
