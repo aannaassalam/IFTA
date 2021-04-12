@@ -1,37 +1,37 @@
-import React, { useEffect , useRef, useState} from "react";
+import React, { useEffect, useRef, useState } from "react";
 import "./Home.css";
-import './particles.scss';
 import YTVideo from "./YTVideo/YTVideo";
 import GridImages from "./GridImages/GridImages";
 import Category from "./Category/Category";
-import twitter from "../../images/tw.png";
+import { Link } from 'react-router-dom'
 import facebook from "../../images/fb.png";
 import insta from "../../images/insta.png";
 import gif1_small from "../../images/screen-1_1_small.gif";
 import gif1_large from "../../images/screen-1_1.gif";
 import gif2_small from "../../images/screen-1_2_small.gif";
 import gif2_large from "../../images/screen-1_2.gif";
+import ikickLogo from '../../images/ikick-logo.png'
 
 const Home = () => {
   const catRef = useRef(null);
-  const [gif1,setGif1] = useState(gif1_small);
-  const [gif2,setGif2] = useState(gif2_small);
-  
+  const [gif1, setGif1] = useState(gif1_small);
+  const [gif2, setGif2] = useState(gif2_small);
+
   let loaded1 = false;
   let loaded2 = false;
-  useEffect(()=>{
-    if(!loaded1){
+  useEffect(() => {
+    if (!loaded1) {
       let img1 = new Image();
-      img1.onload=()=>{
+      img1.onload = () => {
         loaded1 = true;
         setGif1(gif1_large);
       }
       img1.src = gif1_large;
     }
 
-    if(!loaded2){
+    if (!loaded2) {
       let img2 = new Image();
-      img2.onload=()=>{
+      img2.onload = () => {
         loaded2 = true;
         setGif2(gif2_large);
       }
@@ -40,38 +40,44 @@ const Home = () => {
   })
   return (
     <div className="home">
-      
+
       <section className="home__first">
         <img src={gif1} alt="iifa-award" />
         <div>
+          <img src={ikickLogo} style={{width:'50%' , marginBottom:'15px'}}/>
+          <h4 style={{marginBottom:'5px'}}>Presents</h4>
           <h1>IFTA</h1>
-          <p>You Vote</p>
-          <p>You Nominate</p>
-          <p>You Decide the Winner</p>
-          <button onClick={()=>catRef.current.scrollIntoView()}>Vote</button>
+          <p>Vote</p>
+          <p>Nominate</p>
+          <p>Decide the Winner</p>
+          <Link to={{ pathname: "/voting" }}><button>Vote</button></Link>
         </div>
         <img src={gif2} alt="iifa-award" />
       </section>
       <section className="home__second">
         <YTVideo />
       </section>
+      <section ref={catRef} className="home__fourth">
+        <Category show />
+      </section>
       <section className="home__third">
+        <div style={{margin:'auto' , 'textAlign':'center'}}>
+          <h1 style={{'textDecoration':'underline'}}><b>Nominations for IFTA 2020-21</b> </h1>
+        </div>
+        <br/>
         <div>
           <GridImages />
         </div>
-        <div>
+        {/* <div>
           <GridImages secId />
-        </div>
-      </section>
-      <section ref={catRef} className="home__fourth">
-        <Category show />
+        </div> */}
       </section>
       <footer className="home__footer">
         <div className="home__footerLeft">
           <h1>IFTA</h1>
           <div>
             <div>
-              <p>Copyright © 2021 All rights reserved | This website is made by YBox Technologies</p>
+              <p>Copyright © 2021 All rights reserved | This website is made by iKick Enterprise LLP</p>
             </div>
           </div>
         </div>
@@ -85,7 +91,7 @@ const Home = () => {
       </footer>
       {/* To remove the eventListner error */}
       <p id="navbar"></p>
-      
+
     </div>
   );
 };

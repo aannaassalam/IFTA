@@ -13,6 +13,7 @@ import PlayCircleOutlineIcon from '@material-ui/icons/PlayCircleOutline';
 import { Modal } from '@material-ui/core'
 import $ from 'jquery'
 import { actionTypes } from "../../Reducer";
+import {Launcher} from 'react-chat-window'
 const MovieGrid = ({ award }) => {
   const [{ userIdentification, sessionExpired }, dispatch] = useStateValue();
 
@@ -20,7 +21,6 @@ const MovieGrid = ({ award }) => {
   const [open, setOpen] = useState(false);
   const [openConfirm, setOpenConfirm] = useState(false);
   const [openWeblink, setOpenWeblink] = useState(false);
-
   // DATA STORING
   const [movies, setMovies] = useState({});
   const [modalData, setModalData] = useState({});
@@ -29,6 +29,8 @@ const MovieGrid = ({ award }) => {
   const [loadingShowExpiry, setLoadingShowExpiry] = useState(true);
   const match = useRouteMatch();
   const history = useHistory();
+  const [comments,setComments] = useState([]);
+  const [enteredComment , setEnteredComment] = useState('');
 
   useEffect(() => {
     axios
@@ -59,6 +61,7 @@ const MovieGrid = ({ award }) => {
           "http://13.235.90.125:8000/show/fetchCategories?showId=602a7e3c14367b662559c85f"
         )
         .then((res) => fetchCarouselCategories(res.data.payload));
+      fetchComments()
     }
   }, [award, loadingShowExpiry]);
 
@@ -98,6 +101,30 @@ const MovieGrid = ({ award }) => {
         })
         .catch((err) => console.log(err));
     }
+  };
+
+  const fetchComments = () => {
+    axios
+      .get(`http://13.235.90.125:8000/award/audienceComments?id=${award}`)
+      .then((res) => {
+        let received = res.data.payload;
+        setComments(() => {
+          let old_comments = [];
+          for (let comment of received) {
+            if (comment.comment) {
+              old_comments.push({
+                author: comment.user.firstName,
+                type: 'text',
+                data: {
+                  text: `${comment.comment} \n by- ${comment.user.userName}`
+                }
+              })
+            }
+          }
+          return old_comments;
+        })
+      })
+      .catch((err) => console.log(err));
   };
 
   const fetchCarouselCategories = (arr) => {
@@ -150,6 +177,7 @@ const MovieGrid = ({ award }) => {
       const bodyParameters = {
         award: match.params.award,
         answer: key,
+        comment:enteredComment
       };
 
       axios
@@ -162,6 +190,7 @@ const MovieGrid = ({ award }) => {
           setOpen(false);
           setTimeout(() => setOpenConfirm(true), 500);
           fetchNominees(userIdentification);
+          setEnteredComment('');
         })
         .catch((err) => console.log(err));
     } else {
@@ -229,6 +258,12 @@ const MovieGrid = ({ award }) => {
             </div>
           </div>
         ))}
+        <Launcher
+          agentProfile={{
+            teamName: 'Audience Comments',
+          }}
+          messageList={comments}
+        />
         <Dialog
           open={open}
           onClose={() => {
@@ -236,8 +271,10 @@ const MovieGrid = ({ award }) => {
             setOpen(false);
           }}
         >
-          <div className="movieGrid__modal">
+          <div className="movieGrid__modal" style={{height:'250px', width:'250px'}}>
             <h1>{modalData.name}</h1>
+            <h4>Enter Comment</h4>      
+            <textarea type="text" value={enteredComment} placeholder="Enter Comment" onChange={(e)=>{setEnteredComment(e.target.value)}} required />
             <div>
               <button
                 onClick={() => {

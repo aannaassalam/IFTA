@@ -41,7 +41,7 @@
   margin-bottom: 10px;
 }
 
-.home__first > div > button {
+.home__first  button {
   margin-top: 10px;
   outline: none;
   border: none;
@@ -66,6 +66,7 @@
 
 .home__fourth {
   margin-top: 4rem;
+  margin-bottom: 4rem;
 }
 
 .home__footer {
@@ -160,6 +161,11 @@
 
   .home__first > div > button {
     margin-top: 2rem;
+  }
+
+  .home__third{
+    display: none;
+    visibility: 0;
   }
 }
 

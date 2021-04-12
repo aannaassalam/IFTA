@@ -42,7 +42,6 @@
 .voting__category .category-2,
 .voting__category .category-3,
 .voting__category .category-4 {
-  min-height: unset;
   height: 110px;
   display: flex;
   align-items: center;

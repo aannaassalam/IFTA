@@ -55,7 +55,6 @@ function App() {
           <Route path="/" component={Home} />
         </Switch>
         <div class="animation-wrapper">
-          <Particle />
         </div>
       </div>
     </HashRouter>

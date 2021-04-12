@@ -19,5 +19,17 @@
   font-family: Oswald, sans-serif;
 }
 
+.sc-user-input {
+  display: none;
+  visibility: 0;
+}
+.sc-chat-window{
+z-index: 1000;
+}
+
+.sc-launcher{
+  cursor: pointer;
+}
+
 
 
