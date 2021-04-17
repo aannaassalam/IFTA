@@ -21,7 +21,8 @@
 }
 
 .movieGrid__carousel > .MuiSvgIcon-root:hover {
-  border-color: #222;
+  /* border-color: #222; */
+  box-shadow: 2px 2px 5px #888;
 }
 
 .movieGrid__carousel > h1 {
@@ -34,11 +35,11 @@
 }
 
 .movieGrid__votes {
-  font-size: 1.2rem;
+  /* font-size: 1.2rem; */
   font-family: Manrope, sans-serif;
   font-weight: 500;
   margin-bottom: 3rem;
-  color: #555;
+  color: #fff;
 }
 
 .movieGrid__votes > span {
@@ -57,7 +58,7 @@
 }
 
 .movieGrid__carousel {
-  margin: auto;  
+  margin: auto;
   display: grid;
   grid-template-columns: repeat(3,0.2fr);
   place-items: center;
@@ -69,7 +70,7 @@
 }
 
 .movieGrid__container{
-  margin: auto;  
+  margin: auto;
   display: grid;
   grid-template-columns: repeat(3,0.2fr);
   place-items: center;
@@ -129,7 +130,9 @@
 }
 
 .movieGrid__moviesBtn {
-  background-color: white;
+  /* background-color: white; */
+  background: #1C1C41;
+  color: #fff;
   padding: 5px 20px;
   text-transform: uppercase;
   font-family: Oswald, sans-serif;
@@ -141,7 +144,8 @@
   transition: all 0.2s ease-in;
   outline: none;
   border: none;
-  color: black;
+  margin: 4px;
+  /* color: black; */
 }
 
 .movieGrid__moviesBtn:disabled {
@@ -153,8 +157,10 @@
 }
 
 .movieGrid__moviesBtn:hover {
-  background-color: #222;
-  color: white;
+  /* background-color: #222;
+  color: white; */
+  box-shadow: 1px 1px 1px #888;
+  background: linear-gradient(to right, #1C1C41, #555);
 }
 
 /* MODAL */
@@ -239,7 +245,7 @@
 
 @media screen and (max-width:768px){
   .movieGrid__container{
-    margin: auto;  
+    margin: auto;
     display: grid;
     grid-template-columns: repeat(1,0fr);
     place-items: center;
@@ -249,5 +255,5 @@
     margin-top: 1rem;
     padding-bottom: 50px;
   }
-  
+
 }

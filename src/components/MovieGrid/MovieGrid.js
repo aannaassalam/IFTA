@@ -66,7 +66,7 @@ const MovieGrid = ({ award }) => {
   }, [award, loadingShowExpiry]);
 
   const fetchNominees = (userIdentification) => {
-    
+
     if (userIdentification) {
       const authToken = localStorage.getItem("authToken").split(" ")[1];
       axios
@@ -213,10 +213,10 @@ const MovieGrid = ({ award }) => {
       </div>
 
       <p className="movieGrid__votes">
-        Number of people Voted: <span>{movies.voteCount || "0"}</span>
+        Number of people voted for this category: <span>{movies.voteCount || "0"}</span>
       </p>
 
-      <Link to="/voting">Main Categories</Link>
+      <Link to="/voting" style={{color:"#fff"}}>Main Categories</Link>
 
       <div className="movieGrid__container">
         {movies.nominations?.map((movie, index) => (
@@ -273,7 +273,7 @@ const MovieGrid = ({ award }) => {
         >
           <div className="movieGrid__modal" style={{height:'250px', width:'250px'}}>
             <h1>{modalData.name}</h1>
-            <h4>Enter Comment</h4>      
+            <h4>Enter Comment</h4>
             <textarea type="text" value={enteredComment} placeholder="Enter Comment" onChange={(e)=>{setEnteredComment(e.target.value)}} required />
             <div>
               <button

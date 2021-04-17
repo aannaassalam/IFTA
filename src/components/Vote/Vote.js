@@ -21,12 +21,12 @@ const Vote = ({ match }) => {
   const goToBack = ()=>{
     history.push("/voting")
   }
-  
+
   return (
     <div className="vote">
       <div className="voting__login">
         <h2>
-          Total Votes casted: <CountUp end={totalVotes} duration={2.75} />
+          Total votes casted: <CountUp end={totalVotes} duration={2.75} />
         </h2>
         <div style={{display:'flex',flexDirection:'row'}}>
           <div className="box">

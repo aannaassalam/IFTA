@@ -44,13 +44,16 @@ const Home = () => {
       <section className="home__first">
         <img src={gif1} alt="iifa-award" />
         <div>
-          <img src={ikickLogo} style={{width:'50%' , marginBottom:'15px'}} className='ikickLogo'/>
-          <h4 className='margin-b-50'>Presents</h4>
+          <img src={ikickLogo} style={{width:'50%' , marginBottom:'15px'}}/>
+          <p style={{marginBottom:'5px',fontStyle:"italic",fontFamily:"Crimson Text, serif"}}>presents</p>
           <h1>IFTA</h1>
-          <p>Vote</p>
-          <p>Nominate</p>
-          <p>Decide the Winner</p>
-          <Link to={{ pathname: "/voting" }} className='margin-t-50'><button style={{fontWeight:'bold',fontSize:'1.25rem'}}>VOTE</button></Link>
+          <Link to={{ pathname: "/voting" }}><button style={{backgroundColor:"#1C1C41"}}>Vote</button></Link>
+
+          <div className="slide-top">
+            <h4 className="tagline">Vote</h4>
+            <h4 className="tagline">Nominate</h4>
+            <h4>Decide the Winner</h4>
+          </div>
         </div>
         <img src={gif2} alt="iifa-award" />
       </section>
