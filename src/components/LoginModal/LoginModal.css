@@ -18,6 +18,8 @@
 
 .modal__btn:hover {
   transform: scale(1.1);
+  background: linear-gradient(to right, #1C1C41, #d2ccc4);
+
 }
 
 .overlay {
@@ -174,5 +176,5 @@ input::placeholder{
     text-decoration: none;
     margin-right: 2px;
   }
-  
+
 }

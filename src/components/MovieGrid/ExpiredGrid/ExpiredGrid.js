@@ -35,7 +35,7 @@ function ExpiredGrid({ sesExpired, handlePrevious, handleNext }) {
         <NavigateNextIcon onClick={handleNext} />
       </div>
 
-      <Link to="/voting">Main Categories</Link>
+      <Link to="/voting" style={{color:"#fff"}}>Main Categories</Link>
 
       <div className="movieGrid__container">
         {movies?.map((movie, index) => (

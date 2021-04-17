@@ -73,6 +73,8 @@
 .category-3:hover,
 .category-4:hover {
   border: 2px solid;
+  box-shadow: 2px 2px 2px #888;
+
 }
 
 .category-1 > h3,
@@ -122,6 +124,21 @@
 .category-4 > button {
   background: linear-gradient(to right, #ff7062 0, #c53e3a 100%);
 }
+.category-1 > button:hover {
+  box-shadow: 2px 2px 2px #888;
+}
+
+.category-2 > button:hover {
+  box-shadow: 2px 2px 2px #888;
+}
+
+.category-3 > button:hover {
+  box-shadow: 2px 2px 2px #888;
+}
+
+.category-4 > button:hover {
+  box-shadow: 2px 2px 2px #888;
+}
 
 
 @media screen and (max-width:768px){
@@ -139,5 +156,6 @@
   margin-bottom: 10px;
   letter-spacing: 0.5px;
 }
-  
+
 }
+

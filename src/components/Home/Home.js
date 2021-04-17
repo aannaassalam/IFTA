@@ -45,12 +45,15 @@ const Home = () => {
         <img src={gif1} alt="iifa-award" />
         <div>
           <img src={ikickLogo} style={{width:'50%' , marginBottom:'15px'}}/>
-          <h4 style={{marginBottom:'5px'}}>Presents</h4>
+          <p style={{marginBottom:'5px',fontStyle:"italic",fontFamily:"Crimson Text, serif"}}>presents</p>
           <h1>IFTA</h1>
-          <p>Vote</p>
-          <p>Nominate</p>
-          <p>Decide the Winner</p>
-          <Link to={{ pathname: "/voting" }}><button>Vote</button></Link>
+          <Link to={{ pathname: "/voting" }}><button style={{backgroundColor:"#1C1C41"}}>Vote</button></Link>
+
+          <div className="slide-top">
+            <h4 className="tagline">Vote</h4>
+            <h4 className="tagline">Nominate</h4>
+            <h4>Decide the Winner</h4>
+          </div>
         </div>
         <img src={gif2} alt="iifa-award" />
       </section>
