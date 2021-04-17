@@ -123,6 +123,9 @@
   background: linear-gradient(to right, #ff7062 0, #c53e3a 100%);
 }
 
+.year_heading{
+  font-size:'1.25rem'
+}
 
 @media screen and (max-width:768px){
 
@@ -138,6 +141,10 @@
   font-weight: 400;
   margin-bottom: 10px;
   letter-spacing: 0.5px;
+}
+
+.year_heading{
+  font-size: small;
 }
   
 }

@@ -207,3 +207,16 @@
   }
 }
 
+@media (min-width: 1025px) {
+  .ikickLogo{
+    margin-top: -50px;
+  }
+
+  .margin-t-50{
+    margin-top: 50px;
+  }
+
+  .margin-b-50{
+    margin-bottom: 50px;
+  }
+}

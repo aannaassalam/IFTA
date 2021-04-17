@@ -29,11 +29,11 @@ const Category = ({ show }) => {
           secTo={`/vote/${award.awards[0]._id}`}
         >
           <div className={`category-${index + 1}`}>
-            <h3>{award.title}</h3>
+            <h3 style={{lineHeight:'1.2'}}>{ award.title.slice(0,award.title.indexOf('2020-21')-1)}<br/><span style={{fontWeight:'normal'}} class="year_heading">2020-21</span></h3>
             {show && (
               <div>
                 {award.awards.map((a) => (
-                  <p key={a._id}>{a.heading}</p>
+                  <p key={a._id} style={{lineHeight:'1.25'}}>{a.heading}</p>
                 ))}
               </div>
             )}
