@@ -31,5 +31,22 @@ z-index: 1000;
   cursor: pointer;
 }
 
+.sc-message-list{
+background-color:#000000ad
+}
+
+.sc-message--avatar{
+  visibility:hidden
+}
+
+.sc-message--content.received .sc-message--text{
+  margin-right:0px;
+  text-align:left
+}
+
+.sc-message--avatar{
+  margin-right:0px
+}
+
 
 

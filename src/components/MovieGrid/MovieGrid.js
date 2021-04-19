@@ -65,6 +65,18 @@ const MovieGrid = ({ award }) => {
     }
   }, [award, loadingShowExpiry]);
 
+  useEffect(()=>{
+    var elements = document.querySelectorAll('.Linkify');
+
+for(let i = 0;i<elements.length;i++){
+    let element = elements[i];
+    let text =  element.innerHTML;
+    let data = text.split(' voted for ');
+    let comment = data[1].split('\n');
+    element.innerHTML = `<strong><b>${data[0]}</b></strong> voted for <span style="font-weight:normal ; color:grey">${comment[0]}</span>\n${comment[1]}`
+}
+  },[comments])
+
   const fetchNominees = (userIdentification) => {
 
     if (userIdentification) {
@@ -112,11 +124,12 @@ const MovieGrid = ({ award }) => {
           let old_comments = [];
           for (let comment of received) {
             if (comment.comment) {
+              console.log(comment)
               old_comments.push({
-                author: comment.user.firstName,
+                author: comment.user.userName,
                 type: 'text',
                 data: {
-                  text: `${comment.comment} \n by- ${comment.user.userName}`
+                  text: `@${comment.user.userName} voted for "${comment.award.nominations.name.split('(')[0].trim()}" \n${comment.comment}`
                 }
               })
             }
@@ -225,7 +238,7 @@ const MovieGrid = ({ award }) => {
               }`}
           >
             <img src={movie?.image} style={{ cursor: 'pointer' }} onClick={() => { setModalData({ name: movie.name, weblink: movie.weblink, ytlink: movie.ytlink }); setOpenWeblink(true) }} alt="img" />
-            <PlayCircleOutlineIcon style={{fontSize:'large'}}/>
+            <PlayCircleOutlineIcon style={{fontSize:'large' , cursor:'pointer'}} onClick={() => { setModalData({ name: movie.name, weblink: movie.weblink, ytlink: movie.ytlink }); setOpenWeblink(true) }}/>
 
             <div>
               <h2>{movie.name.split('(')[0]}<br /><span style={{ fontSize: '0.7rem' , fontWeight:'normal' }}>{movie.name.split('(')[1].replace(')', '')}</span></h2>
@@ -272,8 +285,7 @@ const MovieGrid = ({ award }) => {
           }}
         >
           <div className="movieGrid__modal" style={{height:'250px', width:'250px'}}>
-            <h1>{modalData.name}</h1>
-            <h4>Enter Comment</h4>
+            <h1>{modalData.name ? modalData.name.split('(')[0].trim():null}</h1>
             <textarea type="text" value={enteredComment} placeholder="Enter Comment" onChange={(e)=>{setEnteredComment(e.target.value)}} required />
             <div>
               <button
@@ -293,7 +305,7 @@ const MovieGrid = ({ award }) => {
         <div className="movieGrid__modal movieGrid__modalSecond">
           <h1>
             {userIdentification && "You have voted to: "}
-            <span>{modalData.name}</span>
+            <span>{modalData.name ? modalData.name.split('(')[0].trim():null}</span>
           </h1>
           <button
             onClick={() => {

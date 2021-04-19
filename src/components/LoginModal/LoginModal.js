@@ -21,7 +21,8 @@ const LoginTestModal = () => {
       .then((res) => setUserId(res.data.payload._id))
       .catch((err) => {
         setUserId(null);
-        alert(err);
+        setDescription("Invalid OTP , Try Again");
+        console.log(err);
       });
   };
 
@@ -42,7 +43,8 @@ const LoginTestModal = () => {
       })
       .catch((err) => {
         setUserId(null);
-        alert(err);
+        setDescription("Invalid OTP");
+        console.log(err);
       });
   };
 
@@ -62,6 +64,7 @@ const LoginTestModal = () => {
       userIdentification: null,
       phone: null,
     });
+     window.location.reload()
     setDescription("You have logged out successfully");
     openModal();
   };
