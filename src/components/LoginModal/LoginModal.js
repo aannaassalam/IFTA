@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import React, { useState , useEffect } from "react";
 import "./LoginModal.css";
 import { useStateValue } from "../../StateProvider";
 import axios from "axios";
 import { actionTypes } from "../../Reducer";
 import $ from "jquery";
+
 
 const LoginTestModal = () => {
   const [{ userIdentification }, dispatch] = useStateValue();
@@ -12,13 +13,29 @@ const LoginTestModal = () => {
   const [OTP, setOTP] = useState("");
   const [userId, setUserId] = useState(null);
   const [description, setDescription] = useState(null);
-
-  const handleOTP = () => {
+  const [otpResend, setOtpResend] = useState(false);
+  
+  const resendOTP = () => {
     axios
       .post("http://13.235.90.125:8000/user/login", {
         phone: inputValue,
       })
-      .then((res) => setUserId(res.data.payload._id))
+      .then((res) => { setUserId(res.data.payload._id); startTimer(); setOtpResend(false) })
+      .catch((err) => {
+        setUserId(null);
+        setDescription("Invalid OTP , Try Again");
+        console.log(err);
+      });
+  }
+
+  const handleOTP = () => {
+    // setUserId('607ebe8608dc804e3b811764')
+    // startTimer()
+    axios
+      .post("http://13.235.90.125:8000/user/login", {
+        phone: inputValue,
+      })
+      .then((res) => { setUserId(res.data.payload._id); startTimer() })
       .catch((err) => {
         setUserId(null);
         setDescription("Invalid OTP , Try Again");
@@ -64,10 +81,25 @@ const LoginTestModal = () => {
       userIdentification: null,
       phone: null,
     });
-     window.location.reload()
+    window.location.reload()
     setDescription("You have logged out successfully");
     openModal();
   };
+  
+  const startTimer = () => {
+    let timer = 60;
+    let interval = setInterval(() => {
+      if(document.getElementById('otp-timer')){
+        document.getElementById('otp-timer').innerHTML = timer--;
+      }
+      if (timer <= 0) {
+        setOtpResend(true);
+        clearInterval(interval);
+      }
+    }, 1000)
+    console.log(timer)
+  }
+
 
   return (
     <div>
@@ -95,6 +127,7 @@ const LoginTestModal = () => {
                 type="number"
                 className="input-field"
                 onChange={(e) => setInputValue(e.target.value)}
+                required
               />
               {userId && (
                 <input
@@ -105,7 +138,16 @@ const LoginTestModal = () => {
                   className="input-field"
                   onChange={(e) => setOTP(e.target.value)}
                 />
-              )}
+              )
+              }
+              {
+                userId && !otpResend && <h5 style={{ marginBottom: '2px' }}>Resend OTP in <span style={{color:'red'}} id="otp-timer"></span> sec.</h5>
+              }
+              {
+                otpResend ? <button onClick={resendOTP}>
+                  Resend otp
+               </button> : null
+              }
               <button onClick={userId ? handleRegister : handleOTP}>
                 {userId ? "VERIFY OTP" : "GET OTP"}
               </button>
