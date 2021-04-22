@@ -1,4 +1,4 @@
-import React, { useState , useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import "./LoginModal.css";
 import { useStateValue } from "../../StateProvider";
 import axios from "axios";
@@ -14,7 +14,7 @@ const LoginTestModal = () => {
   const [userId, setUserId] = useState(null);
   const [description, setDescription] = useState(null);
   const [otpResend, setOtpResend] = useState(false);
-  
+
   const resendOTP = () => {
     axios
       .post("http://13.235.90.125:8000/user/login", {
@@ -55,6 +55,7 @@ const LoginTestModal = () => {
           type: actionTypes.SET_USER,
           userIdentification: res.data.payload._id,
           phone: res.data.payload.phone,
+          state: res.data.payload.state
         });
         setDescription(res.data.description);
       })
@@ -85,11 +86,11 @@ const LoginTestModal = () => {
     setDescription("You have logged out successfully");
     openModal();
   };
-  
+
   const startTimer = () => {
     let timer = 60;
     let interval = setInterval(() => {
-      if(document.getElementById('otp-timer')){
+      if (document.getElementById('otp-timer')) {
         document.getElementById('otp-timer').innerHTML = timer--;
       }
       if (timer <= 0) {
@@ -141,7 +142,7 @@ const LoginTestModal = () => {
               )
               }
               {
-                userId && !otpResend && <h5 style={{ marginBottom: '2px' }}>Resend OTP in <span style={{color:'red'}} id="otp-timer"></span> sec.</h5>
+                userId && !otpResend && <h5 style={{ marginBottom: '2px' }}>Resend OTP in <span style={{ color: 'red' }} id="otp-timer"></span> sec.</h5>
               }
               {
                 otpResend ? <button onClick={resendOTP}>

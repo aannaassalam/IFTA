@@ -1,9 +1,8 @@
 import React from "react";
 import "./MovieGrid.css";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
-import { Link, useHistory, useRouteMatch } from "react-router-dom";
-import { useEffect } from "react";
+import { useHistory, useRouteMatch } from "react-router-dom";
 import { Dialog } from "@material-ui/core";
 import { useStateValue } from "../../StateProvider";
 import ExpiredGrid from "./ExpiredGrid/ExpiredGrid";
@@ -13,9 +12,11 @@ import PlayCircleOutlineIcon from '@material-ui/icons/PlayCircleOutline';
 import { Modal } from '@material-ui/core'
 import $ from 'jquery'
 import { actionTypes } from "../../Reducer";
-import {Launcher} from 'react-chat-window'
+import { Launcher } from 'react-chat-window'
+import Map from '../Map/Map'
+
 const MovieGrid = ({ award }) => {
-  const [{ userIdentification, sessionExpired }, dispatch] = useStateValue();
+  const [{ userIdentification, sessionExpired , state }, dispatch] = useStateValue();
 
   // OPEN OF MADALS
   const [open, setOpen] = useState(false);
@@ -29,8 +30,11 @@ const MovieGrid = ({ award }) => {
   const [loadingShowExpiry, setLoadingShowExpiry] = useState(true);
   const match = useRouteMatch();
   const history = useHistory();
-  const [comments,setComments] = useState([]);
-  const [enteredComment , setEnteredComment] = useState('');
+  const [comments, setComments] = useState([]);
+  const [enteredComment, setEnteredComment] = useState('');
+  const [showMap, setShowMap] = useState(false);
+  const [mapData, setMapdata] = useState([]);
+  const gridRef = React.createRef()
 
   useEffect(() => {
     axios
@@ -62,20 +66,31 @@ const MovieGrid = ({ award }) => {
         )
         .then((res) => fetchCarouselCategories(res.data.payload));
       fetchComments()
+      window.scrollTo(0, gridRef.current.offsetTop)
     }
   }, [award, loadingShowExpiry]);
 
-  useEffect(()=>{
+  useEffect(() => {
+    console.log('Effect called')
+    axios
+      .get(`http://13.235.90.125:8000/award/fetchStateData/${award}`)
+      .then((res) => { setMapdata(res.data.payload); setShowMap(false); })
+      .catch((err) => {
+        console.log(err);
+      })
+  }, [award, loadingShowExpiry]);
+
+  useEffect(() => {
     var elements = document.querySelectorAll('.Linkify');
 
-for(let i = 0;i<elements.length;i++){
-    let element = elements[i];
-    let text =  element.innerHTML;
-    let data = text.split(' voted for ');
-    let comment = data[1].split('\n');
-    element.innerHTML = `<strong><b>${data[0]}</b></strong> voted for <span style="font-weight:normal ; color:grey">${comment[0]}</span>\n${comment[1]}`
-}
-  },[comments])
+    for (let i = 0; i < elements.length; i++) {
+      let element = elements[i];
+      let text = element.innerHTML;
+      let data = text.split(' voted for ');
+      let comment = data[1].split('\n');
+      element.innerHTML = `<strong><b>${data[0]}</b></strong> voted for <span style="font-weight:normal ; color:grey">${comment[0]}</span>\n${comment[1]}`
+    }
+  }, [comments])
 
   const fetchNominees = (userIdentification) => {
 
@@ -167,6 +182,7 @@ for(let i = 0;i<elements.length;i++){
     if (current < 0) {
       current = length - 1;
     }
+    setShowMap(false);
     history.replace(`/vote/${carouselData[current]}`);
   };
 
@@ -177,11 +193,15 @@ for(let i = 0;i<elements.length;i++){
     if (current > length - 1) {
       current = 0;
     }
+    setShowMap(false);
     history.replace(`/vote/${carouselData[current]}`);
   };
 
   const handleVote = (key) => {
     if (userIdentification) {
+      if(state){
+
+      }else{
       const authToken = localStorage.getItem("authToken").split(" ")[1];
       const config = {
         headers: { Authorization: `Bearer ${authToken}` },
@@ -190,7 +210,7 @@ for(let i = 0;i<elements.length;i++){
       const bodyParameters = {
         award: match.params.award,
         answer: key,
-        comment:enteredComment
+        comment: enteredComment
       };
 
       axios
@@ -206,6 +226,7 @@ for(let i = 0;i<elements.length;i++){
           setEnteredComment('');
         })
         .catch((err) => console.log(err));
+      }
     } else {
       setOpen(false);
       setTimeout(() => {
@@ -217,34 +238,26 @@ for(let i = 0;i<elements.length;i++){
     }
   };
 
-  return !sessionExpired ? (
-    <div className="movieGrid">
-      <div className="movieGrid__carousel">
-        <NavigateBeforeIcon onClick={handlePrevious} />
-        <h1>{movies.heading}</h1>
-        <NavigateNextIcon onClick={handleNext} />
-      </div>
+  const mapToggleHandler = () => {
+    setShowMap(!showMap);
+  }
 
-      <p className="movieGrid__votes">
-        Number of people voted for this category: <span>{movies.voteCount || "0"}</span>
-      </p>
-
-      <Link to="/voting" style={{color:"#fff"}}>Main Categories</Link>
-
-      <div className="movieGrid__container">
+  const MovieGrid = () => {
+    return <React.Fragment>
+      <div className="movieGrid__container" ref={gridRef}>
         {movies.nominations?.map((movie, index) => (
           <div
             className={`movieGrid__movies ${movies?.votedOnce && "movieGrid__votedOnce"
               }`}
           >
             <img src={movie?.image} style={{ cursor: 'pointer' }} onClick={() => { setModalData({ name: movie.name, weblink: movie.weblink, ytlink: movie.ytlink }); setOpenWeblink(true) }} alt="img" />
-            <PlayCircleOutlineIcon style={{fontSize:'large' , cursor:'pointer'}} onClick={() => { setModalData({ name: movie.name, weblink: movie.weblink, ytlink: movie.ytlink }); setOpenWeblink(true) }}/>
+            <PlayCircleOutlineIcon style={{ fontSize: 'large', cursor: 'pointer' }} onClick={() => { setModalData({ name: movie.name, weblink: movie.weblink, ytlink: movie.ytlink }); setOpenWeblink(true) }} />
 
             <div>
-              <h2>{movie.name.split('(')[0]}<br /><span style={{ fontSize: '0.7rem' , fontWeight:'normal' }}>{movie.name.split('(')[1].replace(')', '')}</span></h2>
+              <h2>{movie.name.split('(')[0]}<br /><span style={{ fontSize: '0.7rem', fontWeight: 'normal' }}>{movie.name.split('(')[1].replace(')', '')}</span></h2>
               <button
                 disabled={movies?.votedOnce}
-                className={`movieGrid__moviesBtn ${movies?.votedOnce && `movieGrid__moviesBtn${index}`
+                className={`movieGrid__moviesBtn ${movies.votedOnce && `movieGrid__moviesBtn${index}`
                   }`}
                 onClick={() => {
                   if (userIdentification) {
@@ -266,17 +279,11 @@ for(let i = 0;i<elements.length;i++){
                     : "Closed"}
               </button>
               <h6 style={{ cursor: 'pointer' }}>
-                <a href={movie.weblink} target="_blank" style={{color:'white'}}>Read More</a>
+                <a href={movie.weblink} target="_blank" style={{ color: 'white' }}>Read More</a>
               </h6>
             </div>
           </div>
         ))}
-        <Launcher
-          agentProfile={{
-            teamName: 'Audience Comments',
-          }}
-          messageList={comments}
-        />
         <Dialog
           open={open}
           onClose={() => {
@@ -284,9 +291,9 @@ for(let i = 0;i<elements.length;i++){
             setOpen(false);
           }}
         >
-          <div className="movieGrid__modal" style={{height:'250px', width:'250px'}}>
-            <h1>{modalData.name ? modalData.name.split('(')[0].trim():null}</h1>
-            <textarea type="text" value={enteredComment} placeholder="Enter Comment" onChange={(e)=>{setEnteredComment(e.target.value)}} required />
+          <div className="movieGrid__modal" style={{ height: '250px', width: '250px' }}>
+            <h1>{modalData.name ? modalData.name.split('(')[0].trim() : null}</h1>
+            <textarea type="text" value={enteredComment} placeholder="Enter Comment" onChange={(e) => { setEnteredComment(e.target.value) }} required />
             <div>
               <button
                 onClick={() => {
@@ -295,17 +302,42 @@ for(let i = 0;i<elements.length;i++){
                 }}
               >
                 Cancel
-              </button>
+          </button>
               <button onClick={() => handleVote(modalData.key)}>Submit</button>
             </div>
           </div>
         </Dialog>
       </div>
+    </React.Fragment>
+  }
+
+  return !sessionExpired ? (
+    <div className="movieGrid">
+      <div className="movieGrid__carousel">
+        <NavigateBeforeIcon onClick={handlePrevious} />
+        <h1>{movies.heading}</h1>
+        <NavigateNextIcon onClick={handleNext} />
+      </div>
+
+      <p className="movieGrid__votes">
+        Number of people voted for this category: <span>{movies.voteCount || "0"}</span>
+      </p>
+
+      {movies.votedOnce ? <div style={{ color: 'white', textDecoration: 'underline', cursor: 'pointer', fontWeight: 'bold', marginBottom: '5px', fontSize: '1.5rem' }} onClick={mapToggleHandler}>{showMap ? <span>Back To Nominations</span> : <span>Per State Vote Share</span>}</div> : null}
+
+      { showMap ? <Map mapData={mapData} /> : <MovieGrid />}
+
+      <Launcher
+        agentProfile={{
+          teamName: 'Audience Comments',
+        }}
+        messageList={comments}
+      />
       <Dialog open={openConfirm}>
         <div className="movieGrid__modal movieGrid__modalSecond">
           <h1>
             {userIdentification && "You have voted to: "}
-            <span>{modalData.name ? modalData.name.split('(')[0].trim():null}</span>
+            <span>{modalData.name ? modalData.name.split('(')[0].trim() : null}</span>
           </h1>
           <button
             onClick={() => {
@@ -317,7 +349,7 @@ for(let i = 0;i<elements.length;i++){
           </button>
         </div>
       </Dialog>
-      <Modal open={openWeblink} onBackdropClick={()=>{setModalData({});setOpenWeblink(false);}}>
+      <Modal open={openWeblink} onBackdropClick={() => { setModalData({}); setOpenWeblink(false); }}>
         <div className="movieGrid__modalSecond" style={{
           position: 'absolute',
           top: '50%',

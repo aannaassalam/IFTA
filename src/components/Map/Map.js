@@ -95,7 +95,7 @@ function Map(props) {
 
     let payload = props.mapData;
     for (let state of payload) {
-        let index = HeatMapData.findIndex(element => { console.log(state); return element.state === state.state });
+        let index = HeatMapData.findIndex(element => {return element.state === state.state });
         HeatMapData[index].value = state.votes;
     }
     data = HeatMapData;
@@ -106,13 +106,10 @@ function Map(props) {
         min: 0,
         max: data.reduce((max, item) => (item.value > max ? item.value : max), 0)
     };
-    //data.map(d => {return d.value})
-    console.log('Extent', extent(data))
+
     const colorScale = scaleQuantile()
         .domain(extent(data.map(d => { return d.value })))
         .range(COLOR_RANGE);
-
-    console.log('color', colorScale)
 
     const onMouseEnter = (geo, current = { value: 'NA' }) => {
         return () => {

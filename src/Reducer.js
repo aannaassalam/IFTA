@@ -2,9 +2,10 @@ export const initialState = {
   sessionExpired: true,
   totalVotes: 0,
   awards: [],
-  userIdentification: localStorage.getItem('authToken')?true:null,
+  userIdentification: localStorage.getItem('authToken') ? true : null,
   phone: null,
   token: null,
+  state: null
 };
 
 export const actionTypes = {
@@ -12,6 +13,7 @@ export const actionTypes = {
   SET_TOKEN: "SET_TOKEN",
   SET_AWARDS: "SET_AWARDS",
   SET_EXPIREDandTOTALVOTE: "SET_EXPIREDandTOTALVOTE",
+  SET_USER_STATE: 'SET_USER_STATE'
 };
 
 const reducer = (state = initialState, action) => {
@@ -24,6 +26,7 @@ const reducer = (state = initialState, action) => {
         ...state,
         userIdentification: action.userIdentification,
         phone: action.phone,
+        state:action.state
       };
 
     case actionTypes.SET_TOKEN:
@@ -44,7 +47,11 @@ const reducer = (state = initialState, action) => {
         sessionExpired: action.expired,
         totalVotes: action.totalVotes,
       };
-
+    case actionTypes.SET_USER_STATE:
+      return {
+        ...state,
+        state: action.state
+      }
     default:
       return state;
   }
