@@ -11,11 +11,14 @@ import gif1_large from "../../images/screen-1_1.gif";
 import gif2_small from "../../images/screen-1_2_small.gif";
 import gif2_large from "../../images/screen-1_2.gif";
 import ikickLogo from '../../images/ikick-logo.png'
+import Map from '../Map/Map'
+import axios from 'axios'
 
 const Home = () => {
   const catRef = useRef(null);
   const [gif1, setGif1] = useState(gif1_small);
   const [gif2, setGif2] = useState(gif2_small);
+  const [mapData, setMapData] = useState([]);
 
   let loaded1 = false;
   let loaded2 = false;
@@ -38,16 +41,28 @@ const Home = () => {
       img2.src = gif2_large;
     }
   })
+
+  useEffect(() => {
+    axios.get('http://13.235.90.125:8000/show/fetchStateWiseData/602a7e3c14367b662559c85f')
+      .then((res) => {
+        let payload = res.data.payload;
+        setMapData(payload);
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+  }, [])
+
   return (
     <div className="home">
 
       <section className="home__first">
         <img src={gif1} alt="iifa-award" />
         <div>
-          <img src={ikickLogo} style={{width:'50%' , marginBottom:'15px'}}/>
-          <p style={{marginBottom:'5px',fontStyle:"italic",fontFamily:"Crimson Text, serif"}}>presents</p>
+          <img src={ikickLogo} style={{ width: '50%', marginBottom: '15px' }} />
+          <p style={{ marginBottom: '5px', fontStyle: "italic", fontFamily: "Crimson Text, serif" }}>presents</p>
           <h1>IFTA</h1>
-          <Link to={{ pathname: "/voting" }}><button style={{backgroundColor:"#1C1C41"}}>Vote</button></Link>
+          <Link to={{ pathname: "/voting" }}><button style={{ backgroundColor: "#1C1C41" }}>Vote</button></Link>
 
           <div className="slide-top">
             <h4 className="tagline">Vote</h4>
@@ -64,16 +79,22 @@ const Home = () => {
         <Category show />
       </section>
       <section className="home__third">
-        <div style={{margin:'auto' , 'textAlign':'center'}}>
-          <h1 style={{'textDecoration':'underline'}}><b>Nominations for IFTA 2020-21</b> </h1>
+        <div style={{ margin: 'auto', 'textAlign': 'center' }}>
+          <h1 style={{ 'textDecoration': 'underline' }}><b>Nominations for IFTA 2020-21</b> </h1>
         </div>
-        <br/>
+        <br />
         <div>
           <GridImages />
         </div>
         {/* <div>
           <GridImages secId />
         </div> */}
+      </section>
+      <section >
+        <div style={{ margin: 'auto', 'textAlign': 'center' }}>
+          <h1 style={{ 'textDecoration': 'underline' }}><b>State-wise Vote Distribution</b> </h1>
+          <Map mapData={mapData} />
+        </div>
       </section>
       <footer className="home__footer">
         <div className="home__footerLeft">
