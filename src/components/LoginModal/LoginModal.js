@@ -33,7 +33,7 @@ const LoginTestModal = () => {
   const handleOTP = () => {
     if (inputValue !== '' && inputValue.length === 10 && state !== '') {
       axios
-        .post("http://localhost:8000/user/login", {
+        .post("http://13.235.90.125:8000/user/login", {
           phone: inputValue,
           state:state
         })
@@ -51,7 +51,7 @@ const LoginTestModal = () => {
   const handleRegister = () => {
     if (OTP !== '') {
       axios
-        .get(`http://localhost:8000/user/${userId}/verify-otp?otp=${OTP}`)
+        .get(`http://13.235.90.125:8000/user/${userId}/verify-otp?otp=${OTP}`)
         .then((res) => {
           setOTP("");
           setUserId(null);
