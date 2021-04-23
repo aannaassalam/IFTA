@@ -89,10 +89,15 @@
 
 .modal__conatiner > div {
   height: 70%;
-  display: flex;
-  flex-direction: column;
+  /* display: flex;
+  flex-direction: column; */
   align-items: center;
   justify-content: space-around;
+  color:black;
+}
+
+.css-2b097c-container{
+  margin:5px
 }
 
 .modal__conatiner > div > input {

@@ -14,7 +14,6 @@ import $ from 'jquery'
 import { actionTypes } from "../../Reducer";
 import { Launcher } from 'react-chat-window'
 import Select from 'react-select'
-import { Checkbox } from '@material-ui/core';
 import { stateList } from '../Map/Map'
 import Map from '../Map/Map'
 
@@ -39,7 +38,7 @@ const MovieGrid = ({ award }) => {
   const [showMap, setShowMap] = useState(false);
   const [mapData, setMapdata] = useState([]);
   const [enteredState , setEnteredState] = useState('');
-  const [gender, setGender] = useState('');
+  // const [gender, setGender] = useState('');
   const gridRef = React.createRef()
 
   useEffect(() => {
@@ -247,7 +246,7 @@ const MovieGrid = ({ award }) => {
   const updateSate = () => {
     if (userIdentification) {
 
-      if(enteredState !== '' && gender !== ''){
+      if(enteredState !== ''){
       const authToken = localStorage.getItem("authToken").split(" ")[1];
       const config = {
         headers: { Authorization: `Bearer ${authToken}` },
@@ -255,7 +254,6 @@ const MovieGrid = ({ award }) => {
 
       const bodyParameters = {
         state: enteredState,
-        gender: gender
       };
 
       axios
@@ -416,15 +414,15 @@ const MovieGrid = ({ award }) => {
           height:'max-content',
         }}>
           <h4 style={{color:"white"}}>Please enter following details</h4>
-          <Select options={stateList} onChange={(e)=>{setEnteredState()}} placeholder='Select your region' style={{color:'white' , marginTop:'5px'}}/>
-          <FormControl component="fieldset" style={{color:'white' , marginTop:'5px'}}>
+          <Select options={stateList} onChange={(value)=>{setEnteredState(value.value)}} placeholder='Select your region' style={{color:'white' , marginTop:'5px'}}/>
+          {/* <FormControl component="fieldset" style={{color:'white' , marginTop:'5px'}}>
             <FormLabel component="legend" style={{color:'white' , marginTop:'5px'}}>Gender</FormLabel>
             <RadioGroup aria-label="gender" name="gender1" value={gender} onChange={(e)=> setGender(e.target.value)}>
               <FormControlLabel value="female" control={<Radio />} label="Female" />
               <FormControlLabel value="male" control={<Radio />} label="Male" />
               <FormControlLabel value="other" control={<Radio />} label="Other" />
             </RadioGroup>
-          </FormControl>
+          </FormControl> */}
           <button onClick={updateSate}>Submit</button>
         </div>
       </Modal>

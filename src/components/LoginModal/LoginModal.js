@@ -4,12 +4,13 @@ import { useStateValue } from "../../StateProvider";
 import axios from "axios";
 import { actionTypes } from "../../Reducer";
 import $ from "jquery";
-import { contours } from "d3-contour";
+import Select from 'react-select'
+import { stateList } from '../Map/Map'
 
 
 const LoginTestModal = () => {
   const [{ userIdentification }, dispatch] = useStateValue();
-
+  const [state, setState] = useState('');
   const [inputValue, setInputValue] = useState("");
   const [OTP, setOTP] = useState("");
   const [userId, setUserId] = useState(null);
@@ -30,10 +31,11 @@ const LoginTestModal = () => {
   }
 
   const handleOTP = () => {
-    if (inputValue != '' && inputValue.length === 10) {
+    if (inputValue !== '' && inputValue.length === 10 && state !== '') {
       axios
-        .post("http://13.235.90.125:8000/user/login", {
+        .post("http://localhost:8000/user/login", {
           phone: inputValue,
+          state:state
         })
         .then((res) => { setUserId(res.data.payload._id); startTimer() })
         .catch((err) => {
@@ -42,14 +44,14 @@ const LoginTestModal = () => {
           console.log(err);
         });
     } else {
-      alert('Invalid Phone Number')
+      alert('Invalid Phone Number or Region')
     }
   };
 
   const handleRegister = () => {
     if (OTP !== '') {
       axios
-        .get(`http://13.235.90.125:8000/user/${userId}/verify-otp?otp=${OTP}`)
+        .get(`http://localhost:8000/user/${userId}/verify-otp?otp=${OTP}`)
         .then((res) => {
           setOTP("");
           setUserId(null);
@@ -138,6 +140,7 @@ const LoginTestModal = () => {
                 onChange={(e) => setInputValue(e.target.value)}
                 required
               />
+              <Select options={stateList} onChange={(value) => { setState(value.value) }} placeholder='Select your region' style={{ color: 'white', margin:'5px' }} />
               {userId && (
                 <input
                   autoFocus
@@ -150,7 +153,7 @@ const LoginTestModal = () => {
               )
               }
               {
-                userId && !otpResend && <h5 style={{ marginBottom: '2px' }}>Resend OTP in <span style={{ color: 'red' }} id="otp-timer"></span> sec.</h5>
+                userId && !otpResend && <h5 style={{ marginBottom: '2px' , color:"white" }}>Resend OTP in <span style={{ color: 'red' }} id="otp-timer"></span> sec.</h5>
               }
               {
                 otpResend ? <button onClick={resendOTP}>
