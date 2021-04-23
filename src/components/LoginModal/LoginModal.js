@@ -4,6 +4,7 @@ import { useStateValue } from "../../StateProvider";
 import axios from "axios";
 import { actionTypes } from "../../Reducer";
 import $ from "jquery";
+import { contours } from "d3-contour";
 
 
 const LoginTestModal = () => {
@@ -29,41 +30,48 @@ const LoginTestModal = () => {
   }
 
   const handleOTP = () => {
-    // setUserId('607ebe8608dc804e3b811764')
-    // startTimer()
-    axios
-      .post("http://13.235.90.125:8000/user/login", {
-        phone: inputValue,
-      })
-      .then((res) => { setUserId(res.data.payload._id); startTimer() })
-      .catch((err) => {
-        setUserId(null);
-        setDescription("Invalid OTP , Try Again");
-        console.log(err);
-      });
+    if (inputValue != '' && inputValue.length === 10) {
+      axios
+        .post("http://13.235.90.125:8000/user/login", {
+          phone: inputValue,
+        })
+        .then((res) => { setUserId(res.data.payload._id); startTimer() })
+        .catch((err) => {
+          setUserId(null);
+          setDescription("Invalid OTP , Try Again");
+          console.log(err);
+        });
+    } else {
+      alert('Invalid Phone Number')
+    }
   };
 
   const handleRegister = () => {
-    axios
-      .get(`http://13.235.90.125:8000/user/${userId}/verify-otp?otp=${OTP}`)
-      .then((res) => {
-        setOTP("");
-        setUserId(null);
-        // Setting the token in local storage
-        localStorage.setItem("authToken", `bearer ${res.headers["x-auth"]}`);
-        dispatch({
-          type: actionTypes.SET_USER,
-          userIdentification: res.data.payload._id,
-          phone: res.data.payload.phone,
-          state: res.data.payload.state
+    if (OTP !== '') {
+      axios
+        .get(`http://13.235.90.125:8000/user/${userId}/verify-otp?otp=${OTP}`)
+        .then((res) => {
+          setOTP("");
+          setUserId(null);
+          // Setting the token in local storage
+          localStorage.setItem("authToken", `bearer ${res.headers["x-auth"]}`);
+          localStorage.setItem("state", `${res.data.payload.state}`);
+          dispatch({
+            type: actionTypes.SET_USER,
+            userIdentification: res.data.payload._id,
+            phone: res.data.payload.phone,
+            state: res.data.payload.state
+          });
+          setDescription(res.data.description);
+        })
+        .catch((err) => {
+          setUserId(null);
+          setDescription("Invalid OTP");
+          console.log(err);
         });
-        setDescription(res.data.description);
-      })
-      .catch((err) => {
-        setUserId(null);
-        setDescription("Invalid OTP");
-        console.log(err);
-      });
+    } else {
+      alert('Invalid OTP')
+    }
   };
 
   const openModal = () =>

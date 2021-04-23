@@ -192,6 +192,7 @@
   width: 90%;
 }
 
+
 .movieGrid__modal > div > button {
   outline: none;
   border: none;
@@ -200,6 +201,41 @@
   cursor: pointer;
   transition: all 0.2s ease-in;
 }
+
+.movieGrid__modal3 {
+  text-align: center;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items:flex-start;
+  justify-content: space-around;
+  background-color: #222;
+  height: 150px;
+  width: 270px;
+  border-radius: 10px;
+  padding: 20px;
+}
+
+.movieGrid__modal3 > h1 {
+  font-size: 1.7rem;
+}
+
+.movieGrid__modal3 > div {
+  align-items: center;
+  justify-content: space-between;
+  width: 90%;
+}
+
+.movieGrid__modal3 > div > button {
+  outline: none;
+  border: none;
+  padding: 12px 30px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.2s ease-in;
+}
+
+
 
 .movieGrid__modal > div > button:hover {
   filter: brightness(150%);

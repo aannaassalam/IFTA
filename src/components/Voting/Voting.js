@@ -14,8 +14,6 @@ import { useHistory } from "react-router-dom";
 const Voting = () => {
   const [{ userIdentification, totalVotes }, dispatch] = useStateValue();
   useEffect(() => {
-    window.scrollTo(0, 0);
-
     if (userIdentification !== null) {
       const authToken = localStorage.getItem("authToken").split(" ")[1];
       dispatch({

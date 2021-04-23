@@ -3,7 +3,7 @@ import "./MovieGrid.css";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { useHistory, useRouteMatch } from "react-router-dom";
-import { Dialog } from "@material-ui/core";
+import { Dialog, FormControlLabel , FormLabel , RadioGroup , FormControl , Radio} from "@material-ui/core";
 import { useStateValue } from "../../StateProvider";
 import ExpiredGrid from "./ExpiredGrid/ExpiredGrid";
 import NavigateNextIcon from "@material-ui/icons/NavigateNext";
@@ -13,27 +13,33 @@ import { Modal } from '@material-ui/core'
 import $ from 'jquery'
 import { actionTypes } from "../../Reducer";
 import { Launcher } from 'react-chat-window'
+import Select from 'react-select'
+import { Checkbox } from '@material-ui/core';
+import { stateList } from '../Map/Map'
 import Map from '../Map/Map'
 
-const MovieGrid = ({ award }) => {
-  const [{ userIdentification, sessionExpired , state }, dispatch] = useStateValue();
 
+const MovieGrid = ({ award }) => {
+  const [{ userIdentification, sessionExpired, state }, dispatch] = useStateValue();
+  const match = useRouteMatch();
   // OPEN OF MADALS
   const [open, setOpen] = useState(false);
   const [openConfirm, setOpenConfirm] = useState(false);
   const [openWeblink, setOpenWeblink] = useState(false);
+  const [openState, setOpenState] = useState(false);
   // DATA STORING
   const [movies, setMovies] = useState({});
   const [modalData, setModalData] = useState({});
   const [sesExpired, setSesExpired] = useState(null);
   const [carouselData, setCarouselData] = useState([]);
   const [loadingShowExpiry, setLoadingShowExpiry] = useState(true);
-  const match = useRouteMatch();
   const history = useHistory();
   const [comments, setComments] = useState([]);
   const [enteredComment, setEnteredComment] = useState('');
   const [showMap, setShowMap] = useState(false);
   const [mapData, setMapdata] = useState([]);
+  const [enteredState , setEnteredState] = useState('');
+  const [gender, setGender] = useState('');
   const gridRef = React.createRef()
 
   useEffect(() => {
@@ -66,7 +72,7 @@ const MovieGrid = ({ award }) => {
         )
         .then((res) => fetchCarouselCategories(res.data.payload));
       fetchComments()
-      window.scrollTo(0, gridRef.current.offsetTop)
+      window.scrollTo(0, gridRef.current?.offsetTop)
     }
   }, [award, loadingShowExpiry]);
 
@@ -199,33 +205,33 @@ const MovieGrid = ({ award }) => {
 
   const handleVote = (key) => {
     if (userIdentification) {
-      if(state){
+      if (!state) {
+         setOpenState(true);
+      } else {
+        const authToken = localStorage.getItem("authToken").split(" ")[1];
+        const config = {
+          headers: { Authorization: `Bearer ${authToken}` },
+        };
 
-      }else{
-      const authToken = localStorage.getItem("authToken").split(" ")[1];
-      const config = {
-        headers: { Authorization: `Bearer ${authToken}` },
-      };
+        const bodyParameters = {
+          award: match.params.award,
+          answer: key,
+          comment: enteredComment
+        };
 
-      const bodyParameters = {
-        award: match.params.award,
-        answer: key,
-        comment: enteredComment
-      };
-
-      axios
-        .post(
-          "http://13.235.90.125:8000/award/add-answer",
-          bodyParameters,
-          config
-        )
-        .then((res) => {
-          setOpen(false);
-          setTimeout(() => setOpenConfirm(true), 500);
-          fetchNominees(userIdentification);
-          setEnteredComment('');
-        })
-        .catch((err) => console.log(err));
+        axios
+          .post(
+            "http://13.235.90.125:8000/award/add-answer",
+            bodyParameters,
+            config
+          )
+          .then((res) => {
+            setOpen(false);
+            setTimeout(() => setOpenConfirm(true), 500);
+            fetchNominees(userIdentification);
+            setEnteredComment('');
+          })
+          .catch((err) => console.log(err));
       }
     } else {
       setOpen(false);
@@ -238,6 +244,49 @@ const MovieGrid = ({ award }) => {
     }
   };
 
+  const updateSate = () => {
+    if (userIdentification) {
+
+      if(enteredState !== '' && gender !== ''){
+      const authToken = localStorage.getItem("authToken").split(" ")[1];
+      const config = {
+        headers: { Authorization: `Bearer ${authToken}` },
+      };
+
+      const bodyParameters = {
+        state: enteredState,
+        gender: gender
+      };
+
+      axios
+        .patch(
+          "http://13.235.90.125:8000/user",
+          bodyParameters,
+          config
+        )
+        .then((res) => {
+          localStorage.setItem("state", `${res.data.payload.state}`);
+          dispatch({
+            type: actionTypes.SET_USER_STATE,
+            state: res.data.payload.state
+          });
+          setOpenState(false);
+          
+        })
+      }else{
+        alert('Fields can not be empty');
+      }
+    } else {
+      setOpenState(false);
+      setTimeout(() => {
+        setModalData({
+          name: "Need to Login before voting",
+        });
+        setOpenConfirm(true);
+      }, 100);
+    }
+  }
+
   const mapToggleHandler = () => {
     setShowMap(!showMap);
   }
@@ -248,7 +297,7 @@ const MovieGrid = ({ award }) => {
         {movies.nominations?.map((movie, index) => (
           <div
             className={`movieGrid__movies ${movies?.votedOnce && "movieGrid__votedOnce"
-              }`}
+              }`} key={index}
           >
             <img src={movie?.image} style={{ cursor: 'pointer' }} onClick={() => { setModalData({ name: movie.name, weblink: movie.weblink, ytlink: movie.ytlink }); setOpenWeblink(true) }} alt="img" />
             <PlayCircleOutlineIcon style={{ fontSize: 'large', cursor: 'pointer' }} onClick={() => { setModalData({ name: movie.name, weblink: movie.weblink, ytlink: movie.ytlink }); setOpenWeblink(true) }} />
@@ -261,11 +310,15 @@ const MovieGrid = ({ award }) => {
                   }`}
                 onClick={() => {
                   if (userIdentification) {
-                    setModalData({
-                      name: movie.name,
-                      key: movie.key,
-                    });
-                    setOpen(true);
+                    if (state) {
+                      setModalData({
+                        name: movie.name,
+                        key: movie.key,
+                      });
+                      setOpen(true);
+                    } else {
+                      setOpenState(true)
+                    }
                   } else {
                     $("#popup1").css({ visibility: "visible", opacity: "1" });
                   }
@@ -284,29 +337,6 @@ const MovieGrid = ({ award }) => {
             </div>
           </div>
         ))}
-        <Dialog
-          open={open}
-          onClose={() => {
-            setModalData({});
-            setOpen(false);
-          }}
-        >
-          <div className="movieGrid__modal" style={{ height: '250px', width: '250px' }}>
-            <h1>{modalData.name ? modalData.name.split('(')[0].trim() : null}</h1>
-            <textarea type="text" value={enteredComment} placeholder="Enter Comment" onChange={(e) => { setEnteredComment(e.target.value) }} required />
-            <div>
-              <button
-                onClick={() => {
-                  setTimeout(() => setModalData({}), 500);
-                  setOpen(false);
-                }}
-              >
-                Cancel
-          </button>
-              <button onClick={() => handleVote(modalData.key)}>Submit</button>
-            </div>
-          </div>
-        </Dialog>
       </div>
     </React.Fragment>
   }
@@ -333,6 +363,31 @@ const MovieGrid = ({ award }) => {
         }}
         messageList={comments}
       />
+
+      <Dialog
+        open={open}
+        onClose={() => {
+          setModalData({});
+          setOpen(false);
+        }}
+      >
+        <div className="movieGrid__modal" style={{ height: '250px', width: '250px' }}>
+          <h1>{modalData.name ? modalData.name.split('(')[0].trim() : null}</h1>
+          <textarea type="text" value={enteredComment} placeholder="Enter Comment" onChange={(e) => { setEnteredComment(e.target.value) }} required />
+          <div>
+            <button
+              onClick={() => {
+                setTimeout(() => setModalData({}), 500);
+                setOpen(false);
+              }}
+            >
+              Cancel
+          </button>
+            <button onClick={() => handleVote(modalData.key)}>Submit</button>
+          </div>
+        </div>
+      </Dialog>
+
       <Dialog open={openConfirm}>
         <div className="movieGrid__modal movieGrid__modalSecond">
           <h1>
@@ -349,6 +404,31 @@ const MovieGrid = ({ award }) => {
           </button>
         </div>
       </Dialog>
+
+      <Modal open={openState} onBackdropClick={() => {setOpenState(false); }}>
+        <div  className="movieGrid__modal3 movieGrid__modalSecond" style={{
+          position: 'absolute',
+          top: '50%',
+          left: '50%',
+          marginRight: '-50%',
+          transform: 'translate(-50%, -50%)',
+          color:'black',
+          height:'max-content',
+        }}>
+          <h4 style={{color:"white"}}>Please enter following details</h4>
+          <Select options={stateList} onChange={(e)=>{setEnteredState()}} placeholder='Select your region' style={{color:'white' , marginTop:'5px'}}/>
+          <FormControl component="fieldset" style={{color:'white' , marginTop:'5px'}}>
+            <FormLabel component="legend" style={{color:'white' , marginTop:'5px'}}>Gender</FormLabel>
+            <RadioGroup aria-label="gender" name="gender1" value={gender} onChange={(e)=> setGender(e.target.value)}>
+              <FormControlLabel value="female" control={<Radio />} label="Female" />
+              <FormControlLabel value="male" control={<Radio />} label="Male" />
+              <FormControlLabel value="other" control={<Radio />} label="Other" />
+            </RadioGroup>
+          </FormControl>
+          <button onClick={updateSate}>Submit</button>
+        </div>
+      </Modal>
+
       <Modal open={openWeblink} onBackdropClick={() => { setModalData({}); setOpenWeblink(false); }}>
         <div className="movieGrid__modalSecond" style={{
           position: 'absolute',
