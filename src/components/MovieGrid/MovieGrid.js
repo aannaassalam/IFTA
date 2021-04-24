@@ -3,7 +3,7 @@ import "./MovieGrid.css";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { useHistory, useRouteMatch } from "react-router-dom";
-import { Dialog, FormControlLabel , FormLabel , RadioGroup , FormControl , Radio} from "@material-ui/core";
+import { Dialog, FormControlLabel, FormLabel, RadioGroup, FormControl, Radio } from "@material-ui/core";
 import { useStateValue } from "../../StateProvider";
 import ExpiredGrid from "./ExpiredGrid/ExpiredGrid";
 import NavigateNextIcon from "@material-ui/icons/NavigateNext";
@@ -37,7 +37,7 @@ const MovieGrid = ({ award }) => {
   const [enteredComment, setEnteredComment] = useState('');
   const [showMap, setShowMap] = useState(false);
   const [mapData, setMapdata] = useState([]);
-  const [enteredState , setEnteredState] = useState('');
+  const [enteredState, setEnteredState] = useState('');
   // const [gender, setGender] = useState('');
   const gridRef = React.createRef()
 
@@ -73,10 +73,9 @@ const MovieGrid = ({ award }) => {
       fetchComments()
       window.scrollTo(0, gridRef.current?.offsetTop)
     }
-  }, [award, loadingShowExpiry]);
+  }, [award, loadingShowExpiry , userIdentification]);
 
   useEffect(() => {
-    console.log('Effect called')
     axios
       .get(`http://13.235.90.125:8000/award/fetchStateData/${award}`)
       .then((res) => { setMapdata(res.data.payload); setShowMap(false); })
@@ -205,7 +204,7 @@ const MovieGrid = ({ award }) => {
   const handleVote = (key) => {
     if (userIdentification) {
       if (!state) {
-         setOpenState(true);
+        setOpenState(true);
       } else {
         const authToken = localStorage.getItem("authToken").split(" ")[1];
         const config = {
@@ -229,6 +228,7 @@ const MovieGrid = ({ award }) => {
             setTimeout(() => setOpenConfirm(true), 500);
             fetchNominees(userIdentification);
             setEnteredComment('');
+            fetchComments()
           })
           .catch((err) => console.log(err));
       }
@@ -246,32 +246,32 @@ const MovieGrid = ({ award }) => {
   const updateSate = () => {
     if (userIdentification) {
 
-      if(enteredState !== ''){
-      const authToken = localStorage.getItem("authToken").split(" ")[1];
-      const config = {
-        headers: { Authorization: `Bearer ${authToken}` },
-      };
+      if (enteredState !== '') {
+        const authToken = localStorage.getItem("authToken").split(" ")[1];
+        const config = {
+          headers: { Authorization: `Bearer ${authToken}` },
+        };
 
-      const bodyParameters = {
-        state: enteredState,
-      };
+        const bodyParameters = {
+          state: enteredState,
+        };
 
-      axios
-        .patch(
-          "http://13.235.90.125:8000/user",
-          bodyParameters,
-          config
-        )
-        .then((res) => {
-          localStorage.setItem("state", `${res.data.payload.state}`);
-          dispatch({
-            type: actionTypes.SET_USER_STATE,
-            state: res.data.payload.state
-          });
-          setOpenState(false);
-          
-        })
-      }else{
+        axios
+          .patch(
+            "http://13.235.90.125:8000/user",
+            bodyParameters,
+            config
+          )
+          .then((res) => {
+            localStorage.setItem("state", `${res.data.payload.state}`);
+            dispatch({
+              type: actionTypes.SET_USER_STATE,
+              state: res.data.payload.state
+            });
+            setOpenState(false);
+
+          })
+      } else {
         alert('Fields can not be empty');
       }
     } else {
@@ -289,7 +289,7 @@ const MovieGrid = ({ award }) => {
     setShowMap(!showMap);
   }
 
-  const MovieGrid = () => {
+  const MovieGrid = ({ userIdentification }) => {
     return <React.Fragment>
       <div className="movieGrid__container" ref={gridRef}>
         {movies.nominations?.map((movie, index) => (
@@ -353,7 +353,7 @@ const MovieGrid = ({ award }) => {
 
       {movies.votedOnce ? <div style={{ color: 'white', textDecoration: 'underline', cursor: 'pointer', fontWeight: 'bold', marginBottom: '5px', fontSize: '1.5rem' }} onClick={mapToggleHandler}>{showMap ? <span>Back To Nominations</span> : <span>Per State Vote Share</span>}</div> : null}
 
-      { showMap ? <Map mapData={mapData} /> : <MovieGrid />}
+      { showMap ? <Map mapData={mapData} /> : <MovieGrid userIdentification={userIdentification} />}
 
       <Launcher
         agentProfile={{
@@ -403,18 +403,18 @@ const MovieGrid = ({ award }) => {
         </div>
       </Dialog>
 
-      <Modal open={openState} onBackdropClick={() => {setOpenState(false); }}>
-        <div  className="movieGrid__modal3 movieGrid__modalSecond" style={{
+      <Modal open={openState} onBackdropClick={() => { setOpenState(false); }}>
+        <div className="movieGrid__modal3 movieGrid__modalSecond" style={{
           position: 'absolute',
           top: '50%',
           left: '50%',
           marginRight: '-50%',
           transform: 'translate(-50%, -50%)',
-          color:'black',
-          height:'max-content',
+          color: 'black',
+          height: 'max-content',
         }}>
-          <h4 style={{color:"white"}}>Please enter following details</h4>
-          <Select options={stateList} onChange={(value)=>{setEnteredState(value.value)}} placeholder='Select your region' style={{color:'white' , marginTop:'5px'}}/>
+          <h4 style={{ color: "white" }}>Please enter following details</h4>
+          <Select options={stateList} onChange={(value) => { setEnteredState(value.value) }} placeholder='Select your region' style={{ color: 'white', marginTop: '5px' }} />
           {/* <FormControl component="fieldset" style={{color:'white' , marginTop:'5px'}}>
             <FormLabel component="legend" style={{color:'white' , marginTop:'5px'}}>Gender</FormLabel>
             <RadioGroup aria-label="gender" name="gender1" value={gender} onChange={(e)=> setGender(e.target.value)}>
