@@ -3,7 +3,7 @@ import "./MovieGrid.css";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { useHistory, useRouteMatch } from "react-router-dom";
-import { Dialog, FormControlLabel, FormLabel, RadioGroup, FormControl, Radio } from "@material-ui/core";
+import { Dialog } from "@material-ui/core";
 import { useStateValue } from "../../StateProvider";
 import ExpiredGrid from "./ExpiredGrid/ExpiredGrid";
 import NavigateNextIcon from "@material-ui/icons/NavigateNext";

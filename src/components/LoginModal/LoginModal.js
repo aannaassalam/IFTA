@@ -6,11 +6,12 @@ import { actionTypes } from "../../Reducer";
 import $ from "jquery";
 import Select from 'react-select'
 import { stateList } from '../Map/Map'
-
+import { Modal } from '@material-ui/core'
 
 const LoginTestModal = () => {
   const [{ userIdentification }, dispatch] = useStateValue();
-  const [state, setState] = useState('');
+  const [enteredState, setEnteredState] = useState('');
+  const [openState, setOpenState] = useState(false);
   const [inputValue, setInputValue] = useState("");
   const [OTP, setOTP] = useState("");
   const [userId, setUserId] = useState(null);
@@ -31,11 +32,11 @@ const LoginTestModal = () => {
   }
 
   const handleOTP = () => {
-    if (inputValue !== '' && inputValue.length === 10 && state !== '') {
+    if (inputValue !== '' && inputValue.length === 10) {
       axios
         .post("http://13.235.90.125:8000/user/login", {
           phone: inputValue,
-          state:state
+          state: ''
         })
         .then((res) => { setUserId(res.data.payload._id); startTimer() })
         .catch((err) => {
@@ -64,7 +65,9 @@ const LoginTestModal = () => {
             phone: res.data.payload.phone,
             state: res.data.payload.state
           });
-          setDescription(res.data.description);
+          if (!res.data.payload.state) { closeModal(); setOpenState(true) } else {
+            setDescription(res.data.description);
+          };
         })
         .catch((err) => {
           setUserId(null);
@@ -75,6 +78,44 @@ const LoginTestModal = () => {
       alert('Invalid OTP')
     }
   };
+
+  const updateSate = () => {
+    if (userIdentification) {
+          console.log('Hello');
+      if (enteredState !== '') {
+        const authToken = localStorage.getItem("authToken").split(" ")[1];
+        const config = {
+          headers: { Authorization: `Bearer ${authToken}` },
+        };
+
+        const bodyParameters = {
+          state: enteredState,
+        };
+
+        axios
+          .patch(
+            "http://13.235.90.125:8000/user",
+            bodyParameters,
+            config
+          )
+          .then((res) => {
+            localStorage.setItem("state", `${res.data.payload.state}`);
+            dispatch({
+              type: actionTypes.SET_USER_STATE,
+              state: res.data.payload.state
+            });
+            setOpenState(false);
+            setDescription('Logged In Sucessfully');
+            openModal();
+          })
+      } else {
+        alert('Fields can not be empty');
+      }
+    } else {
+      setOpenState(false);
+      setDescription("Please Login First");
+    }
+  }
 
   const openModal = () =>
     $("#popup1").css({ visibility: "visible", opacity: "1" });
@@ -111,7 +152,6 @@ const LoginTestModal = () => {
     console.log(timer)
   }
 
-
   return (
     <div>
       <div className="box">
@@ -140,7 +180,6 @@ const LoginTestModal = () => {
                 onChange={(e) => setInputValue(e.target.value)}
                 required
               />
-              <Select options={stateList} onChange={(value) => { setState(value.value) }} placeholder='Select your region' style={{ color: 'white', margin:'5px' }} />
               {userId && (
                 <input
                   autoFocus
@@ -153,7 +192,7 @@ const LoginTestModal = () => {
               )
               }
               {
-                userId && !otpResend && <h5 style={{ marginBottom: '2px' , color:"white" }}>Resend OTP in <span style={{ color: 'red' }} id="otp-timer"></span> sec.</h5>
+                userId && !otpResend && <h5 style={{ marginBottom: '2px', color: "white" }}>Resend OTP in <span style={{ color: 'red' }} id="otp-timer"></span> sec.</h5>
               }
               {
                 otpResend ? <button onClick={resendOTP}>
@@ -172,6 +211,21 @@ const LoginTestModal = () => {
           </div>
         )}
       </div>
+      <Modal open={openState} onBackdropClick={() => { setOpenState(false); }}>
+        <div className="movieGrid__modal3 movieGrid__modalSecond" style={{
+          position: 'absolute',
+          top: '50%',
+          left: '50%',
+          marginRight: '-50%',
+          transform: 'translate(-50%, -50%)',
+          color: 'black',
+          height: 'max-content',
+        }}>
+          <h4 style={{ color: "white" }}>Please enter following details</h4>
+          <Select options={stateList} onChange={(value) => { setEnteredState(value.value) }} placeholder='Select your region' style={{ color: 'white', marginTop: '5px' }} />
+          <button onClick={updateSate}>Submit</button>
+        </div>
+      </Modal>
     </div>
   );
 };
