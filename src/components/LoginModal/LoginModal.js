@@ -65,7 +65,7 @@ const LoginTestModal = () => {
             phone: res.data.payload.phone,
             state: res.data.payload.state
           });
-          if (!res.data.payload.state) { closeModal(); setOpenState(true) } else {
+          if (!res.data.payload.state || res.data.payload.state === '') { closeModal(); setOpenState(true) } else {
             setDescription(res.data.description);
           };
         })
