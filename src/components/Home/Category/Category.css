@@ -141,7 +141,7 @@
 }
 
 .year_heading{
-  font-size:'1.25rem'
+  font-size: 1.25rem
 }
 
 @media screen and (max-width:768px){
@@ -162,6 +162,7 @@
 
 .year_heading{
   font-size: small;
+
 }
   
 }

@@ -66,7 +66,7 @@ const Home = () => {
 
           <div className="slide-top">
             <h4 className="tagline">Vote</h4>
-            <h4 className="tagline">Nominate</h4>
+            <h4 className="tagline">&</h4>
             <h4>Decide the Winner</h4>
           </div>
         </div>
