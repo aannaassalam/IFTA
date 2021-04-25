@@ -143,7 +143,9 @@
   outline: none;
   border: none;
   border-radius: 50px;
-  background: linear-gradient(to right, #222, #555);
+  /* background: linear-gradient(to right, #222, #555); */
+  background: linear-gradient(to right, #1C1C41, #555);
+
   color: #fff;
   cursor: pointer;
   transition: all 0.3s ease-in;
@@ -152,6 +154,7 @@
 .modal__conatiner > div > button:hover,
 .modal__conatinerDesc > button:hover {
   transform: scale(1.1);
+  background: linear-gradient(to right, #1C1C41, #555);
 }
 
 @media screen and (max-width: 700px) {
@@ -168,6 +171,7 @@
 }
 input::placeholder{
   color: rgba(255, 255, 255, 0.7) !important;
+  font-size: 10px;
 }
 
 @media screen and (max-width:768px){
@@ -206,7 +210,7 @@ input::placeholder{
   align-items: center;
   justify-content: space-between;
   width: 90%;
-  padding: 20px;
+  /* padding: 20px; */
 }
 
 .movieGrid__modal3 > div > button {
@@ -216,4 +220,14 @@ input::placeholder{
   border-radius: 5px;
   cursor: pointer;
   transition: all 0.2s ease-in;
+}
+
+.submitBtn{
+  background: linear-gradient(to right, #1C1C41, #555);
+  margin-top: 20px;
+}
+.submitBtn:hover {
+  transform: scale(1.1);
+  background: linear-gradient(to right, #1C1C41, #555);
+  box-shadow: 1px 1px 1px #888;
 }

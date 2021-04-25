@@ -66,7 +66,7 @@ const LoginTestModal = () => {
             state: res.data.payload.state
           });
           if (!res.data.payload.state || res.data.payload.state === '') { closeModal(); setOpenState(true) } else {
-            setDescription(res.data.description);
+            setDescription("OTP is succesfully verified");
           };
         })
         .catch((err) => {
@@ -169,11 +169,11 @@ const LoginTestModal = () => {
             <button className="close" onClick={closeModal}>
               &times;
             </button>
-            <h1>Login with Phone Number</h1>
+            <div style={{color:"#fff",margin:10}}>Login with Phone Number</div>
             <div>
               <input
                 autoFocus
-                placeholder="Phone Number"
+                placeholder="Enter your 10-digit number"
                 value={inputValue}
                 type="number"
                 className="input-field"
@@ -206,7 +206,7 @@ const LoginTestModal = () => {
           </div>
         ) : (
           <div className="modal__conatiner modal__conatinerDesc">
-            <h1>{description}</h1>
+            <div style={{color:"#fff",margin:10}}>{description}</div>
             <button onClick={closeModal}>Close</button>
           </div>
         )}
@@ -220,10 +220,11 @@ const LoginTestModal = () => {
           transform: 'translate(-50%, -50%)',
           color: 'black',
           height: 'max-content',
+          alignItems:"center"
         }}>
-          <h4 style={{ color: "white" }}>Please enter following details</h4>
+          <div style={{color:"#fff",margin:"10px 0px",padding:"10px 0px"}}>Enter your region</div>
           <Select options={stateList} onChange={(value) => { setEnteredState(value.value) }} placeholder='Select your region' style={{ color: 'white', marginTop: '5px' }} />
-          <button onClick={updateSate}>Submit</button>
+          <button className="submitBtn" onClick={updateSate}>Submit</button>
         </div>
       </Modal>
     </div>
