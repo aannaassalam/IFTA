@@ -289,6 +289,43 @@ const MovieGrid = ({ award }) => {
     setShowMap(!showMap);
   }
 
+  const OtherNomination = ({ movie, index }) => {
+    return (
+      <React.Fragment>
+        <img src={movie?.image} alt="img" />
+        <div>
+          <button
+            disabled={movies?.votedOnce}
+            className={`movieGrid__moviesBtn ${movies.votedOnce && `movieGrid__moviesBtn${index}`
+              }`}
+            onClick={() => {
+              if (userIdentification) {
+                if (state) {
+                  setModalData({
+                    name: 'Others',
+                    key: movie.key,
+                  });
+                  setOpen(true);
+                } else {
+                  setOpenState(true)
+                }
+              } else {
+                $("#popup1").css({ visibility: "visible", opacity: "1" });
+              }
+
+            }}
+          >
+            {movies?.votedOnce && index === 0
+              ? "Voted"
+              : !movies?.votedOnce
+                ? "Vote"
+                : "Closed"}
+          </button>
+        </div>
+      </React.Fragment>
+    )
+  }
+
   const MovieGrid = ({ userIdentification }) => {
     return <React.Fragment>
       <div className="movieGrid__container" ref={gridRef}>
@@ -297,42 +334,44 @@ const MovieGrid = ({ award }) => {
             className={`movieGrid__movies ${movies?.votedOnce && "movieGrid__votedOnce"
               }`} key={index}
           >
-            <img src={movie?.image} style={{ cursor: 'pointer' }} onClick={() => { setModalData({ name: movie.name, weblink: movie.weblink, ytlink: movie.ytlink }); setOpenWeblink(true) }} alt="img" />
-            <PlayCircleOutlineIcon style={{ fontSize: 'large', cursor: 'pointer' }} onClick={() => { setModalData({ name: movie.name, weblink: movie.weblink, ytlink: movie.ytlink }); setOpenWeblink(true) }} />
+            {movie.name.split('(')[0] === 'others' ? <OtherNomination movie={movie} index={index} /> : <React.Fragment>
+              <img src={movie?.image} style={{ cursor: 'pointer' }} onClick={() => { setModalData({ name: movie.name, weblink: movie.weblink, ytlink: movie.ytlink }); setOpenWeblink(true) }} alt="img" />
+              <PlayCircleOutlineIcon style={{ fontSize: 'large', cursor: 'pointer' }} onClick={() => { setModalData({ name: movie.name, weblink: movie.weblink, ytlink: movie.ytlink }); setOpenWeblink(true) }} />
 
-            <div>
-              <h2>{movie.name.split('(')[0]}<br /><span style={{ fontSize: '0.7rem', fontWeight: 'normal' }}>{movie.name.split('(')[1].replace(')', '')}</span></h2>
-              <button
-                disabled={movies?.votedOnce}
-                className={`movieGrid__moviesBtn ${movies.votedOnce && `movieGrid__moviesBtn${index}`
-                  }`}
-                onClick={() => {
-                  if (userIdentification) {
-                    if (state) {
-                      setModalData({
-                        name: movie.name,
-                        key: movie.key,
-                      });
-                      setOpen(true);
+              <div>
+                <h2>{movie.name.split('(')[0]}<br /><span style={{ fontSize: '0.7rem', fontWeight: 'normal' }}>{movie.name.split('(')[1].replace(')', '')}</span></h2>
+                <button
+                  disabled={movies?.votedOnce}
+                  className={`movieGrid__moviesBtn ${movies.votedOnce && `movieGrid__moviesBtn${index}`
+                    }`}
+                  onClick={() => {
+                    if (userIdentification) {
+                      if (state) {
+                        setModalData({
+                          name: movie.name,
+                          key: movie.key,
+                        });
+                        setOpen(true);
+                      } else {
+                        setOpenState(true)
+                      }
                     } else {
-                      setOpenState(true)
+                      $("#popup1").css({ visibility: "visible", opacity: "1" });
                     }
-                  } else {
-                    $("#popup1").css({ visibility: "visible", opacity: "1" });
-                  }
 
-                }}
-              >
-                {movies?.votedOnce && index == 0
-                  ? "Voted"
-                  : !movies?.votedOnce
-                    ? "Vote"
-                    : "Closed"}
-              </button>
-              <h6 style={{ cursor: 'pointer' }}>
-                <a href={movie.weblink} target="_blank" style={{ color: 'white' }}>Read More</a>
-              </h6>
-            </div>
+                  }}
+                >
+                  {movies?.votedOnce && index == 0
+                    ? "Voted"
+                    : !movies?.votedOnce
+                      ? "Vote"
+                      : "Closed"}
+                </button>
+                <h6 style={{ cursor: 'pointer' }}>
+                  <a href={movie.weblink} target="_blank" style={{ color: 'white' }}>Read More</a>
+                </h6>
+              </div>
+            </React.Fragment>}
           </div>
         ))}
       </div>
