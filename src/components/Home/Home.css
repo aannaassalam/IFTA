@@ -20,6 +20,12 @@
   height: 100%;
 }
 
+.home__first > video {
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+}
+
 .home__first > div {
   display: flex;
   flex-direction: column;

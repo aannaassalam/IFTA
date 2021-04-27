@@ -63,10 +63,9 @@ const Home = () => {
           <p style={{ marginBottom: '5px', fontStyle: "italic", fontFamily: "Crimson Text, serif" }}>presents</p>
           <h1>IFTA</h1>
           <Link to={{ pathname: "/voting" }}><button style={{ backgroundColor: "#1C1C41" }}>Vote</button></Link>
-
           <div className="slide-top">
             <h4 className="tagline">Vote</h4>
-            <h4 className="tagline">&</h4>
+            <h4 className="tagline">and</h4>
             <h4>Decide the Winner</h4>
           </div>
         </div>
