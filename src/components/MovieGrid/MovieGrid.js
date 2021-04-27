@@ -294,6 +294,7 @@ const MovieGrid = ({ award }) => {
       <React.Fragment>
         <img src={movie?.image} alt="img" />
         <div>
+        <h2>None of the above</h2>
           <button
             disabled={movies?.votedOnce}
             className={`movieGrid__moviesBtn ${movies.votedOnce && `movieGrid__moviesBtn${index}`
