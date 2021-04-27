@@ -17,6 +17,7 @@ const LoginTestModal = () => {
   const [userId, setUserId] = useState(null);
   const [description, setDescription] = useState(null);
   const [otpResend, setOtpResend] = useState(false);
+  const [referalCode , setReferalCode] = useState('');
 
   const resendOTP = () => {
     axios
@@ -81,7 +82,7 @@ const LoginTestModal = () => {
 
   const updateSate = () => {
     if (userIdentification) {
-          console.log('Hello');
+      console.log('Hello');
       if (enteredState !== '') {
         const authToken = localStorage.getItem("authToken").split(" ")[1];
         const config = {
@@ -169,7 +170,7 @@ const LoginTestModal = () => {
             <button className="close" onClick={closeModal}>
               &times;
             </button>
-            <div style={{color:"#fff",margin:10}}>Login with Phone Number</div>
+            <div style={{ color: "#fff", margin: 10 }}>Login with Phone Number</div>
             <div>
               <input
                 autoFocus
@@ -178,6 +179,15 @@ const LoginTestModal = () => {
                 type="number"
                 className="input-field"
                 onChange={(e) => setInputValue(e.target.value)}
+                required
+              />
+              <input
+                autoFocus
+                placeholder="Referral code (if any)"
+                value={referalCode}
+                type="text"
+                className="input-field"
+                onChange={(e) => setReferalCode(e.target.value)}
                 required
               />
               {userId && (
@@ -206,7 +216,7 @@ const LoginTestModal = () => {
           </div>
         ) : (
           <div className="modal__conatiner modal__conatinerDesc">
-            <div style={{color:"#fff",margin:10}}>{description}</div>
+            <div style={{ color: "#fff", margin: 10 }}>{description}</div>
             <button onClick={closeModal}>Close</button>
           </div>
         )}
@@ -220,9 +230,9 @@ const LoginTestModal = () => {
           transform: 'translate(-50%, -50%)',
           color: 'black',
           height: 'max-content',
-          alignItems:"center"
+          alignItems: "center"
         }}>
-          <div style={{color:"#fff",margin:"10px 0px",padding:"10px 0px"}}>Enter your region</div>
+          <div style={{ color: "#fff", margin: "10px 0px", padding: "10px 0px" }}>Enter your region</div>
           <Select options={stateList} onChange={(value) => { setEnteredState(value.value) }} placeholder='Select your region' style={{ color: 'white', marginTop: '5px' }} />
           <button className="submitBtn" onClick={updateSate}>Submit</button>
         </div>
