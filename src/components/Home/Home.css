@@ -150,6 +150,12 @@
   letter-spacing: 0.5px;
 }
 
+#state-heading{
+  position: relative;
+  z-index: 1000;
+  top:15vh;
+}
+
 @media (max-width: 1000px) {
   .home__first {
     display: block;
@@ -181,6 +187,11 @@
 @media (max-width: 900px) {
   .home__fourth > .category {
     max-width: 90%;
+  }
+  #state-heading{
+    position: relative;
+    z-index: 1000;
+    top:0
   }
 }
 

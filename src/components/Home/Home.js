@@ -91,7 +91,7 @@ const Home = () => {
       </section>
       <section >
         <div style={{ margin: 'auto', 'textAlign': 'center' }}>
-          <h1 style={{ 'textDecoration': 'underline' }}><b>State-wise Vote Distribution</b> </h1>
+          <h1 style={{ 'textDecoration': 'underline' }} id="state-heading"><b>State-wise Vote Distribution</b> </h1>
           <Map mapData={mapData} />
         </div>
       </section>
