@@ -10,7 +10,6 @@ import { actionTypes } from "./Reducer";
 import './components/Home/particles.scss';
 import "./components/Vote/Vote.css";
 import "./components/Voting/Voting.css";
-import "../node_modules/video-react/dist/video-react.css";
 
 function App() {
   const [{}, dispatch] = useStateValue();
