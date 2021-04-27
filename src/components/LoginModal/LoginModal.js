@@ -33,20 +33,24 @@ const LoginTestModal = () => {
   }
 
   const handleOTP = () => {
-    if (inputValue !== '' && inputValue.length === 10) {
-      axios
-        .post("http://13.235.90.125:8000/user/login", {
-          phone: inputValue,
-          state: ''
-        })
-        .then((res) => { setUserId(res.data.payload._id); startTimer() })
-        .catch((err) => {
-          setUserId(null);
-          setDescription("Invalid OTP , Try Again");
-          console.log(err);
-        });
+    if (referalCode.length > 0 && referalCode !== 'r7865ikc') {
+      alert('Invalid Referral Code');
     } else {
-      alert('Invalid Phone Number or Region')
+      if (inputValue !== '' && inputValue.length === 10) {
+        axios
+          .post("http://13.235.90.125:8000/user/login", {
+            phone: inputValue,
+            state: ''
+          })
+          .then((res) => { setUserId(res.data.payload._id); startTimer() })
+          .catch((err) => {
+            setUserId(null);
+            setDescription("Invalid OTP , Try Again");
+            console.log(err);
+          });
+      } else {
+        alert('Invalid Phone Number')
+      }
     }
   };
 
