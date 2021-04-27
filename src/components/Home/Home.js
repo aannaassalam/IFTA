@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom'
 import facebook from "../../images/fb.png";
 import insta from "../../images/insta.png";
 import gif1_small from "../../images/screen-1_1_small.gif";
-import gif1_large from "../../images/screen-1_1.gif";
+import gif1_large from "../../images/21-min.gif";
 import gif2_small from "../../images/screen-1_2_small.gif";
 import gif2_large from "../../images/screen-1_2.gif";
 import ikickLogo from '../../images/ikick-logo.png'
