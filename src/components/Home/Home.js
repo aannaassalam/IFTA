@@ -59,6 +59,7 @@ const Home = () => {
       <section className="home__first">
         <img src={gif1} alt="iifa-award" />
         <div>
+          <div><h3 style={{color:'gold',marginTop:'-8vh'}}>India’s 1st People’s Choice Award</h3></div>
           <img src={ikickLogo} style={{ width: '40%', marginBottom: '15px' }} />
           <p style={{ marginBottom: '5px', fontStyle: "italic", fontFamily: "Crimson Text, serif" ,fontSize:'1.1rem'}}>presents</p>
           <h1>IFTA</h1>
