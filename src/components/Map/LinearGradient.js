@@ -5,7 +5,9 @@ const LinearGradient = props => {
   const { data } = props;
   const boxStyle = {
     width: 180,
-    margin: 'auto'
+    margin: 'auto',
+    display:'flex',
+    justifyContent:'space-between'
   };
   const gradientStyle = {
     backgroundImage: `linear-gradient(to right, ${data.fromColor} , ${data.toColor})`,
@@ -14,11 +16,12 @@ const LinearGradient = props => {
   return (
     <div>
       <div style={boxStyle} className="display-flex">
-        <span>{data.min}</span>
+        <span><small style={{fontSize:'0.6rem'}}>Min: </small>{data.min}</span>
         <span className="fill"></span>
-        <span>{data.max}</span>
+        <span><small style={{fontSize:'0.6rem'}}>Max: </small>{data.max}</span>
       </div>
       <div style={{ ...boxStyle, ...gradientStyle }} className="mt8"></div>
+      <small style={{fontSize:'0.6rem'}}>Vote share per state</small>
     </div>
   );
 };
