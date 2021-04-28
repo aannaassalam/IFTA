@@ -26,6 +26,7 @@ const MovieGrid = ({ award }) => {
   const [openConfirm, setOpenConfirm] = useState(false);
   const [openWeblink, setOpenWeblink] = useState(false);
   const [openState, setOpenState] = useState(false);
+  const [openResult, setOpenResult] = useState(false);
   // DATA STORING
   const [movies, setMovies] = useState({});
   const [modalData, setModalData] = useState({});
@@ -38,7 +39,7 @@ const MovieGrid = ({ award }) => {
   const [showMap, setShowMap] = useState(false);
   const [mapData, setMapdata] = useState([]);
   const [enteredState, setEnteredState] = useState('');
-  // const [gender, setGender] = useState('');
+  const [expiryDate, setexpiryDate] = useState('');
   const gridRef = React.createRef()
 
   useEffect(() => {
@@ -50,6 +51,8 @@ const MovieGrid = ({ award }) => {
           expired: res.data.payload.isExpired,
           totalVotes: res.data.payload.voteCount,
         });
+        let d = new Date(res.data.payload.lifeSpan);
+        setexpiryDate(d.toDateString())
         setLoadingShowExpiry(false);
       });
 
@@ -96,6 +99,17 @@ const MovieGrid = ({ award }) => {
     }
   }, [comments])
 
+  function moveArrayItemToNewIndex(arr, old_index, new_index) {
+    if (new_index >= arr.length) {
+        var k = new_index - arr.length + 1;
+        while (k--) {
+            arr.push(undefined);
+        }
+    }
+    arr.splice(new_index, 0, arr.splice(old_index, 1)[0]);
+    return arr; 
+};
+
   const fetchNominees = (userIdentification) => {
 
     if (userIdentification) {
@@ -105,8 +119,14 @@ const MovieGrid = ({ award }) => {
           headers: { Authorization: `Bearer ${authToken}` },
         })
         .then((res) => {
+          let nominations = res.data.payload[0].nominations;
+          let index = nominations.findIndex((nomination) => {
+            return nomination.name === 'others'
+          })
+          if (index !== -1) {
+            nominations = moveArrayItemToNewIndex(nominations, index, nominations.length - 1);
+          }
           if (res.data.payload[0].votedNomination) {
-            let nominations = res.data.payload[0].nominations;
             nominations.unshift(res.data.payload[0].votedNomination);
             setMovies({
               nominations: nominations,
@@ -391,7 +411,8 @@ const MovieGrid = ({ award }) => {
         Number of people voted for this category: <span>{movies.voteCount || "0"}</span>
       </p>
 
-      {movies.votedOnce ? <div style={{ color: 'white', textDecoration: 'underline', cursor: 'pointer', fontWeight: 'bold', marginBottom: '5px', fontSize: '1.5rem' }} onClick={mapToggleHandler}>{showMap ? <span>Back To Nominations</span> : <span>Per State Vote Share</span>}</div> : null}
+      {movies.votedOnce ? <div style={{ color: 'white', textDecoration: 'underline', cursor: 'pointer', fontWeight: 'bold', marginBottom: '5px', display:'inline' }} onClick={mapToggleHandler}>{showMap ? <span>Back To Nominations</span> : <span>Per State Vote Share</span>}</div> : null}   <span></span>
+      {movies.votedOnce ? <div style={{ color: 'white', textDecoration: 'underline', cursor: 'pointer', fontWeight: 'bold', marginBottom: '5px', display: 'inline' }} onClick={() => { setOpenResult(true) }}> View Result </div> : null}
 
       { showMap ? <Map mapData={mapData} /> : <MovieGrid userIdentification={userIdentification} />}
 
@@ -464,6 +485,21 @@ const MovieGrid = ({ award }) => {
             </RadioGroup>
           </FormControl> */}
           <button onClick={updateSate}>Submit</button>
+        </div>
+      </Modal>
+
+      <Modal open={openResult} onBackdropClick={() => { setOpenResult(false); }}>
+        <div className="movieGrid__modal3 movieGrid__modalSecond" style={{
+          position: 'absolute',
+          top: '50%',
+          left: '50%',
+          marginRight: '-50%',
+          transform: 'translate(-50%, -50%)',
+          color: 'black',
+          height: 'max-content',
+          alignItems:'center'
+        }}>
+          <h4 style={{ color: "white" }}>Results will be declared on <br/> {expiryDate}</h4>
         </div>
       </Modal>
 

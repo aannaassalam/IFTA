@@ -5,7 +5,8 @@ export const initialState = {
   userIdentification: localStorage.getItem('authToken') ? true : null,
   phone: null,
   token: null,
-  state: localStorage.getItem('state') ? true : null
+  state: localStorage.getItem('state') ? true : null,
+  userName:localStorage.getItem('userName') ? localStorage.getItem('userName')  : null
 };
 
 export const actionTypes = {
@@ -26,7 +27,8 @@ const reducer = (state = initialState, action) => {
         ...state,
         userIdentification: action.userIdentification,
         phone: action.phone,
-        state: action.state
+        state: action.state,
+        userName:action.userName
       };
 
     case actionTypes.SET_TOKEN:

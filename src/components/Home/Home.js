@@ -62,7 +62,7 @@ const Home = () => {
           <img src={ikickLogo} style={{ width: '40%', marginBottom: '15px' }} />
           <p style={{ marginBottom: '5px', fontStyle: "italic", fontFamily: "Crimson Text, serif" ,fontSize:'1.1rem'}}>presents</p>
           <h1>IFTA</h1>
-          <Link to={{ pathname: "/voting" }}><button style={{ backgroundColor: "#1C1C41" }}>VOTE</button></Link>
+          <Link to={{ pathname: "/voting" }}><button style={{ backgroundColor: "#1C1C41" , fontSize:'1.03rem'}}><b>VOTE</b></button></Link>
           <div className="slide-top">
             <h4 className="tagline">VOTE</h4>
             <h4 className="tagline">and</h4>

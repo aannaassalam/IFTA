@@ -7,9 +7,10 @@ import $ from "jquery";
 import Select from 'react-select'
 import { stateList } from '../Map/Map'
 import { Modal } from '@material-ui/core'
+import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 
 const LoginTestModal = () => {
-  const [{ userIdentification }, dispatch] = useStateValue();
+  const [{ userIdentification , userName }, dispatch] = useStateValue();
   const [enteredState, setEnteredState] = useState('');
   const [openState, setOpenState] = useState(false);
   const [inputValue, setInputValue] = useState("");
@@ -64,11 +65,13 @@ const LoginTestModal = () => {
           // Setting the token in local storage
           localStorage.setItem("authToken", `bearer ${res.headers["x-auth"]}`);
           localStorage.setItem("state", `${res.data.payload.state}`);
+          localStorage.setItem("userName", `${res.data.payload.userName}`);
           dispatch({
             type: actionTypes.SET_USER,
             userIdentification: res.data.payload._id,
             phone: res.data.payload.phone,
-            state: res.data.payload.state
+            state: res.data.payload.state,
+            userName: res.data.payload.userName
           });
           if (!res.data.payload.state || res.data.payload.state === '') { closeModal(); setOpenState(true) } else {
             setDescription("OTP is succesfully verified");
@@ -166,6 +169,9 @@ const LoginTestModal = () => {
         >
           {userIdentification ? "Logout" : "Login"}
         </button>
+        <div>
+        {userIdentification ? <AccountCircleIcon />  : null} {userIdentification ? userName : null}
+        </div>
       </div>
 
       <div id="popup1" className="overlay">
