@@ -411,7 +411,7 @@ const MovieGrid = ({ award }) => {
         Number of people voted for this category: <span>{movies.voteCount || "0"}</span>
       </p>
 
-      {movies.votedOnce ? <div style={{ color: 'white', textDecoration: 'underline', cursor: 'pointer', fontWeight: 'bold', marginBottom: '5px', display:'inline' }} onClick={mapToggleHandler}>{showMap ? <span>Back To Nominations</span> : <span>Per State Vote Share</span>}</div> : null}   <span></span>
+      {movies.votedOnce ? <div style={{ color: 'white', textDecoration: 'underline', cursor: 'pointer', fontWeight: 'bold', marginBottom: '5px', display:'inline' }} onClick={mapToggleHandler}>{showMap ? <span>Back To Nominations</span> : <span>Vote Share Per State </span>}</div> : null}   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
       {movies.votedOnce ? <div style={{ color: 'white', textDecoration: 'underline', cursor: 'pointer', fontWeight: 'bold', marginBottom: '5px', display: 'inline' }} onClick={() => { setOpenResult(true) }}> View Result </div> : null}
 
       { showMap ? <Map mapData={mapData} /> : <MovieGrid userIdentification={userIdentification} />}

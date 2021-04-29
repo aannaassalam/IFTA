@@ -16,9 +16,6 @@ const LinearGradient = props => {
 
   return (
     <div>
-      <div>
-        <h4>Total Votes: {data.total}</h4>
-      </div>
       <div style={boxStyle} className="display-flex">
         <span><small style={{ fontSize: '0.6rem' }}>Min: </small>{data.min}</span>
         <span className="fill"></span>
@@ -26,6 +23,9 @@ const LinearGradient = props => {
       </div>
       <div style={{ ...boxStyle, ...gradientStyle }} className="mt8"></div>
       <small style={{ fontSize: '0.6rem' }}>Vote share per state</small>
+      <div style={{padding:'10px'}}>
+        <h4>Total Votes: {data.total}</h4>
+      </div>
     </div>
   );
 };

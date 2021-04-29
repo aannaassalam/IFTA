@@ -60,9 +60,9 @@ const Home = () => {
       <section className="home__first">
         <img src={gif1} alt="iifa-award" />
         <div>
-          <div><h3 style={{color:'gold',marginTop:'-8vh'}}>India’s 1st People’s Choice Award</h3></div>
           <img src={ikickLogo} style={{ width: '40%', marginBottom: '15px' }} />
           <p style={{ marginBottom: '5px', fontStyle: "italic", fontFamily: "Crimson Text, serif" ,fontSize:'1.1rem'}}>presents</p>
+          <div style={{padding:'20px'}}><h3 style={{color:'gold'}}>India’s 1st People’s Choice Award</h3></div>
           <h1>IFTA</h1>
           <Link to={{ pathname: "/voting" }}><button style={{ backgroundColor: "#1C1C41" , fontSize:'1.03rem'}}><b>VOTE</b></button></Link>
           <div className="slide-top">
@@ -81,7 +81,7 @@ const Home = () => {
       </section>
       <section className="home__third">
         <div style={{ margin: 'auto', 'textAlign': 'center' }}>
-          <h1 style={{ 'textDecoration': 'underline' }}><b>Nominations for IFTA 2020-21</b> </h1>
+          <h1 style={{ 'textDecoration': 'underline' }}><b>Nominees for IFTA 2020-21</b> </h1>
         </div>
         <br />
         <div>
