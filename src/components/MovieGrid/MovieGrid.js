@@ -12,10 +12,10 @@ import PlayCircleOutlineIcon from '@material-ui/icons/PlayCircleOutline';
 import { Modal } from '@material-ui/core'
 import $ from 'jquery'
 import { actionTypes } from "../../Reducer";
-import { Launcher } from 'react-chat-window'
 import Select from 'react-select'
 import { stateList } from '../Map/Map'
 import Map from '../Map/Map'
+import CommentBox from './Comment';
 
 
 const MovieGrid = ({ award }) => {
@@ -415,12 +415,7 @@ const MovieGrid = ({ award }) => {
 
       { showMap ? <Map mapData={mapData} /> : <MovieGrid userIdentification={userIdentification} />}
 
-      <Launcher
-        agentProfile={{
-          teamName: movies.heading ? `Audience Comments \n (${movies.heading.trim()})` : '',
-        }}
-        messageList={comments}
-      />
+      <CommentBox movies={movies} comments={comments}/>
 
       <Dialog
         open={open}
@@ -498,7 +493,7 @@ const MovieGrid = ({ award }) => {
           height: 'max-content',
           alignItems:'center'
         }}>
-          <h4 style={{ color: "white" }}>Results will be declared on <br/> {expiryDate}</h4>
+          <h4 style={{ color: "white" }}>Result will be declared on <br/> {expiryDate}</h4>
         </div>
       </Modal>
 

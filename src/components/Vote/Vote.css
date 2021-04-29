@@ -19,34 +19,7 @@
   font-family: Oswald, sans-serif;
 }
 
-.sc-user-input {
-  display: none;
-  visibility: 0;
-}
-.sc-chat-window{
-z-index: 1000;
-}
 
-.sc-launcher{
-  cursor: pointer;
-}
-
-.sc-message-list{
-background-color:#000000ad
-}
-
-.sc-message--avatar{
-  visibility:hidden
-}
-
-.sc-message--content.received .sc-message--text{
-  margin-right:0px;
-  text-align:left
-}
-
-.sc-message--avatar{
-  margin-right:0px
-}
 
 
 

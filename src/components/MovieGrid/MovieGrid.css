@@ -293,3 +293,32 @@
   }
 
 }
+
+.sc-user-input {
+  display: none!important;
+  visibility: 0  !important;
+}
+.sc-chat-window{
+z-index: 1000 !important;
+}
+
+.sc-launcher{
+  cursor: pointer !important;
+}
+
+.sc-message-list{
+background-color:#000000ad !important
+}
+
+.sc-message--avatar{
+  visibility:hidden
+}
+
+.sc-message--content.received .sc-message--text{
+  margin-right:0px !important;
+  text-align:left !important
+}
+
+.sc-message--avatar{
+  margin-right:0px !important
+}
