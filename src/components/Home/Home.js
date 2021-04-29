@@ -103,6 +103,10 @@ const Home = () => {
           <div>
             <div>
               <p>Copyright © 2021 All rights reserved | This website is made by iKick Enterprise LLP</p>
+              <p style={{paddingTop:'20px'}}>
+              <div style={{color:'white' , display:'inline-block',verticalAlign:'top'}}>Address:</div><br/>
+              <div style={{display:'inline-block'}}>Plot Number 463, Sector 38,<br/> Gurugram, Haryana 122022</div>
+              </p>
             </div>
           </div>
         </div>
@@ -111,6 +115,13 @@ const Home = () => {
           <div>
             <a href="https://www.facebook.com/iftaupdates/" target='_blank'><img src={facebook} alt="facebook" /></a>
             <a href="https://www.instagram.com/invites/contact/?i=wx5knaabmc8r&utm_content=k3ecgpa" target='_blank'><img src={insta} alt="instagram" /></a>
+          </div>
+          <div>
+            <p>
+              Write to us:<br/>
+              <span  style={{color:'#bbb'}}>mailtoifta@gmail.com</span><br/>
+              <span  style={{color:'#bbb'}}>info@ifta.co.in</span>
+            </p>
           </div>
         </div>
       </footer>

@@ -30,7 +30,7 @@ const Voting = () => {
     <div className="voting">
       <div className="voting__login">
         <h2>
-          Total Votes casted: <CountUp end={totalVotes} duration={2.75} />
+          Total Votes: <CountUp end={totalVotes} duration={2.75} />
         </h2>
         <div style={{display:'flex',flexDirection:'row'}}>
           <div className="box">
