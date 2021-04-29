@@ -163,7 +163,6 @@ const MovieGrid = ({ award }) => {
           let old_comments = [];
           for (let comment of received) {
             if (comment.comment) {
-              console.log(comment)
               old_comments.push({
                 author: comment.user.userName,
                 type: 'text',
@@ -418,7 +417,7 @@ const MovieGrid = ({ award }) => {
 
       <Launcher
         agentProfile={{
-          teamName: 'Audience Comments',
+          teamName: movies.heading ? `Audience Comments \n (${movies.heading.trim()})` : '',
         }}
         messageList={comments}
       />
