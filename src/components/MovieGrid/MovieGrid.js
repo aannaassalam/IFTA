@@ -494,7 +494,7 @@ const MovieGrid = ({ award }) => {
           alignItems:'center',
           boxShadow:'0 0 15px 5px #d4c4c482'
         }}>
-          <h4 style={{ color: "white" }}>Result will be declared on <br/> {moment(expiryDate).format("MMM Do YY")}</h4>
+          <h4 style={{ color: "white" }}>Result will be declared on <br/> {moment(expiryDate).format("Do MMM YY")}</h4>
         </div>
       </Modal>
 

@@ -11,7 +11,7 @@ const CommentBox = function ({ movies, comments }){
         <React.Fragment>
             <Launcher
                 agentProfile={{
-                    teamName: movies.heading ? `Audience Comments- "${movies.heading.trim()}"` : '',
+                    teamName: movies.heading ? `Audience Comments - "${movies.heading.trim()}"` : '',
                 }}
                 messageList={comments}
                 isOpen={isOpen}
