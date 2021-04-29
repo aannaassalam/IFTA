@@ -16,7 +16,7 @@ import Select from 'react-select'
 import { stateList } from '../Map/Map'
 import Map from '../Map/Map'
 import CommentBox from './Comment';
-
+import moment from 'moment';
 
 const MovieGrid = ({ award }) => {
   const [{ userIdentification, sessionExpired, state }, dispatch] = useStateValue();
@@ -74,7 +74,7 @@ const MovieGrid = ({ award }) => {
         )
         .then((res) => fetchCarouselCategories(res.data.payload));
       fetchComments()
-      window.scrollTo(0, gridRef.current?.offsetTop)
+      // window.scrollTo(0, gridRef.current?.offsetTop)
     }
   }, [award, loadingShowExpiry , userIdentification]);
 
@@ -491,9 +491,10 @@ const MovieGrid = ({ award }) => {
           transform: 'translate(-50%, -50%)',
           color: 'black',
           height: 'max-content',
-          alignItems:'center'
+          alignItems:'center',
+          boxShadow:'0 0 15px 5px #d4c4c482'
         }}>
-          <h4 style={{ color: "white" }}>Result will be declared on <br/> {expiryDate}</h4>
+          <h4 style={{ color: "white" }}>Result will be declared on <br/> {moment(expiryDate).format("MMM Do YY")}</h4>
         </div>
       </Modal>
 

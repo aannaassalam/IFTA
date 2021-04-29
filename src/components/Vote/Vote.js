@@ -32,9 +32,9 @@ const Vote = ({ match }) => {
           <div className="box">
             <button className="modal__btn" onClick={()=>goToHome()}>Home</button>
           </div>
-          <div className="box">
+          {/* <div className="box">
             <button className="modal__btn" onClick={()=>goToBack()}>Back</button>
-          </div>
+          </div> */}
           <LoginModal />
         </div>
       </div>

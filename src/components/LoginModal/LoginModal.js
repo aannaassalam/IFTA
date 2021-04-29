@@ -169,9 +169,9 @@ const LoginTestModal = () => {
         >
           {userIdentification ? "Logout" : "Login"}
         </button>
-        <div>
+        {/* <div>
         {userIdentification ? <AccountCircleIcon />  : null} {userIdentification ? userName : null}
-        </div>
+        </div> */}
       </div>
 
       <div id="popup1" className="overlay">
