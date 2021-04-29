@@ -13,6 +13,7 @@ import gif2_large from "../../images/screen-1_2.gif";
 import ikickLogo from '../../images/ikick-logo.png'
 import Map from '../Map/Map'
 import axios from 'axios'
+import { useStateValue } from "../../StateProvider";
 
 const Home = () => {
   const catRef = useRef(null);

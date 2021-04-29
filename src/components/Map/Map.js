@@ -145,7 +145,10 @@ function Map(props) {
         fromColor: COLOR_RANGE[0],
         toColor: COLOR_RANGE[COLOR_RANGE.length - 1],
         min: 0,
-        max: data.reduce((max, item) => (item.value > max ? item.value : max), 0)
+        max: data.reduce((max, item) => (item.value > max ? item.value : max), 0),
+        total: data.reduce((sum, data) => {
+            return sum += data.value;
+        }, 0)
     };
 
     const colorScale = scaleQuantile()
