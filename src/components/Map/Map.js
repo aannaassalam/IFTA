@@ -87,8 +87,9 @@ export const stateList = [
     { label: 'Puducherry', value: 'Puducherry' }
 ]
 
-// will generate random heatmap data on every call
-let HeatMapData = [
+
+function Map(props) {
+    let HeatMapData = [
     { id: 'AP', state: 'Andhra Pradesh', value: 0 },
     { id: 'AR', state: 'Arunachal Pradesh', value: 0 },
     { id: 'AS', state: 'Assam', value: 0 },
@@ -128,11 +129,8 @@ let HeatMapData = [
     { id: 'LD', state: 'Lakshadweep', value: 0 },
     { id: 'PY', state: 'Puducherry', value: 0 }
 ];
-
-
-function Map(props) {
     const [tooltipContent, setTooltipContent] = useState('');
-    let data = []
+    let data = [];
 
     let payload = props.mapData;
     for (let state of payload) {

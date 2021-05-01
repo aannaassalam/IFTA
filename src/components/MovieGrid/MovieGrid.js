@@ -81,7 +81,7 @@ const MovieGrid = ({ award }) => {
   useEffect(() => {
     axios
       .get(`http://13.235.90.125:8000/award/fetchStateData/${award}`)
-      .then((res) => { setMapdata(res.data.payload); setShowMap(false); })
+      .then((res) => {setMapdata(res.data.payload); setShowMap(false); })
       .catch((err) => {
         console.log(err);
       })

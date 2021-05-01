@@ -143,23 +143,27 @@ const Navbar = () => {
               className="nav__items"
               key={nav._id}
               onClick={() => handleNav(nav._id)}
+              key={i}
             >
               {nav.title} <ExpandMoreIcon />
             </li>
 
             <div tabIndex={0} className="navbar__dropdown"  onBlur={(e)=>closeNav(nav._id)} id={nav._id}>
-              {nav.awards?.map((award) => ( 
+              {nav.awards?.map((award,i) => ( 
                 <Link
                   id={award._id}
                   onFocus={()=>goToVote(award._id)}
                   key={award._id}
                   to={`/vote/${award._id}`}
+                  key={i}
                   style={{
                     background: `${
                       award.answer.length > 0
                         ? "linear-gradient(to right, #233329, #63D471)"
                         : "#000"
                     }`,
+                 height:'30px',
+                 justifyContent:'center',
                   }}
                 >
                   {award.heading}
