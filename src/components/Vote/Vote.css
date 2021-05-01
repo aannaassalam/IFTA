@@ -4,7 +4,7 @@
   position: relative;
 }
 
-.vote > h2 {
+.vote > div > h2 {
   position: absolute;
   color: #fff;
   top: 1.5rem;
@@ -13,7 +13,7 @@
   font-weight: 500;
 }
 
-.vote > h2 > span {
+.vote > div > h2 > span {
   margin-left: 3px;
   font-size: 1.6rem;
   font-family: Oswald, sans-serif;

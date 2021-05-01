@@ -7,7 +7,6 @@ import $ from "jquery";
 import Select from 'react-select'
 import { stateList } from '../Map/Map'
 import { Modal } from '@material-ui/core'
-import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import { useHistory } from "react-router-dom";
 
 const LoginTestModal = () => {
@@ -24,7 +23,7 @@ const LoginTestModal = () => {
 
   const resendOTP = () => {
     axios
-      .post("http://13.235.90.125:8000/user/login", {
+      .post("/user/login", {
         phone: inputValue,
       })
       .then((res) => { setUserId(res.data.payload._id); startTimer(); setOtpResend(false) })
@@ -41,7 +40,7 @@ const LoginTestModal = () => {
     } else {
       if (inputValue !== '' && inputValue.length === 10) {
         axios
-          .post("http://13.235.90.125:8000/user/login", {
+          .post("/user/login", {
             phone: inputValue,
             state: ''
           })
@@ -60,7 +59,7 @@ const LoginTestModal = () => {
   const handleRegister = () => {
     if (OTP !== '') {
       axios
-        .get(`http://13.235.90.125:8000/user/${userId}/verify-otp?otp=${OTP}`)
+        .get(`/user/${userId}/verify-otp?otp=${OTP}`)
         .then((res) => {
           setOTP("");
           setUserId(null);
@@ -104,7 +103,7 @@ const LoginTestModal = () => {
 
         axios
           .patch(
-            "http://13.235.90.125:8000/user",
+            "/user",
             bodyParameters,
             config
           )
@@ -167,7 +166,7 @@ const LoginTestModal = () => {
   }
 
   return (
-    <div style={{display:'flex',flexDirection:'column',flexWrap:'wrap-reverse'}}>
+    <div style={{display:'flex',flexDirection:'column'}}>
       <div className="box">
           <div className="box" style={{display:'flex',justifyContent:'space-between'}}>
             <button className="modal__btn" onClick={()=>goToHome()}>Home</button>
@@ -178,10 +177,6 @@ const LoginTestModal = () => {
           {userIdentification ? "Logout" : "Login"}
         </button>
           </div>
-        <div style={{padding:'10px' , width:'max-content' , position:'relative' ,padding:'10px' , paddingRight:'50px'}}>
-        <span style={{fontFamily: 'Oswald, sans-serif' , position:'relative' , right:'10px' , padding:'10px'}}>{userIdentification ? <AccountCircleIcon style={{fontSize:'2rem'}} />  : null} {userIdentification ? <span style={{verticalAlign:'top' , fontFamily: 'Oswald, sans-serif', fontSize:'1rem'}}>Welcome</span>  : null} </span><br/>
-        <span style={{fontFamily: 'Oswald, sans-serif', fontSize:'1rem'}}>{userIdentification ? userName : null}</span>
-        </div>
       </div>
 
       <div id="popup1" className="overlay">

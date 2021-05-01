@@ -15,12 +15,12 @@
   justify-content: space-between;
 }
 
-.voting__login > h2 {
+.voting__login >  div > h2 {
   font-size: 1.4rem;
   font-weight: 500;
 }
 
-.voting__login > h2 > span {
+.voting__login > div > h2 > span {
   margin-left: 3px;
   font-size: 1.6rem;
   font-family: Oswald, sans-serif;
@@ -67,12 +67,12 @@
   }
 
 
-  .voting__login > h2 {
+  .voting__login > div > h2 {
     font-size: 0.8rem;
     font-weight: 500;
   }
 
-  .voting__login > h2 > span {
+  .voting__login > div > h2 > span {
     margin-left: 3px;
     font-size: 0.9rem;
     font-family: Oswald, sans-serif;

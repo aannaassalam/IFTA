@@ -5,6 +5,9 @@ import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { StateProvider } from "./StateProvider";
 import reducer, { initialState } from "./Reducer";
+import axios from 'axios'
+
+axios.defaults.baseURL = 'http://13.235.90.125:8000'
 
 ReactDOM.render(
   <React.StrictMode>

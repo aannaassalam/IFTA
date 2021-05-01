@@ -44,7 +44,7 @@ const MovieGrid = ({ award }) => {
 
   useEffect(() => {
     axios
-      .get("http://13.235.90.125:8000/show/?showId=602a7e3c14367b662559c85f")
+      .get("/show/?showId=602a7e3c14367b662559c85f")
       .then((res) => {
         dispatch({
           type: actionTypes.SET_EXPIREDandTOTALVOTE,
@@ -62,7 +62,7 @@ const MovieGrid = ({ award }) => {
     if (!loadingShowExpiry) {
       if (sessionExpired) {
         axios
-          .get(`http://13.235.90.125:8000/award/results?id=${award}`)
+          .get(`/award/results?id=${award}`)
           .then((res) => setSesExpired(res.data.payload));
       } else {
         fetchNominees(userIdentification);
@@ -70,18 +70,18 @@ const MovieGrid = ({ award }) => {
 
       axios
         .get(
-          "http://13.235.90.125:8000/show/fetchCategories?showId=602a7e3c14367b662559c85f"
+          "/show/fetchCategories?showId=602a7e3c14367b662559c85f"
         )
         .then((res) => fetchCarouselCategories(res.data.payload));
       fetchComments()
       // window.scrollTo(0, gridRef.current?.offsetTop)
     }
-  }, [award, loadingShowExpiry , userIdentification]);
+  }, [award, loadingShowExpiry, userIdentification]);
 
   useEffect(() => {
     axios
-      .get(`http://13.235.90.125:8000/award/fetchStateData/${award}`)
-      .then((res) => {setMapdata(res.data.payload); setShowMap(false); })
+      .get(`/award/fetchStateData/${award}`)
+      .then((res) => { setMapdata(res.data.payload); setShowMap(false); })
       .catch((err) => {
         console.log(err);
       })
@@ -101,21 +101,21 @@ const MovieGrid = ({ award }) => {
 
   function moveArrayItemToNewIndex(arr, old_index, new_index) {
     if (new_index >= arr.length) {
-        var k = new_index - arr.length + 1;
-        while (k--) {
-            arr.push(undefined);
-        }
+      var k = new_index - arr.length + 1;
+      while (k--) {
+        arr.push(undefined);
+      }
     }
     arr.splice(new_index, 0, arr.splice(old_index, 1)[0]);
-    return arr; 
-};
+    return arr;
+  };
 
   const fetchNominees = (userIdentification) => {
 
     if (userIdentification) {
       const authToken = localStorage.getItem("authToken").split(" ")[1];
       axios
-        .get(`http://13.235.90.125:8000/award/logedIn?id=${award}`, {
+        .get(`/award/logedIn?id=${award}`, {
           headers: { Authorization: `Bearer ${authToken}` },
         })
         .then((res) => {
@@ -146,7 +146,7 @@ const MovieGrid = ({ award }) => {
         .catch((err) => alert(err));
     } else {
       axios
-        .get(`http://13.235.90.125:8000/award?id=${award}`)
+        .get(`/award?id=${award}`)
         .then((res) => {
           setMovies(res.data.payload[0]);
         })
@@ -156,7 +156,7 @@ const MovieGrid = ({ award }) => {
 
   const fetchComments = () => {
     axios
-      .get(`http://13.235.90.125:8000/award/audienceComments?id=${award}`)
+      .get(`/award/audienceComments?id=${award}`)
       .then((res) => {
         let received = res.data.payload;
         setComments(() => {
@@ -238,13 +238,12 @@ const MovieGrid = ({ award }) => {
 
         axios
           .post(
-            "http://13.235.90.125:8000/award/add-answer",
+            "/award/add-answer",
             bodyParameters,
             config
           )
           .then((res) => {
             setOpen(false);
-            setTimeout(() => setOpenConfirm(true), 500);
             fetchNominees(userIdentification);
             setEnteredComment('');
             fetchComments()
@@ -277,7 +276,7 @@ const MovieGrid = ({ award }) => {
 
         axios
           .patch(
-            "http://13.235.90.125:8000/user",
+            "/user",
             bodyParameters,
             config
           )
@@ -313,7 +312,7 @@ const MovieGrid = ({ award }) => {
       <React.Fragment>
         <img src={movie?.image} alt="img" />
         <div>
-        <h2>None of the above</h2>
+          <h2>None of the above</h2>
           <button
             disabled={movies?.votedOnce}
             className={`movieGrid__moviesBtn ${movies.votedOnce && `movieGrid__moviesBtn${index}`
@@ -410,12 +409,12 @@ const MovieGrid = ({ award }) => {
         Number of people voted for this category: <span>{movies.voteCount || "0"}</span>
       </p>
 
-      {movies.votedOnce ? <div style={{ color: 'white', textDecoration: 'underline', cursor: 'pointer', fontWeight: 'bold', marginBottom: '5px', display:'inline' }} onClick={mapToggleHandler}>{showMap ? <span>Back To Nominations</span> : <span>Vote Share Per State </span>}</div> : null}   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+      {movies.votedOnce ? <div style={{ color: 'white', textDecoration: 'underline', cursor: 'pointer', fontWeight: 'bold', marginBottom: '5px', display: 'inline' }} onClick={mapToggleHandler}>{showMap ? <span>Back To Nominations</span> : <span>Vote Share Per State </span>}</div> : null}   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
       {movies.votedOnce ? <div style={{ color: 'white', textDecoration: 'underline', cursor: 'pointer', fontWeight: 'bold', marginBottom: '5px', display: 'inline' }} onClick={() => { setOpenResult(true) }}> View Result </div> : null}
 
       { showMap ? <Map mapData={mapData} /> : <MovieGrid userIdentification={userIdentification} />}
 
-      <CommentBox movies={movies} comments={comments}/>
+      <CommentBox movies={movies} comments={comments} />
 
       <Dialog
         open={open}
@@ -424,10 +423,11 @@ const MovieGrid = ({ award }) => {
           setOpen(false);
         }}
       >
-        <div className="movieGrid__modal" style={{ height: 'max-content', width: 'max-content' , padding:'20px' }}>
-          <h1>{modalData.name ? modalData.name.split('(')[0].trim() : null}</h1>
-          <div style={{height:'max-content',width:'max-content',padding:'10px 0 10px'}}>
-          <textarea type="text" value={enteredComment} placeholder="Enter Comment" onChange={(e) => { setEnteredComment(e.target.value) }} />
+        <div className="movieGrid__modal" style={{ height: 'max-content', width: 'max-content', padding: '20px' }}>
+          <h6>You Voted</h6>
+          <h4>"<i>{modalData.name ? modalData.name.split('(')[0].trim() : null}</i>"</h4>
+          <div style={{ height: 'max-content', width: 'max-content', padding: '10px 0 10px' }}>
+            <textarea type="text" value={enteredComment} placeholder="Enter Comment" onChange={(e) => { setEnteredComment(e.target.value) }} />
           </div>
           <div>
             <button
@@ -438,7 +438,7 @@ const MovieGrid = ({ award }) => {
             >
               Cancel
           </button>
-            <button onClick={() => handleVote(modalData.key)}>Submit</button>
+            <button onClick={() => handleVote(modalData.key)}>Confirm</button>
           </div>
         </div>
       </Dialog>
@@ -493,10 +493,10 @@ const MovieGrid = ({ award }) => {
           transform: 'translate(-50%, -50%)',
           color: 'black',
           height: 'max-content',
-          alignItems:'center',
-          boxShadow:'0 0 15px 5px #d4c4c482'
+          alignItems: 'center',
+          boxShadow: '0 0 15px 5px #d4c4c482'
         }}>
-          <h4 style={{ color: "white" }}>Result will be declared on <br/> {moment(expiryDate).format("Do MMM YY")}</h4>
+          <h4 style={{ color: "white" }}>Result will be declared on <br /> {moment(expiryDate).format("Do MMM YY")}</h4>
         </div>
       </Modal>
 
