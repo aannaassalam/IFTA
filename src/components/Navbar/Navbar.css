@@ -152,17 +152,17 @@
 
 .navbar__dropdown-voted {
   position: absolute;
-  top: 6px;
-  left: -12px;
+  top: 15px;
+  left: -15px;
   background-color: green !important;
   transform: rotate(-90deg);
   font-size: small;
-  padding: 5px 7px;
   letter-spacing: 1px;
   text-transform: uppercase;
+  width: 50px;
 }
 
-.navbar__dropdown-voted::after {
+/* .navbar__dropdown-voted::after {
   background-color: green;
   position: absolute;
   bottom: -15px;
@@ -170,7 +170,7 @@
   width: 10px;
   height: 15px;
   transform: skew(-45deg);
-}
+} */
 
 #blur-div{
   width:100%;
@@ -210,6 +210,7 @@
   .navbar__dropdown > a{
     font-size: 10px;
     width:60%;
+    box-shadow: 0 0 10px 1px #f0f8ff34;
   }
 
 }

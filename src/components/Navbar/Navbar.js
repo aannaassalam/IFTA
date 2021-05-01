@@ -1,7 +1,7 @@
-import React, { useState, useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import "./Navbar.css";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
-import { Link, useLocation, useRouteMatch , useHistory} from "react-router-dom";
+import { Link, useLocation, useRouteMatch, useHistory } from "react-router-dom";
 import axios from "axios";
 import { useStateValue } from "../../StateProvider";
 import $ from 'jquery'
@@ -21,13 +21,13 @@ const Navbar = () => {
   // }, 500);
 
   useEffect(() => {
-    console.log('isloading',isLoading)
+    console.log('isloading', isLoading)
     if (!isLoading) {
-      console.log('location',location)
+      console.log('location', location)
       if (location.pathname === "/voting" && location.state !== undefined) {
         // Getting the navId passed from category
         const { navId } = location.state;
-          handleNav(navId);
+        handleNav(navId);
       }
 
       if (match.path === "/vote/:award") {
@@ -69,7 +69,7 @@ const Navbar = () => {
     if (match.path === "/vote/:award") {
       handleVoteNav(null, dropdown);
     }
-    
+
     if (
       dropdown?.classList.contains("navbar__dropdownShow") &&
       dropdown !== null
@@ -80,7 +80,7 @@ const Navbar = () => {
 
       blurdiv.style.display = "none";
     } else {
-      if(closeId==id) return;
+      if (closeId == id) return;
       Array.from(allDropdown).forEach(function (el) {
         el.classList.remove("navbar__dropdownShow");
       });
@@ -90,15 +90,15 @@ const Navbar = () => {
         el.classList.remove("nav-active");
       });
       dropdown?.focus()
-      blurdiv.style.display="block";
+      blurdiv.style.display = "block";
       dropdown?.previousSibling.classList.add("nav-active");
     }
   };
-  const closeNav = (id)=>{
+  const closeNav = (id) => {
     const dropdown = document.getElementById(id);
     const blurdiv = document.getElementById('blur-div');
     closeId = id;
-    setTimeout(()=>{
+    setTimeout(() => {
       if (
         dropdown?.classList.contains("navbar__dropdownShow") &&
         dropdown !== null
@@ -108,11 +108,11 @@ const Navbar = () => {
         dropdown?.previousSibling.classList.remove("nav-active");
         blurdiv.style.display = "none";
       }
-    },0);
-    setTimeout(()=>{
-      closeId='';
-    },200)
- 
+    }, 0);
+    setTimeout(() => {
+      closeId = '';
+    }, 200)
+
   }
   const handleVoteNav = (id, dropdownId) => {
     if (id === null) {
@@ -133,11 +133,11 @@ const Navbar = () => {
       prev.classList.add("nav-active-vote");
     }
   };
-  const goToVote = (id)=>{history.push(`/vote/${id}`)}
+  const goToVote = (id) => { history.push(`/vote/${id}`) }
   return (
     <nav className="navbar" id="navbar">
       <ul className="navbar__nav">
-        {navTitle.map((nav,i) => (
+        {navTitle.map((nav, i) => (
           <>
             <li
               className="nav__items"
@@ -148,28 +148,28 @@ const Navbar = () => {
               {nav.title} <ExpandMoreIcon />
             </li>
 
-            <div tabIndex={0} className="navbar__dropdown"  onBlur={(e)=>closeNav(nav._id)} id={nav._id}>
-              {nav.awards?.map((award,i) => ( 
+            <div tabIndex={0} className="navbar__dropdown" onBlur={(e) => closeNav(nav._id)} id={nav._id}>
+              {nav.awards?.map((award, i) => (
                 <Link
                   id={award._id}
-                  onFocus={()=>goToVote(award._id)}
+                  onFocus={() => goToVote(award._id)}
                   key={award._id}
                   to={`/vote/${award._id}`}
                   key={i}
                   style={{
-                    background: `${
-                      award.answer.length > 0
+                    background: `${award.answer.length > 0
                         ? "linear-gradient(to right, #233329, #63D471)"
                         : "#000"
-                    }`,
-                 height:'30px',
-                 justifyContent:'center',
+                      }`,
+                    height: '30px',
+                    justifyContent: 'center',
+                    display:'inline-block'
                   }}
                 >
                   {award.heading}
                   {award.answer.length > 0 && (
                     <span className="navbar__dropdown-voted">
-                      VOTED<span></span>
+                      VOTED
                     </span>
                   )}
                 </Link>
