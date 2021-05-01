@@ -23,19 +23,14 @@ const Voting = () => {
     }
   }, [userIdentification]);
   const history = useHistory();
-  const goToHome = ()=>{
-    history.push("/")
-  }
+
   return (
     <div className="voting">
       <div className="voting__login">
-        <h2>
+        <h2 style={{display:'inline',verticalAlign:'top'}}>
           Total Votes: <CountUp end={totalVotes} duration={2.75} />
         </h2>
-        <div style={{display:'flex',flexDirection:'row'}}>
-          <div className="box">
-            <button className="modal__btn" onClick={()=>goToHome()}>Home</button>
-          </div>
+        <div style={{display:'flex',flexDirection:'row' , width:'min-content'}}>
           <LoginModal />
         </div>
       </div>

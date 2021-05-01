@@ -8,6 +8,7 @@ import Select from 'react-select'
 import { stateList } from '../Map/Map'
 import { Modal } from '@material-ui/core'
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
+import { useHistory } from "react-router-dom";
 
 const LoginTestModal = () => {
   const [{ userIdentification , userName }, dispatch] = useStateValue();
@@ -19,6 +20,7 @@ const LoginTestModal = () => {
   const [description, setDescription] = useState(null);
   const [otpResend, setOtpResend] = useState(false);
   const [referalCode , setReferalCode] = useState('');
+  const history = useHistory();
 
   const resendOTP = () => {
     axios
@@ -160,18 +162,26 @@ const LoginTestModal = () => {
     console.log(timer)
   }
 
+  const goToHome = ()=>{
+    history.push("/")
+  }
+
   return (
-    <div>
+    <div style={{display:'flex',flexDirection:'column',flexWrap:'wrap-reverse'}}>
       <div className="box">
-        <button
+          <div className="box" style={{display:'flex',justifyContent:'space-between'}}>
+            <button className="modal__btn" onClick={()=>goToHome()}>Home</button>
+            <button
           onClick={userIdentification ? handleLogout : openModal}
           className="modal__btn"
         >
           {userIdentification ? "Logout" : "Login"}
         </button>
-        {/* <div>
-        {userIdentification ? <AccountCircleIcon />  : null} {userIdentification ? userName : null}
-        </div> */}
+          </div>
+        <div style={{padding:'10px' , width:'max-content' , position:'relative' ,padding:'10px' , paddingRight:'50px'}}>
+        <span style={{fontFamily: 'Oswald, sans-serif' , position:'relative' , right:'10px' , padding:'10px'}}>{userIdentification ? <AccountCircleIcon style={{fontSize:'2rem'}} />  : null} {userIdentification ? <span style={{verticalAlign:'top' , fontFamily: 'Oswald, sans-serif', fontSize:'1rem'}}>Welcome</span>  : null} </span><br/>
+        <span style={{fontFamily: 'Oswald, sans-serif', fontSize:'1rem'}}>{userIdentification ? userName : null}</span>
+        </div>
       </div>
 
       <div id="popup1" className="overlay">

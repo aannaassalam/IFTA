@@ -424,9 +424,11 @@ const MovieGrid = ({ award }) => {
           setOpen(false);
         }}
       >
-        <div className="movieGrid__modal" style={{ height: '250px', width: '250px' }}>
+        <div className="movieGrid__modal" style={{ height: 'max-content', width: 'max-content' , padding:'20px' }}>
           <h1>{modalData.name ? modalData.name.split('(')[0].trim() : null}</h1>
-          <textarea type="text" value={enteredComment} placeholder="Enter Comment" onChange={(e) => { setEnteredComment(e.target.value) }} required />
+          <div style={{height:'max-content',width:'max-content',padding:'10px 0 10px'}}>
+          <textarea type="text" value={enteredComment} placeholder="Enter Comment" onChange={(e) => { setEnteredComment(e.target.value) }} />
+          </div>
           <div>
             <button
               onClick={() => {

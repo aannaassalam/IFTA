@@ -28,10 +28,7 @@ const Vote = ({ match }) => {
         <h2>
           Total votes casted: <CountUp end={totalVotes} duration={2.75} />
         </h2>
-        <div style={{display:'flex',flexDirection:'row'}}>
-          <div className="box">
-            <button className="modal__btn" onClick={()=>goToHome()}>Home</button>
-          </div>
+        <div style={{display:'flex',flexDirection:'row', width:'min-content'}}>
           {/* <div className="box">
             <button className="modal__btn" onClick={()=>goToBack()}>Back</button>
           </div> */}
