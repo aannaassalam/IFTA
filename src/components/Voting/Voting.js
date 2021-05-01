@@ -28,12 +28,12 @@ const Voting = () => {
     <div className="voting">
       <div className="voting__login">
         <div>
-          <h2>
+          <h2 style={{color:'gold'}}>
             Total votes: <CountUp end={totalVotes} duration={2.75} />
           </h2>
           <div style={{ padding: '10px', width: 'max-content', position: 'relative', paddingTop: '10px'}}>
-            <span style={{ fontFamily: 'Oswald, sans-serif', position: 'relative', paddingTop: '10px' }}>{userIdentification ? <AccountCircleIcon style={{ fontSize: '2rem' }} /> : null} </span><br />
-            <span style={{ fontFamily: 'Oswald, sans-serif', fontSize: '1rem' }}>{userIdentification ? userName : null}</span>
+            <span style={{ fontFamily: 'Oswald, sans-serif', position: 'relative', paddingTop: '10px' }}>{userIdentification ? <AccountCircleIcon style={{ fontSize: '2rem' }} /> : null} </span>
+            <span style={{ fontFamily: 'Oswald, sans-serif', fontSize: '1rem' , verticalAlign:'top' }}>{userIdentification ? userName : null}</span>
           </div>
         </div>
         <div style={{ display: 'flex', flexDirection: 'row', width: 'min-content' }}>
