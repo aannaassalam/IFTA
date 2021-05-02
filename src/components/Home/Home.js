@@ -44,7 +44,7 @@ const Home = () => {
   })
 
   useEffect(() => {
-    axios.get('http://13.235.90.125:8000/show/fetchStateWiseData/602a7e3c14367b662559c85f')
+    axios.get('/show/fetchStateWiseData/602a7e3c14367b662559c85f')
       .then((res) => {
         let payload = res.data.payload;
         setMapData(payload);
