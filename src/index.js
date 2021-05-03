@@ -7,7 +7,7 @@ import { StateProvider } from "./StateProvider";
 import reducer, { initialState } from "./Reducer";
 import axios from 'axios'
 
-axios.defaults.baseURL = 'https://nationalsportsawards.in/backend'
+axios.defaults.baseURL = 'https://ifta.co.in/backend'
 
 ReactDOM.render(
   <React.StrictMode>

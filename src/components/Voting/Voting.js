@@ -33,7 +33,7 @@ const Voting = () => {
           </h2>
           <div style={{ padding: '10px', width: 'max-content', position: 'relative', paddingTop: '10px'}}>
             <span style={{ fontFamily: 'Oswald, sans-serif', position: 'relative', paddingTop: '10px' }}>{userIdentification ? <AccountCircleIcon style={{ fontSize: '2rem' }} /> : null} </span>
-            <span style={{ fontFamily: 'Oswald, sans-serif', fontSize: '1rem' , verticalAlign:'top' }}>{userIdentification ? userName : null}</span>
+            <span style={{ fontFamily: 'Oswald, sans-serif', fontSize: '0.8rem' , verticalAlign:'top' }}>{userIdentification ? userName : null}</span>
           </div>
         </div>
         <div style={{ display: 'flex', flexDirection: 'row', width: 'min-content' }}>

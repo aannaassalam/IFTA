@@ -55,8 +55,17 @@ const MovieGrid = ({ award }) => {
         setexpiryDate(d.toDateString())
         setLoadingShowExpiry(false);
       });
+  }, []);
 
-  }, [])
+  useEffect(() => {
+    if (!loadingShowExpiry) {
+      axios
+        .get(
+          "/show/fetchCategories?showId=602a7e3c14367b662559c85f"
+        )
+        .then((res) => fetchCarouselCategories(res.data.payload));
+    }
+  }, [loadingShowExpiry])
 
   useEffect(() => {
     if (!loadingShowExpiry) {
@@ -67,25 +76,20 @@ const MovieGrid = ({ award }) => {
       } else {
         fetchNominees(userIdentification);
       }
-
-      axios
-        .get(
-          "/show/fetchCategories?showId=602a7e3c14367b662559c85f"
-        )
-        .then((res) => fetchCarouselCategories(res.data.payload));
-      fetchComments()
       // window.scrollTo(0, gridRef.current?.offsetTop)
     }
   }, [award, loadingShowExpiry, userIdentification]);
 
   useEffect(() => {
-    axios
-      .get(`/award/fetchStateData/${award}`)
-      .then((res) => { setMapdata(res.data.payload); setShowMap(false); })
-      .catch((err) => {
-        console.log(err);
-      })
-  }, [award, loadingShowExpiry]);
+    if (userIdentification) {
+      axios
+        .get(`/award/fetchStateData/${award}`)
+        .then((res) => { setMapdata(res.data.payload); setShowMap(false); })
+        .catch((err) => {
+          console.log(err);
+        })
+    }
+  }, [award, userIdentification]);
 
   useEffect(() => {
     var elements = document.querySelectorAll('.Linkify');
@@ -142,6 +146,7 @@ const MovieGrid = ({ award }) => {
               votedOnce: false,
             });
           }
+          fetchComments(res.data.payload[0]);
         })
         .catch((err) => alert(err));
     } else {
@@ -154,28 +159,23 @@ const MovieGrid = ({ award }) => {
     }
   };
 
-  const fetchComments = () => {
-    axios
-      .get(`/award/audienceComments?id=${award}`)
-      .then((res) => {
-        let received = res.data.payload;
-        setComments(() => {
-          let old_comments = [];
-          for (let comment of received) {
-            if (comment.comment) {
-              old_comments.push({
-                author: comment.user.userName,
-                type: 'text',
-                data: {
-                  text: `@${comment.user.userName} voted for "${comment.award.nominations.name.split('(')[0].trim()}" \n${comment.comment}`
-                }
-              })
+  const fetchComments = ({ comments_data }) => {
+    let received = comments_data;
+    setComments(() => {
+      let old_comments = [];
+      for (let comment of received) {
+        if (comment.comment) {
+          old_comments.push({
+            author: comment.user.userName,
+            type: 'text',
+            data: {
+              text: `@${comment.user.userName} voted for "${comment.award.nominations.name.split('(')[0].trim()}" \n${comment.comment}`
             }
-          }
-          return old_comments;
-        })
-      })
-      .catch((err) => console.log(err));
+          })
+        }
+      }
+      return old_comments;
+    })
   };
 
   const fetchCarouselCategories = (arr) => {
@@ -246,7 +246,6 @@ const MovieGrid = ({ award }) => {
             setOpen(false);
             fetchNominees(userIdentification);
             setEnteredComment('');
-            fetchComments()
           })
           .catch((err) => console.log(err));
       }
@@ -496,7 +495,7 @@ const MovieGrid = ({ award }) => {
           alignItems: 'center',
           boxShadow: '0 0 15px 5px #d4c4c482'
         }}>
-          <h4 style={{ color: "white" }}>Result will be declared on <br /> {moment(expiryDate).format("Do MMM YY")}</h4>
+          <h4 style={{ color: "white" }}>Result will be declared on <br /> {moment(expiryDate).format("Do MMMM, YYYY")}</h4>
         </div>
       </Modal>
 

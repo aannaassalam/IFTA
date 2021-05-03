@@ -7,8 +7,7 @@ import { useStateValue } from "../../StateProvider";
 import $ from 'jquery'
 
 const Navbar = () => {
-  const [{ userIdentification }, dispatch] = useStateValue();
-  const [navTitle, setNavTitle] = useState([]);
+  const [{ awards }, dispatch] = useStateValue();
   const [isLoading, setIsLoading] = useState(true);
   const location = useLocation();
   const match = useRouteMatch();
@@ -39,27 +38,6 @@ const Navbar = () => {
     }
   }, [isLoading])
 
-  useEffect(() => {
-    if (userIdentification) {
-      const authToken = localStorage.getItem("authToken").split(" ")[1];
-      axios
-        .get(
-          "/show/fetchCategories/logedIn?showId=602a7e3c14367b662559c85f",
-          {
-            headers: { Authorization: `Bearer ${authToken}` },
-          }
-        )
-        .then((res) => setNavTitle(res.data.payload))
-        .catch((err) => alert(err));
-    } else {
-      axios
-        .get(
-          "/show/fetchCategories?showId=602a7e3c14367b662559c85f"
-        )
-        .then((res) => setNavTitle(res.data.payload));
-    }
-
-  }, [userIdentification]);
   let closeId = '';
   const handleNav = (id) => {
     const dropdown = document.getElementById(id);
@@ -137,7 +115,7 @@ const Navbar = () => {
   return (
     <nav className="navbar" id="navbar">
       <ul className="navbar__nav">
-        {navTitle.map((nav, i) => (
+        {awards.map((nav, i) => (
           <>
             <li
               className="nav__items"

@@ -55,6 +55,10 @@
   margin-bottom: 0;
 }
 
+.userName{
+  font-size: 1.1rem;
+}
+
 
 @media screen and (max-width:768px){
   .voting__video {
@@ -76,6 +80,10 @@
     margin-left: 3px;
     font-size: 0.9rem;
     font-family: Oswald, sans-serif;
+  }
+
+  .userName{
+    font-size: 0.8rem;
   }
 
 }
