@@ -19,7 +19,7 @@ import CommentBox from './Comment';
 import moment from 'moment';
 
 const MovieGrid = ({ award }) => {
-  const [{ userIdentification, sessionExpired, state }, dispatch] = useStateValue();
+  const [{ userIdentification, sessionExpired, state, awards, expiryDate }, dispatch] = useStateValue();
   const match = useRouteMatch();
   // OPEN OF MADALS
   const [open, setOpen] = useState(false);
@@ -32,64 +32,27 @@ const MovieGrid = ({ award }) => {
   const [modalData, setModalData] = useState({});
   const [sesExpired, setSesExpired] = useState(null);
   const [carouselData, setCarouselData] = useState([]);
-  const [loadingShowExpiry, setLoadingShowExpiry] = useState(true);
   const history = useHistory();
   const [comments, setComments] = useState([]);
   const [enteredComment, setEnteredComment] = useState('');
   const [showMap, setShowMap] = useState(false);
   const [mapData, setMapdata] = useState([]);
   const [enteredState, setEnteredState] = useState('');
-  const [expiryDate, setexpiryDate] = useState('');
   const gridRef = React.createRef()
 
   useEffect(() => {
-    axios
-      .get("/show/?showId=602a7e3c14367b662559c85f")
-      .then((res) => {
-        dispatch({
-          type: actionTypes.SET_EXPIREDandTOTALVOTE,
-          expired: res.data.payload.isExpired,
-          totalVotes: res.data.payload.voteCount,
-        });
-        let d = new Date(res.data.payload.lifeSpan);
-        setexpiryDate(d.toDateString())
-        setLoadingShowExpiry(false);
-      });
-  }, []);
+    fetchCarouselCategories(awards)
+  }, [awards]);
 
   useEffect(() => {
-    if (!loadingShowExpiry) {
+    if (sessionExpired === true) {
       axios
-        .get(
-          "/show/fetchCategories?showId=602a7e3c14367b662559c85f"
-        )
-        .then((res) => fetchCarouselCategories(res.data.payload));
+        .get(`/award/results?id=${award}`)
+        .then((res) => setSesExpired(res.data.payload));
+    } else if(sessionExpired === false) {
+      fetchNominees(userIdentification);
     }
-  }, [loadingShowExpiry])
-
-  useEffect(() => {
-    if (!loadingShowExpiry) {
-      if (sessionExpired) {
-        axios
-          .get(`/award/results?id=${award}`)
-          .then((res) => setSesExpired(res.data.payload));
-      } else {
-        fetchNominees(userIdentification);
-      }
-      // window.scrollTo(0, gridRef.current?.offsetTop)
-    }
-  }, [award, loadingShowExpiry, userIdentification]);
-
-  useEffect(() => {
-    if (userIdentification) {
-      axios
-        .get(`/award/fetchStateData/${award}`)
-        .then((res) => { setMapdata(res.data.payload); setShowMap(false); })
-        .catch((err) => {
-          console.log(err);
-        })
-    }
-  }, [award, userIdentification]);
+  }, [award, userIdentification , sessionExpired]);
 
   useEffect(() => {
     var elements = document.querySelectorAll('.Linkify');
@@ -115,7 +78,6 @@ const MovieGrid = ({ award }) => {
   };
 
   const fetchNominees = (userIdentification) => {
-
     if (userIdentification) {
       const authToken = localStorage.getItem("authToken").split(" ")[1];
       axios
@@ -123,6 +85,7 @@ const MovieGrid = ({ award }) => {
           headers: { Authorization: `Bearer ${authToken}` },
         })
         .then((res) => {
+          console.log('Nominees API response');
           let nominations = res.data.payload[0].nominations;
           let index = nominations.findIndex((nomination) => {
             return nomination.name === 'others'
@@ -147,6 +110,8 @@ const MovieGrid = ({ award }) => {
             });
           }
           fetchComments(res.data.payload[0]);
+          setMapdata(res.data.payload[0].state_data);
+          setShowMap(false);
         })
         .catch((err) => alert(err));
     } else {
@@ -154,6 +119,9 @@ const MovieGrid = ({ award }) => {
         .get(`/award?id=${award}`)
         .then((res) => {
           setMovies(res.data.payload[0]);
+          fetchComments(res.data.payload[0]);
+          setMapdata(res.data.payload[0].state_data);
+          setShowMap(false);
         })
         .catch((err) => console.log(err));
     }
@@ -396,7 +364,7 @@ const MovieGrid = ({ award }) => {
     </React.Fragment>
   }
 
-  return !sessionExpired ? (
+  return sessionExpired === false ? (
     <div className="movieGrid">
       <div className="movieGrid__carousel">
         <NavigateBeforeIcon onClick={handlePrevious} />

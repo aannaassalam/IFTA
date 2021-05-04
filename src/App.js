@@ -1,5 +1,5 @@
 import "./App.css";
-import { BrowserRouter as Router, Route, Switch, HashRouter } from "react-router-dom";
+import {Route, Switch, HashRouter } from "react-router-dom";
 import Home from "./components/Home/Home";
 import Voting from "./components/Voting/Voting";
 import Bollywood from "./components/Vote/Vote";
@@ -26,6 +26,7 @@ function App() {
           type: actionTypes.SET_EXPIREDandTOTALVOTE,
           expired: res.data.payload.isExpired,
           totalVotes: res.data.payload.voteCount,
+          expiryDate:res.data.lifeSpan
         });
       });
   };

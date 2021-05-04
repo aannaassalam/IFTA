@@ -1,12 +1,13 @@
 export const initialState = {
-  sessionExpired: true,
+  sessionExpired: null,
   totalVotes: 0,
   awards: [],
   userIdentification: localStorage.getItem('authToken') ? true : null,
   phone: null,
   token: null,
   state: localStorage.getItem('state') ? true : null,
-  userName:localStorage.getItem('userName') ? localStorage.getItem('userName')  : null
+  userName:localStorage.getItem('userName') ? localStorage.getItem('userName')  : null,
+  expiryDate:''
 };
 
 export const actionTypes = {
@@ -48,6 +49,7 @@ const reducer = (state = initialState, action) => {
         ...state,
         sessionExpired: action.expired,
         totalVotes: action.totalVotes,
+        expiryDate:action.expiryDate
       };
     case actionTypes.SET_USER_STATE:
       return {
