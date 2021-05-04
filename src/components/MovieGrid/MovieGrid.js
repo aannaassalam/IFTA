@@ -201,7 +201,8 @@ const MovieGrid = ({ award }) => {
         const bodyParameters = {
           award: match.params.award,
           answer: key,
-          comment: enteredComment
+          comment: enteredComment,
+          show:'602a7e3c14367b662559c85f'
         };
 
         axios
