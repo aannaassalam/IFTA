@@ -35,7 +35,7 @@ const LoginTestModal = () => {
   }
 
   const handleOTP = () => {
-    if (referalCode.length > 0 && referalCode !== 'r7865ikc') {
+    if (referalCode.length > 0 && referalCode !== 'r7865ikc'  && referalCode !== 'vds5267g' && referalCode !== '7437sdvi' && referalCode !== 'sdjhv852' && referalCode !== 'xnmzbm64' && referalCode !== 'mcds6730') {
       alert('Invalid Referral Code');
     } else {
       if (inputValue !== '' && inputValue.length === 10) {
@@ -90,7 +90,6 @@ const LoginTestModal = () => {
 
   const updateSate = () => {
     if (userIdentification) {
-      console.log('Hello');
       if (enteredState !== '') {
         const authToken = localStorage.getItem("authToken").split(" ")[1];
         const config = {

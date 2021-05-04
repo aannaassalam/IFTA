@@ -32,6 +32,7 @@
   align-items: center;
   justify-content: center;
   font-family: "Manrope", sans-serif;
+  min-height: min-content;
 }
 
 .home__first > div > h1 {
@@ -165,8 +166,8 @@
     height: 100vh;
   }
 
-  .home__first > div {
-    height: 78vh;
+  #middle-div{
+    min-height: max-content;
   }
 
   .home__first > div > h1 {

@@ -59,13 +59,13 @@ const Home = () => {
 
       <section className="home__first">
         <img src={gif1} alt="iifa-award" />
-        <div>
+        <div id="middle-div">
           <img src={ikickLogo} style={{ width: '40%', marginBottom: '15px' }} />
           <p style={{ marginBottom: '5px', fontStyle: "italic", fontFamily: "Crimson Text, serif" ,fontSize:'1.1rem'}}>presents</p>
-          <div style={{padding:'20px'}}><h3 style={{color:'gold'}}>India’s 1st People’s Choice Award</h3></div>
+          <div style={{padding:'20px'}}><h3 style={{color:'gold' , textAlign:'center'}}>India’s 1st People’s Choice Award</h3></div>
           <h1>IFTA</h1>
           <Link to={{ pathname: "/voting" }}><button style={{ backgroundColor: "#1C1C41" , fontSize:'1.03rem'}}><b>VOTE</b></button></Link>
-          <div className="slide-top">
+          <div className="slide-top" style={{height:'150px'}}>
             <h4 className="tagline">VOTE</h4>
             <h4 className="tagline">and</h4>
             <h4>DECIDE THE WINNER</h4>
