@@ -100,6 +100,7 @@ const MovieGrid = ({ award }) => {
               heading: res.data.payload[0].heading,
               voteCount: res.data.payload[0].voteCount,
               votedOnce: true,
+              _id:res.data.payload[0]._id
             });
           } else {
             setMovies({
@@ -107,6 +108,7 @@ const MovieGrid = ({ award }) => {
               heading: res.data.payload[0].heading,
               voteCount: res.data.payload[0].voteCount,
               votedOnce: false,
+              _id:res.data.payload[0]._id
             });
           }
           fetchComments(res.data.payload[0]);

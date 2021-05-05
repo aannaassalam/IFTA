@@ -26,7 +26,7 @@ function App() {
           type: actionTypes.SET_EXPIREDandTOTALVOTE,
           expired: res.data.payload.isExpired,
           totalVotes: res.data.payload.voteCount,
-          expiryDate:res.data.lifeSpan
+          expiryDate:res.data.payload.lifeSpan
         });
       });
   };
