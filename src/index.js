@@ -7,7 +7,7 @@ import { StateProvider } from "./StateProvider";
 import reducer, { initialState } from "./Reducer";
 import axios from 'axios'
 
-axios.defaults.baseURL = 'http://localhost:8000'//'https://ifta.co.in/backend'
+axios.defaults.baseURL = "http://localhost:8000"//'https://ifta.co.in/backend'
 
 ReactDOM.render(
   <React.StrictMode>

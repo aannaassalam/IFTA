@@ -12,14 +12,35 @@ const CommentBox = function ({ movies, comments }) {
     const [page, setPage] = useState(1);
 
     useEffect(() => {
+        var elements = document.querySelectorAll('.Linkify');
+        for (let i = 0; i < elements.length; i++) {
+            let element = elements[i];
+            let text = element.innerHTML;
+            let data = text.split(' voted for ');
+            let comment = data[1].split('\n');
+            element.innerHTML = `<strong><b>${data[0]}</b></strong> voted for <span style="font-weight:normal ; color:grey">${comment[0]}</span>\n${comment[1]}`
+        }
+    })
+
+    useEffect(() => {
         setMessageList(comments);
     }, [comments]);
+
+    useEffect(() => {
+        // const scrollPosition = sessionStorage.getItem("scrollPosition");
+        // if (scrollPosition) {
+        //     console.log(scrollPosition);
+        //     document.querySelector('.sc-message-list').scrollTo(0, parseInt(scrollPosition));
+        //     sessionStorage.removeItem("scrollPosition");
+        // }
+    })
 
     useEffect(() => {
         if (isFetching) {
             axios.get('/award/audienceComments?id=' + movies._id + '&page=' + page)
                 .then(
                     (res) => {
+                        sessionStorage.setItem("scrollPosition", document.querySelector('.sc-message-list').scrollHeight);
                         setMessageList(() => {
                             let old_comments = [];
                             let received = res.data.payload;

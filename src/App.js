@@ -1,5 +1,5 @@
 import "./App.css";
-import {Route, Switch, HashRouter } from "react-router-dom";
+import { Route, Switch, HashRouter } from "react-router-dom";
 import Home from "./components/Home/Home";
 import Voting from "./components/Voting/Voting";
 import Bollywood from "./components/Vote/Vote";
@@ -13,23 +13,6 @@ import "./components/Voting/Voting.css";
 
 function App() {
   const [{ userIdentification }, dispatch] = useStateValue();
-
-  useEffect(() => {
-    checkIfExpired();
-  }, []);
-
-  const checkIfExpired = () => {
-    axios
-      .get("/show/?showId=602a7e3c14367b662559c85f")
-      .then((res) => {
-        dispatch({
-          type: actionTypes.SET_EXPIREDandTOTALVOTE,
-          expired: res.data.payload.isExpired,
-          totalVotes: res.data.payload.voteCount,
-          expiryDate:res.data.payload.lifeSpan
-        });
-      });
-  };
 
   useEffect(() => {
     getAwards();
@@ -46,10 +29,25 @@ function App() {
           }
         )
         .then((res) => {
+
           dispatch({
             type: actionTypes.SET_AWARDS,
-            awards: res.data.payload,
+            awards: res.data.payload.awards,
           });
+
+          dispatch({
+            type: actionTypes.SET_EXPIREDandTOTALVOTE,
+            expired: res.data.payload.show.isExpired,
+            totalVotes: res.data.payload.show.voteCount,
+            expiryDate: res.data.payload.show.lifeSpan
+          });
+
+
+          dispatch({
+            type: actionTypes.SET_STATE_VOTE_DATA,
+            voteData: res.data.payload.voteData
+          });
+
         })
         .catch((err) => alert(err));
     } else {
@@ -60,7 +58,20 @@ function App() {
         .then((res) => {
           dispatch({
             type: actionTypes.SET_AWARDS,
-            awards: res.data.payload,
+            awards: res.data.payload.awards,
+          });
+
+          dispatch({
+            type: actionTypes.SET_EXPIREDandTOTALVOTE,
+            expired: res.data.payload.show.isExpired,
+            totalVotes: res.data.payload.show.voteCount,
+            expiryDate: res.data.payload.show.lifeSpan
+          });
+
+
+          dispatch({
+            type: actionTypes.SET_STATE_VOTE_DATA,
+            voteData: res.data.payload.voteData
           });
         })
     }

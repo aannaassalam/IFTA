@@ -12,15 +12,13 @@ import gif2_small from "../../images/screen-1_2_small.gif";
 import gif2_large from "../../images/screen-1_2.gif";
 import ikickLogo from '../../images/ikick-logo.png'
 import Map from '../Map/Map'
-import axios from 'axios'
 import { useStateValue } from "../../StateProvider";
 
 const Home = () => {
   const catRef = useRef(null);
   const [gif1, setGif1] = useState(gif1_small);
   const [gif2, setGif2] = useState(gif2_small);
-  const [mapData, setMapData] = useState([]);
-
+  const [{ stateVoteData }, dispatch] = useStateValue();
   let loaded1 = false;
   let loaded2 = false;
   useEffect(() => {
@@ -43,17 +41,6 @@ const Home = () => {
     }
   })
 
-  useEffect(() => {
-    axios.get('/show/fetchStateWiseData/602a7e3c14367b662559c85f')
-      .then((res) => {
-        let payload = res.data.payload;
-        setMapData(payload);
-      })
-      .catch((err) => {
-        console.log(err);
-      })
-  }, [])
-
   return (
     <div className="home">
 
@@ -61,11 +48,11 @@ const Home = () => {
         <img src={gif1} alt="iifa-award" />
         <div id="middle-div">
           <img src={ikickLogo} style={{ width: '40%', marginBottom: '15px' }} />
-          <p style={{ marginBottom: '5px', fontStyle: "italic", fontFamily: "Crimson Text, serif" ,fontSize:'1.1rem'}}>presents</p>
-          <div style={{padding:'20px'}}><h3 style={{color:'gold' , textAlign:'center'}}>India’s 1st People’s Choice Award</h3></div>
+          <p style={{ marginBottom: '5px', fontStyle: "italic", fontFamily: "Crimson Text, serif", fontSize: '1.1rem' }}>presents</p>
+          <div style={{ padding: '20px' }}><h3 style={{ color: 'gold', textAlign: 'center' }}>India’s 1st People’s Choice Award</h3></div>
           <h1>IFTA</h1>
-          <Link to={{ pathname: "/voting" }}><button style={{ backgroundColor: "#1C1C41" , fontSize:'1.03rem'}}><b>VOTE</b></button></Link>
-          <div className="slide-top" style={{height:'150px'}}>
+          <Link to={{ pathname: "/voting" }}><button style={{ backgroundColor: "#1C1C41", fontSize: '1.03rem' }}><b>VOTE</b></button></Link>
+          <div className="slide-top" style={{ height: '150px' }}>
             <h4 className="tagline">VOTE</h4>
             <h4 className="tagline">and</h4>
             <h4>DECIDE THE WINNER</h4>
@@ -94,7 +81,7 @@ const Home = () => {
       <section >
         <div style={{ margin: 'auto', 'textAlign': 'center' }}>
           <h1 style={{ 'textDecoration': 'underline' }} id="state-heading"><b>State-wise Vote Distribution</b> </h1>
-          <Map mapData={mapData} />
+          <Map mapData={stateVoteData} />
         </div>
       </section>
       <footer className="home__footer">
@@ -103,9 +90,9 @@ const Home = () => {
           <div>
             <div>
               <p>Copyright © 2021 All rights reserved | This website is made by iKick Enterprise LLP</p>
-              <p style={{paddingTop:'20px'}}>
-              <div style={{color:'white' , display:'inline-block',verticalAlign:'top'}}>Address:</div><br/>
-              <div style={{display:'inline-block'}}>Plot Number 463, Sector 38,<br/> Gurugram, Haryana 122022</div>
+              <p style={{ paddingTop: '20px' }}>
+                <div style={{ color: 'white', display: 'inline-block', verticalAlign: 'top' }}>Address:</div><br />
+                <div style={{ display: 'inline-block' }}>Plot Number 463, Sector 38,<br /> Gurugram, Haryana 122022</div>
               </p>
             </div>
           </div>
@@ -118,9 +105,9 @@ const Home = () => {
           </div>
           <div>
             <p>
-              Write to us:<br/>
-              <span  style={{color:'#bbb'}}>mailtoifta@gmail.com</span><br/>
-              <span  style={{color:'#bbb'}}>info@ifta.co.in</span>
+              Write to us:<br />
+              <span style={{ color: '#bbb' }}>mailtoifta@gmail.com</span><br />
+              <span style={{ color: '#bbb' }}>info@ifta.co.in</span>
             </p>
           </div>
         </div>
