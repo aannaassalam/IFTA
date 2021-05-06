@@ -40,7 +40,7 @@ let smallKeys1 = smallKeys;
 let it1 = 0;
 // let it2 = 0;
 
-for (let n = 0; n < 1; n++) {
+for (let n = 0; n < 3; n++) {
   if (n === 0) {
     x1.push(smallImages[smallKeys1[it1]].default, bigImages[bigKeys1[it1++]].default, bigImages[bigKeys1[it1]].default, smallImages[smallKeys1[it1++]].default, smallImages[smallKeys1[it1]].default, bigImages[bigKeys1[it1++]].default);
 
