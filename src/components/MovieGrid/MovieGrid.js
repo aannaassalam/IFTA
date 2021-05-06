@@ -73,7 +73,6 @@ const MovieGrid = ({ award }) => {
           headers: { Authorization: `Bearer ${authToken}` },
         })
         .then((res) => {
-          console.log('Nominees API response');
           let nominations = res.data.payload[0].nominations;
           let index = nominations.findIndex((nomination) => {
             return nomination.name === 'others'
@@ -192,7 +191,7 @@ const MovieGrid = ({ award }) => {
           award: match.params.award,
           answer: key,
           comment: enteredComment,
-          show:'602a7e3c14367b662559c85f'
+          show: '602a7e3c14367b662559c85f'
         };
 
         axios
@@ -204,6 +203,11 @@ const MovieGrid = ({ award }) => {
           .then((res) => {
             setOpen(false);
             fetchNominees(userIdentification);
+            dispatch({
+              type: actionTypes.UPDATE_AWARDS_ARRAY,
+              answer: res.data.payload,
+              award:match.params.award
+            })
             setEnteredComment('');
           })
           .catch((err) => console.log(err));

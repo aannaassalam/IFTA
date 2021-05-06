@@ -26,21 +26,22 @@ const CommentBox = function ({ movies, comments }) {
         setMessageList(comments);
     }, [comments]);
 
-    useEffect(() => {
-        // const scrollPosition = sessionStorage.getItem("scrollPosition");
-        // if (scrollPosition) {
-        //     console.log(scrollPosition);
-        //     document.querySelector('.sc-message-list').scrollTo(0, parseInt(scrollPosition));
-        //     sessionStorage.removeItem("scrollPosition");
-        // }
-    })
+    // useEffect(() => {
+    //     setTimeout(() => {
+    //         let scrollPosition = ((messageList.length - 100) / messageList.length) * (document.querySelector('.sc-message-list').scrollHeight)
+    //         if (scrollPosition > 0) {
+    //             console.log(document.querySelector('.sc-message-list').scrollHeight,scrollPosition,messageList.length);
+    //             document.querySelector('.sc-message-list').scrollBy(0,0);
+    //             document.querySelector('.sc-message-list').scrollBy(0, parseInt(-scrollPosition));
+    //         }
+    //     }, 200)
+    // }, [messageList])
 
     useEffect(() => {
         if (isFetching) {
             axios.get('/award/audienceComments?id=' + movies._id + '&page=' + page)
                 .then(
                     (res) => {
-                        sessionStorage.setItem("scrollPosition", document.querySelector('.sc-message-list').scrollHeight);
                         setMessageList(() => {
                             let old_comments = [];
                             let received = res.data.payload;

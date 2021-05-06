@@ -17,7 +17,8 @@ export const actionTypes = {
   SET_AWARDS: "SET_AWARDS",
   SET_EXPIREDandTOTALVOTE: "SET_EXPIREDandTOTALVOTE",
   SET_USER_STATE: 'SET_USER_STATE',
-  SET_STATE_VOTE_DATA: 'SET_STATE_VOTE_DATA'
+  SET_STATE_VOTE_DATA: 'SET_STATE_VOTE_DATA',
+  UPDATE_AWARDS_ARRAY: 'UPDATE_AWARDS_ARRAY'
 };
 
 const reducer = (state = initialState, action) => {
@@ -63,6 +64,21 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         stateVoteData: action.voteData
+      }
+    case actionTypes.UPDATE_AWARDS_ARRAY:
+      return {
+        ...state,
+        awards: state.awards.map((category) => {
+          let newcategory = { ...category }
+          newcategory.awards = newcategory.awards.map((award) => {
+            let temp = { ...award };
+            if (temp._id === action.award) {
+              temp.answer.push(action.answer)
+            }
+            return temp;
+          })
+          return newcategory
+        })
       }
     default:
       return state;
