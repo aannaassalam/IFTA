@@ -8,7 +8,7 @@ function importAll(r) {
   return images
 }
 
-const bigImages = importAll(require.context('../../../images/gridLong2', false, /\.(png|jpe?g|svg)$/));
+const bigImages = importAll(require.context('../../../images/gridLong', false, /\.(png|jpe?g|svg)$/));
 const smallImages = importAll(require.context('../../../images/gridSmall', false, /\.(png|jpe?g|svg)$/));
 
 let x1 = [];
@@ -40,7 +40,7 @@ let smallKeys1 = smallKeys;
 let it1 = 0;
 // let it2 = 0;
 
-for (let n = 0; n < 3; n++) {
+for (let n = 0; n < 20; n++) {
   if (n === 0) {
     x1.push(smallImages[smallKeys1[it1]].default, bigImages[bigKeys1[it1++]].default, bigImages[bigKeys1[it1]].default, smallImages[smallKeys1[it1++]].default, smallImages[smallKeys1[it1]].default, bigImages[bigKeys1[it1++]].default);
 

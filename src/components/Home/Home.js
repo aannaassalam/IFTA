@@ -101,7 +101,7 @@ const Home = () => {
           <h1>Connect with us:</h1>
           <div>
             <a href="https://www.facebook.com/iftaupdates/" target='_blank'><img src={facebook} alt="facebook" /></a>
-            <a href="https://www.instagram.com/indian_film_television_awards/" target='_blank'><img src={insta} alt="instagram" /></a>
+            <a href="https://www.instagram.com/ifta.official/" target='_blank'><img src={insta} alt="instagram" /></a>
           </div>
           <div>
             <p>

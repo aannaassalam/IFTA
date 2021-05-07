@@ -49,10 +49,10 @@ const MovieGrid = ({ award }) => {
       axios
         .get(`/award/results?id=${award}`)
         .then((res) => setSesExpired(res.data.payload));
-    } else if(sessionExpired === false) {
+    } else if (sessionExpired === false) {
       fetchNominees(userIdentification);
     }
-  }, [award, userIdentification , sessionExpired]);
+  }, [award, userIdentification, sessionExpired]);
 
   function moveArrayItemToNewIndex(arr, old_index, new_index) {
     if (new_index >= arr.length) {
@@ -87,7 +87,7 @@ const MovieGrid = ({ award }) => {
               heading: res.data.payload[0].heading,
               voteCount: res.data.payload[0].voteCount,
               votedOnce: true,
-              _id:res.data.payload[0]._id
+              _id: res.data.payload[0]._id
             });
           } else {
             setMovies({
@@ -95,7 +95,7 @@ const MovieGrid = ({ award }) => {
               heading: res.data.payload[0].heading,
               voteCount: res.data.payload[0].voteCount,
               votedOnce: false,
-              _id:res.data.payload[0]._id
+              _id: res.data.payload[0]._id
             });
           }
           fetchComments(res.data.payload[0]);
@@ -194,6 +194,8 @@ const MovieGrid = ({ award }) => {
           show: '602a7e3c14367b662559c85f'
         };
 
+        if (enteredComment === '') { delete bodyParameters.comment }
+
         axios
           .post(
             "/award/add-answer",
@@ -206,7 +208,7 @@ const MovieGrid = ({ award }) => {
             dispatch({
               type: actionTypes.UPDATE_AWARDS_ARRAY,
               answer: res.data.payload,
-              award:match.params.award
+              award: match.params.award
             })
             setEnteredComment('');
           })

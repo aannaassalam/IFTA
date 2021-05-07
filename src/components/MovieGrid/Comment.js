@@ -42,6 +42,7 @@ const CommentBox = function ({ movies, comments }) {
             axios.get('/award/audienceComments?id=' + movies._id + '&page=' + page)
                 .then(
                     (res) => {
+                        console.log(res.data.payload);
                         setMessageList(() => {
                             let old_comments = [];
                             let received = res.data.payload;
