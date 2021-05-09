@@ -8,7 +8,7 @@ function importAll(r) {
   return images
 }
 
-const bigImages = importAll(require.context('../../../images/gridLong', false, /\.(png|jpe?g|svg)$/));
+const bigImages = importAll(require.context('../../../images/gridLong2', false, /\.(png|jpe?g|svg)$/));
 const smallImages = importAll(require.context('../../../images/gridSmall', false, /\.(png|jpe?g|svg)$/));
 
 let x1 = [];
