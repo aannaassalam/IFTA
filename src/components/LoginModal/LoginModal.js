@@ -19,6 +19,7 @@ const LoginTestModal = () => {
   const [description, setDescription] = useState(null);
   const [otpResend, setOtpResend] = useState(false);
   const [referalCode , setReferalCode] = useState('');
+  const [email , setEmail] = useState('');
   const history = useHistory();
 
   const resendOTP = () => {
@@ -34,15 +35,23 @@ const LoginTestModal = () => {
       });
   }
 
+  function validateEmail(email) {
+    const re =/\S+@\S+\.\S+/;
+    return re.test(email);
+  }
+
   const handleOTP = () => {
-    if (referalCode.length > 0 && referalCode !== 'r7865ikc'  && referalCode !== 'vds5267g' && referalCode !== '7437sdvi' && referalCode !== 'sdjhv852' && referalCode !== 'xnmzbm64' && referalCode !== 'mcds6730') {
+    if (referalCode.length > 0 && referalCode !== 'r7865ikc' && referalCode !== 'vds5267g' && referalCode !== '7437sdvi' && referalCode !== 'sdjhv852' && referalCode !== 'xnmzbm64' && referalCode !== 'mcds6730') {
       alert('Invalid Referral Code');
+    } else if (email.length > 0 && !validateEmail(email)) {
+      alert('Invalid Email');
     } else {
       if (inputValue !== '' && inputValue.length === 10) {
         axios
           .post("/user/login", {
             phone: inputValue,
-            state: ''
+            state: '',
+            email: email
           })
           .then((res) => { setUserId(res.data.payload._id); startTimer() })
           .catch((err) => {
@@ -193,7 +202,14 @@ const LoginTestModal = () => {
                 type="number"
                 className="input-field"
                 onChange={(e) => setInputValue(e.target.value)}
-                required
+              />
+              <input
+                autoFocus
+                placeholder="E-mail (optional)"
+                value={email}
+                type="text"
+                className="input-field"
+                onChange={(e) => setEmail(e.target.value)}
               />
               <input
                 autoFocus
@@ -202,7 +218,6 @@ const LoginTestModal = () => {
                 type="text"
                 className="input-field"
                 onChange={(e) => setReferalCode(e.target.value)}
-                required
               />
               {userId && (
                 <input
@@ -247,7 +262,7 @@ const LoginTestModal = () => {
           alignItems: "center"
         }}>
           <div style={{ color: "#fff", margin: "10px 0px", padding: "10px 0px" }}>Enter your region</div>
-          <Select options={stateList} onChange={(value) => { setEnteredState(value.value) }} placeholder='Select your region' style={{ color: 'white', marginTop: '5px' }} />
+          <Select options={stateList} onChange={(value) => { console.log(value.value);setEnteredState(value.value); }} placeholder='Select your region' style={{ color: 'white', marginTop: '5px' }} />
           <button className="submitBtn" onClick={updateSate}>Submit</button>
         </div>
       </Modal>

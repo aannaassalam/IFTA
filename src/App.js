@@ -7,7 +7,6 @@ import { useEffect } from "react";
 import axios from "axios";
 import { useStateValue } from "./StateProvider";
 import { actionTypes } from "./Reducer";
-import './components/Home/particles.scss';
 import "./components/Vote/Vote.css";
 import "./components/Voting/Voting.css";
 

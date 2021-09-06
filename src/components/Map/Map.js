@@ -134,7 +134,10 @@ function Map(props) {
 
     let payload = props.mapData;
     for (let state of payload) {
-        let index = HeatMapData.findIndex(element => {return element.state === state.state });
+        let index = HeatMapData.findIndex(element => { return element.state === state.state.trim() });
+        if (HeatMapData[index] === undefined) {
+            continue;
+        }
         HeatMapData[index].value = state.votes;
     }
     data = HeatMapData;

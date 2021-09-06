@@ -8,7 +8,7 @@ import reducer, { initialState } from "./Reducer";
 import axios from 'axios'
 
 
-axios.defaults.baseURL = 'https://ifta.co.in/backend'
+axios.defaults.baseURL = 'https://backend.ifta.co.in/backend'
 
 ReactDOM.render(
   <React.StrictMode>

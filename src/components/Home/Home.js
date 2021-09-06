@@ -6,10 +6,10 @@ import Category from "./Category/Category";
 import { Link } from 'react-router-dom'
 import facebook from "../../images/fb.png";
 import insta from "../../images/insta.png";
-import gif1_small from "../../images/screen-1_1_small.gif";
-import gif1_large from "../../images/21-min.gif";
-import gif2_small from "../../images/screen-1_2_small.gif";
-import gif2_large from "../../images/screen-1_2.gif";
+import gif1_small from "../../images/Ifta_Trophy.png";
+import gif1_large from "../../images/Ifta_Trophy.png";
+import gif2_small from "../../images/ifta 2021_medal.png";
+import gif2_large from "../../images/ifta 2021_medal.png";
 import ikickLogo from '../../images/ikick-logo.png'
 import Map from '../Map/Map'
 import { useStateValue } from "../../StateProvider";
@@ -58,7 +58,9 @@ const Home = () => {
             <h4>DECIDE THE WINNER</h4>
           </div>
         </div>
-        <img src={gif2} alt="iifa-award" />
+        <div>
+        <img src={gif2} alt="iifa-award" id="ifta_medal"/>
+        </div>
       </section>
       <section className="home__second">
         <YTVideo />
@@ -80,7 +82,7 @@ const Home = () => {
       </section>
       <section >
         <div style={{ margin: 'auto', 'textAlign': 'center' }}>
-          <h1 style={{ 'textDecoration': 'underline' }} id="state-heading"><b>State-wise Vote Distribution</b> </h1>
+          <h2 style={{ 'textDecoration': 'underline' }} id="state-heading"><b>State-wise Vote Distribution</b> </h2>
           <Map mapData={stateVoteData} />
         </div>
       </section>
@@ -100,7 +102,7 @@ const Home = () => {
         <div className="home__footerRight">
           <h1>Connect with us:</h1>
           <div>
-            <a href="https://www.facebook.com/iftaupdates/" target='_blank'><img src={facebook} alt="facebook" /></a>
+            <a href="https://www.facebook.com/ifta.official" target='_blank'><img src={facebook} alt="facebook" /></a>
             <a href="https://www.instagram.com/ifta.official/" target='_blank'><img src={insta} alt="instagram" /></a>
           </div>
           <div>
