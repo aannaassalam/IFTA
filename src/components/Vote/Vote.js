@@ -1,44 +1,70 @@
 import React, { useEffect, useState } from "react";
 import Navbar from "../Navbar/Navbar";
 import logo1 from "../../images/sc2.jpg";
-import AccountCircleIcon from '@material-ui/icons/AccountCircle';
+import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 import MovieGrid from "../MovieGrid/MovieGrid";
 import Footer from "../Footer/Footer";
 import { withRouter, useHistory } from "react-router-dom";
 import CountUp from "react-countup";
 import { useStateValue } from "../../StateProvider";
 import LoginModal from "../LoginModal/LoginModal";
+import LoginTestModal2 from "../LoginModal/LoginModal2";
 
 const Vote = ({ match }) => {
-  const [{ totalVotes ,userIdentification , userName}, dispatch] = useStateValue();
+  const [{ totalVotes, userIdentification, userName }, dispatch] =
+    useStateValue();
 
   useEffect(() => window.scrollTo(0, 0), []);
   const award = match.params.award;
   const history = useHistory();
   const goToHome = () => {
-    history.push("/")
-  }
+    history.push("/");
+  };
   const goToBack = () => {
-    history.push("/voting")
-  }
+    history.push("/voting");
+  };
 
   return (
     <div className="vote">
       <div className="voting__login">
         <div>
-          <h2 style={{color:'gold'}}>
+          <h2 style={{ color: "gold" }}>
             Total votes: <CountUp end={totalVotes} duration={2.75} />
           </h2>
-          <div style={{ padding: '10px', width: 'max-content', position: 'relative', padding: '10px', paddingRight: '50px' }} className="userName">
-            <span style={{ fontFamily: 'Oswald, sans-serif', position: 'relative'}}>{userIdentification ? <AccountCircleIcon/> : null}</span>
-            <span style={{ fontFamily: 'Oswald, sans-serif',verticalAlign:'top' }}>{userIdentification ? userName : null}</span>
+          <div
+            style={{
+              padding: "10px",
+              width: "max-content",
+              position: "relative",
+              padding: "10px",
+              paddingRight: "50px",
+            }}
+            className="userName"
+          >
+            <span
+              style={{ fontFamily: "Oswald, sans-serif", position: "relative" }}
+            >
+              {userIdentification ? <AccountCircleIcon /> : null}
+            </span>
+            <span
+              style={{ fontFamily: "Oswald, sans-serif", verticalAlign: "top" }}
+            >
+              {userIdentification ? userName : null}
+            </span>
           </div>
         </div>
-        <div style={{ display: 'flex', flexDirection: 'row', width: 'min-content' }}>
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "row",
+            width: "min-content",
+          }}
+        >
           {/* <div className="box">
             <button className="modal__btn" onClick={()=>goToBack()}>Back</button>
           </div> */}
-          <LoginModal />
+          {/* <LoginModal /> */}
+          <LoginTestModal2 />
         </div>
       </div>
       <img className="top-img" src={logo1} alt="iifa-logo" />

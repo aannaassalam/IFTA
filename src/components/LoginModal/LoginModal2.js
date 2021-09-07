@@ -1,17 +1,19 @@
 import React, { useState, useEffect } from "react";
-import "./LoginModal.css";
+import "./LoginModal2.css";
 import { useStateValue } from "../../StateProvider";
 import axios from "axios";
 import { actionTypes } from "../../Reducer";
 import $ from "jquery";
 import Select from "react-select";
 import { stateList } from "../Map/Map";
-import { Modal } from "@material-ui/core";
+import { Button, Divider, Modal } from "@material-ui/core";
 import { useHistory } from "react-router-dom";
 
-const LoginTestModal = () => {
+const LoginTestModal2 = () => {
   const [{ userIdentification, userName }, dispatch] = useStateValue();
-  const [enteredState, setEnteredState] = useState("");
+  const [enteredState, setEnteredState] = useState(
+    localStorage.getItem("state") || ""
+  );
   const [openState, setOpenState] = useState(false);
   const [inputValue, setInputValue] = useState("");
   const [OTP, setOTP] = useState("");
@@ -20,6 +22,7 @@ const LoginTestModal = () => {
   const [otpResend, setOtpResend] = useState(false);
   const [referalCode, setReferalCode] = useState("");
   const [email, setEmail] = useState("");
+  const [modal, setModal] = useState(false);
   const history = useHistory();
 
   const resendOTP = () => {
@@ -41,7 +44,7 @@ const LoginTestModal = () => {
 
   function validateEmail(email) {
     const re = /\S+@\S+\.\S+/;
-    console.log(re.test(email));
+    console.log(re.test(email), "yo");
     return re.test(email);
   }
 
@@ -59,12 +62,14 @@ const LoginTestModal = () => {
       alert("Invalid Referral Code");
     } else if (email.length > 0 && !validateEmail(email)) {
       alert("Invalid Email");
+    } else if (enteredState.length === 0) {
+      alert("Please select a state");
     } else {
       if (inputValue !== "" && inputValue.length === 10) {
         axios
           .post("/user/login", {
             phone: inputValue,
-            state: "",
+            state: enteredState,
             email: email,
           })
           .then((res) => {
@@ -101,7 +106,7 @@ const LoginTestModal = () => {
             userName: res.data.payload.userName,
           });
           if (!res.data.payload.state || res.data.payload.state === "") {
-            closeModal();
+            setModal(false);
             setOpenState(true);
           } else {
             setDescription("OTP is succesfully verified");
@@ -137,7 +142,7 @@ const LoginTestModal = () => {
           });
           setOpenState(false);
           setDescription("Logged In Sucessfully");
-          openModal();
+          //   openModal();
         });
       } else {
         alert("Fields can not be empty");
@@ -148,14 +153,14 @@ const LoginTestModal = () => {
     }
   };
 
-  const openModal = () =>
-    $("#popup1").css({ visibility: "visible", opacity: "1" });
+  //   const openModal = () =>
+  //     $("#popup1").css({ visibility: "visible", opacity: "1" });
 
-  const closeModal = () => {
-    $("#popup1").css({ visibility: "hidden", opacity: "0" });
-    setUserId(null);
-    setDescription(null);
-  };
+  //   const closeModal = () => {
+  //     $("#popup1").css({ visibility: "hidden", opacity: "0" });
+  //     setUserId(null);
+  //     setDescription(null);
+  //   };
 
   const handleLogout = () => {
     localStorage.removeItem("authToken");
@@ -166,7 +171,7 @@ const LoginTestModal = () => {
     });
     window.location.reload();
     setDescription("You have logged out successfully");
-    openModal();
+    // openModal();
   };
 
   const startTimer = () => {
@@ -187,6 +192,56 @@ const LoginTestModal = () => {
     history.push("/");
   };
 
+  const customStyles = {
+    menuList: (provided) => ({
+      ...provided,
+      height: 250,
+    }),
+    option: (provided, state) => ({
+      ...provided,
+      color: state.isSelected ? "#fff" : "#333",
+      fontSize: 13,
+      fontWeight: 600,
+    }),
+    control: (provided, state) => ({
+      ...provided,
+      minHeight: 35,
+      width: "100%",
+      border: state.isFocused ? "none" : "none",
+      boxShadow: state.isFocused ? "none" : "none",
+      borderRadius: 0,
+      borderBottom: "2px solid #f3f3f3",
+      "&:hover": {
+        borderColor: "#f3f3f3",
+      },
+    }),
+    placeholder: (provided) => ({
+      ...provided,
+      color: "#aaa",
+      fontSize: 13,
+      fontWeight: 600,
+      marginLeft: 10,
+    }),
+    input: (provided) => ({
+      ...provided,
+      padding: "0px 8px 10px",
+      height: 35,
+      fontSize: 13,
+      margin: "0 2px",
+      color: "#333",
+    }),
+    valueContainer: (provided) => ({
+      height: 35,
+    }),
+    singleValue: (provided) => ({
+      ...provided,
+      fontSize: 13,
+      fontWeight: 600,
+      color: "#333",
+      marginLeft: 10,
+    }),
+  };
+
   return (
     <div style={{ display: "flex", flexDirection: "column" }}>
       <div className="box">
@@ -198,7 +253,7 @@ const LoginTestModal = () => {
             Home
           </button>
           <button
-            onClick={userIdentification ? handleLogout : openModal}
+            onClick={userIdentification ? handleLogout : () => setModal(true)}
             className="modal__btn"
           >
             {userIdentification ? "Logout" : "Login"}
@@ -206,7 +261,88 @@ const LoginTestModal = () => {
         </div>
       </div>
 
-      <div id="popup1" className="overlay">
+      <Modal open={modal} onClose={() => setModal(false)}>
+        <div className="login-modal">
+          <h4>IFTA</h4>
+          <p>
+            You will be recieving an OTP on the number given below, once you
+            click Login button
+          </p>
+
+          <div className="inputs">
+            <input
+              autoFocus
+              type="number"
+              placeholder="Phone Number"
+              value={inputValue}
+              onChange={(e) => setInputValue(e.target.value)}
+            />
+            <input
+              type="email"
+              placeholder="Email (Optional)"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
+            <Select
+              options={stateList}
+              value={stateList.filter((state) => state.value === enteredState)}
+              onChange={(value) => {
+                setEnteredState(value.value);
+              }}
+              placeholder="Select your region"
+              styles={customStyles}
+              className="select"
+            />
+            <input
+              type="text"
+              placeholder="Referal code(If any)"
+              value={referalCode}
+              onChange={(e) => setReferalCode(e.target.value)}
+            />
+          </div>
+          <Button
+            variant="contained"
+            onClick={handleOTP}
+            className="login-btn"
+            fullWidth
+            disabled={userId}
+          >
+            Login
+          </Button>
+          <Divider style={{ color: "#555", width: "75%" }} />
+          {userId && (
+            <>
+              <input
+                autoFocus
+                placeholder="OTP"
+                value={OTP}
+                type="number"
+                className="OTP-field"
+                onChange={(e) => setOTP(e.target.value)}
+              />
+              {!otpResend ? (
+                <p className="resend">
+                  Resend code in <span id="otp-timer"></span>
+                </p>
+              ) : (
+                <p className="resend btn" onClick={resendOTP}>
+                  Resend code
+                </p>
+              )}
+              <Button
+                variant="contained"
+                onClick={handleRegister}
+                className="login-btn verify"
+                fullWidth
+              >
+                Verify
+              </Button>
+            </>
+          )}
+        </div>
+      </Modal>
+
+      {/* <div id="popup1" className="overlay">
         {!description ? (
           <div className="modal__conatiner">
             <button className="close" onClick={closeModal}>
@@ -298,7 +434,7 @@ const LoginTestModal = () => {
           <Select
             options={stateList}
             onChange={(value) => {
-              // console.log(value.value);
+              //   console.log(value.value);
               setEnteredState(value.value);
             }}
             placeholder="Select your region"
@@ -308,9 +444,9 @@ const LoginTestModal = () => {
             Submit
           </button>
         </div>
-      </Modal>
+      </Modal> */}
     </div>
   );
 };
 
-export default LoginTestModal;
+export default LoginTestModal2;
