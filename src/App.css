@@ -1,26 +1,29 @@
+.app {
+  background-color: #0d0d0d;
+}
+
 .top-img {
   width: 100%;
   max-height: 110vh;
   object-fit: contain;
   /* position: absolute; */
-  top:0;
-  left:0;
+  top: 0;
+  left: 0;
   margin-bottom: -400px;
 }
 
-.bottom-img{
-  width:100%;
+.bottom-img {
+  width: 100%;
   max-height: 30.8vh;
   object-fit: contain;
   margin-bottom: -210px;
 }
 
-@media screen and (max-width:768px){
+@media screen and (max-width: 768px) {
   .top-img {
     width: 100%;
     max-height: 40vh;
     object-fit: contain;
     margin-bottom: -80px;
   }
-  
 }

@@ -14,7 +14,6 @@
     "d3-scale": "^3.3.0",
     "jquery": "^3.5.1",
     "moment": "^2.29.1",
-    "node-sass": "^4.14.1",
     "react": "^17.0.1",
     "react-chat-window": "^1.2.1",
     "react-countup": "^4.3.3",
