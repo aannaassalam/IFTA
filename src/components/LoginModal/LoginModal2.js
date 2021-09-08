@@ -54,12 +54,10 @@ const LoginTestModal2 = () => {
 
   function validateEmail(email) {
     const re = /\S+@\S+\.\S+/;
-    console.log(re.test(email), "yo");
     return re.test(email);
   }
 
   const handleOTP = () => {
-    console.log("hit");
     if (
       referalCode.length > 0 &&
       referalCode !== "r7865ikc" &&
@@ -116,19 +114,18 @@ const LoginTestModal2 = () => {
             state: res.data.payload.state,
             userName: res.data.payload.userName,
           });
-          console.log(res.data);
           if (
             !res.data.payload.state ||
             res.data.payload.state === "" ||
             !res.data.payload.gender ||
             res.data.payload.gender === "" ||
-            !res.data.payload.age ||
-            res.data.payload.age === ""
+            !res.data.payload.dateOfBirth ||
+            res.data.payload.dateOfBirth === ""
           ) {
             setModal(false);
             setOpenState(true);
             setEnteredState(res.data.payload.state || "");
-            setAge(res.data.payload.age || "");
+            setAge(res.data.payload.dateOfBirth || "");
             setGender(res.data.payload.gender || "male");
           } else {
             toaster.notify("OTP is successfully verified");
@@ -150,10 +147,7 @@ const LoginTestModal2 = () => {
 
   const updateSate = () => {
     if (userIdentification) {
-      console.log(enteredState);
-      console.log(age);
       if (enteredState !== "" && age !== "" && age > 0) {
-        console.log("rin");
         const authToken = localStorage.getItem("authToken").split(" ")[1];
         const config = {
           headers: { Authorization: `Bearer ${authToken}` },
@@ -162,22 +156,21 @@ const LoginTestModal2 = () => {
         const bodyParameters = {
           state: enteredState,
           gender: gender,
-          dob: moment(new Date()).subtract(age, "years").format("DD-MM-YYYY"),
+          dateOfBirth: moment(new Date()).subtract(age, "years").toISOString(),
         };
 
         axios.patch("/user", bodyParameters, config).then((res) => {
-          console.log(
-            moment(new Date()).subtract(age, "years").format("DD-MM-YYYY")
-          );
-          console.log(res.data);
           localStorage.setItem("state", `${res.data.payload.state}`);
           localStorage.setItem("gender", `${res.data.payload.gender}`);
-          localStorage.setItem("dob", `${res.data.payload.dob}`);
+          localStorage.setItem(
+            "dateOfBirth",
+            `${res.data.payload.dateOfBirth}`
+          );
           dispatch({
             type: actionTypes.SET_USER_STATE,
             state: res.data.payload.state,
             gender: res.data.payload.gender,
-            dob: res.data.payload.age,
+            dateOfBirth: res.data.payload.dateOfBirth,
           });
           setOpenState(false);
           toaster.notify("Logged In Successfully");
@@ -227,7 +220,6 @@ const LoginTestModal2 = () => {
         clearInterval(interval);
       }
     }, 1000);
-    // console.log(timer);
   };
 
   const goToHome = () => {
@@ -486,110 +478,6 @@ const LoginTestModal2 = () => {
           </Button>
         </div>
       </Modal>
-
-      {/* <div id="popup1" className="overlay">
-        {!description ? (
-          <div className="modal__conatiner">
-            <button className="close" onClick={closeModal}>
-              &times;
-            </button>
-            <div style={{ color: "#fff", margin: 10 }}>
-              Login with Phone Number
-            </div>
-            <div>
-              <input
-                autoFocus
-                placeholder="Enter your 10-digit number"
-                value={inputValue}
-                type="number"
-                className="input-field"
-                onChange={(e) => setInputValue(e.target.value)}
-              />
-              <input
-                autoFocus
-                placeholder="E-mail (optional)"
-                value={email}
-                type="text"
-                className="input-field"
-                onChange={(e) => setEmail(e.target.value)}
-              />
-              <input
-                autoFocus
-                placeholder="Referral code (if any)"
-                value={referalCode}
-                type="text"
-                className="input-field"
-                onChange={(e) => setReferalCode(e.target.value)}
-              />
-              {userId && (
-                <input
-                  autoFocus
-                  placeholder="OTP"
-                  value={OTP}
-                  type="number"
-                  className="input-field"
-                  onChange={(e) => setOTP(e.target.value)}
-                />
-              )}
-              {userId && !otpResend && (
-                <h5 style={{ marginBottom: "2px", color: "white" }}>
-                  Resend OTP in{" "}
-                  <span style={{ color: "red" }} id="otp-timer"></span> sec.
-                </h5>
-              )}
-              {otpResend ? (
-                <button onClick={resendOTP}>Resend otp</button>
-              ) : null}
-              <button onClick={userId ? handleRegister : handleOTP}>
-                {userId ? "VERIFY OTP" : "GET OTP"}
-              </button>
-            </div>
-          </div>
-        ) : (
-          <div className="modal__conatiner modal__conatinerDesc">
-            <div style={{ color: "#fff", margin: 10 }}>{description}</div>
-            <button onClick={closeModal}>Close</button>
-          </div>
-        )}
-      </div>
-      <Modal
-        open={openState}
-        onBackdropClick={() => {
-          setOpenState(false);
-        }}
-      >
-        <div
-          className="movieGrid__modal3 movieGrid__modalSecond"
-          style={{
-            position: "absolute",
-            top: "50%",
-            left: "50%",
-            marginRight: "-50%",
-            transform: "translate(-50%, -50%)",
-            color: "black",
-            height: "max-content",
-            alignItems: "center",
-          }}
-        >
-          <div
-            style={{ color: "#fff", margin: "10px 0px", padding: "10px 0px" }}
-          >
-            Enter your region
-          </div>
-          <Select
-            options={stateList}
-            onChange={(value) => {
-              //   console.log(value.value);
-              setEnteredState(value.value);
-            }}
-            placeholder="Select your region"
-            style={{ color: "white", marginTop: "5px" }}
-          />
-          <button className="submitBtn" onClick={updateSate}>
-            Submit
-          </button>
-        </div>
-      </Modal> */}
     </div>
   );
 };

@@ -7,7 +7,7 @@ export const initialState = {
   token: null,
   state: localStorage.getItem("state") ? true : null,
   gender: localStorage.getItem("gender") ? true : null,
-  dob: localStorage.getItem("age") ? true : null,
+  dateOfBirth: localStorage.getItem("dateOfBirth") ? true : null,
   userName: localStorage.getItem("userName")
     ? localStorage.getItem("userName")
     : null,
