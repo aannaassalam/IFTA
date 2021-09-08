@@ -9,6 +9,7 @@ import { useStateValue } from "./StateProvider";
 import { actionTypes } from "./Reducer";
 import "./components/Vote/Vote.css";
 import "./components/Voting/Voting.css";
+import "toasted-notes/src/styles.css";
 
 function App() {
   const [{ userIdentification }, dispatch] = useStateValue();
@@ -21,14 +22,10 @@ function App() {
     if (userIdentification) {
       const authToken = localStorage.getItem("authToken").split(" ")[1];
       axios
-        .get(
-          "/show/fetchCategories/logedIn?showId=602a7e3c14367b662559c85f",
-          {
-            headers: { Authorization: `Bearer ${authToken}` },
-          }
-        )
+        .get("/show/fetchCategories/logedIn?showId=602a7e3c14367b662559c85f", {
+          headers: { Authorization: `Bearer ${authToken}` },
+        })
         .then((res) => {
-
           dispatch({
             type: actionTypes.SET_AWARDS,
             awards: res.data.payload.awards,
@@ -38,22 +35,18 @@ function App() {
             type: actionTypes.SET_EXPIREDandTOTALVOTE,
             expired: res.data.payload.show.isExpired,
             totalVotes: res.data.payload.show.voteCount,
-            expiryDate: res.data.payload.show.lifeSpan
+            expiryDate: res.data.payload.show.lifeSpan,
           });
-
 
           dispatch({
             type: actionTypes.SET_STATE_VOTE_DATA,
-            voteData: res.data.payload.voteData
+            voteData: res.data.payload.voteData,
           });
-
         })
         .catch((err) => alert(err));
     } else {
       axios
-        .get(
-          "/show/fetchCategories?showId=602a7e3c14367b662559c85f"
-        )
+        .get("/show/fetchCategories?showId=602a7e3c14367b662559c85f")
         .then((res) => {
           dispatch({
             type: actionTypes.SET_AWARDS,
@@ -64,29 +57,26 @@ function App() {
             type: actionTypes.SET_EXPIREDandTOTALVOTE,
             expired: res.data.payload.show.isExpired,
             totalVotes: res.data.payload.show.voteCount,
-            expiryDate: res.data.payload.show.lifeSpan
+            expiryDate: res.data.payload.show.lifeSpan,
           });
-
 
           dispatch({
             type: actionTypes.SET_STATE_VOTE_DATA,
-            voteData: res.data.payload.voteData
+            voteData: res.data.payload.voteData,
           });
-        })
+        });
     }
   };
 
   return (
     <HashRouter>
       <div className="app">
-
         <Switch>
           <Route path="/voting" component={Voting} />
           <Route path="/vote/:award" component={Bollywood} />
           <Route path="/" component={Home} />
         </Switch>
-        <div class="animation-wrapper">
-        </div>
+        <div class="animation-wrapper"></div>
       </div>
     </HashRouter>
   );

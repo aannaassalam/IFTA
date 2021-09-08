@@ -74,7 +74,7 @@ export const stateList = [
   { label: "Tripura", value: "Tripura" },
   { label: "Uttarakhand", value: "Uttarakhand" },
   { label: "Uttar Pradesh", value: "Uttar Pradesh" },
-  { label: "West Bengal", value: "West Bengal" },
+  // { label: "West Bengal", value: "West Bengal" },
   { label: "West Bengal", value: "West Bengal" },
   { label: "Andaman & Nicobar", value: "Andaman & Nicobar" },
   { label: "Chandigarh", value: "Chandigarh" },

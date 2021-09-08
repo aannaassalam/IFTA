@@ -6,6 +6,8 @@ export const initialState = {
   phone: null,
   token: null,
   state: localStorage.getItem("state") ? true : null,
+  gender: localStorage.getItem("gender") ? true : null,
+  dob: localStorage.getItem("age") ? true : null,
   userName: localStorage.getItem("userName")
     ? localStorage.getItem("userName")
     : null,
