@@ -107,6 +107,7 @@ const LoginTestModal2 = () => {
           localStorage.setItem("authToken", `bearer ${res.headers["x-auth"]}`);
           localStorage.setItem("state", `${res.data.payload.state}`);
           localStorage.setItem("userName", `${res.data.payload.userName}`);
+          localStorage.setItem("userId", `${res.data.payload._id}`);
           dispatch({
             type: actionTypes.SET_USER,
             userIdentification: res.data.payload._id,
@@ -421,6 +422,33 @@ const LoginTestModal2 = () => {
             Skip
           </span>
           <h3>More Details</h3>
+          <div className="gender">
+            <label className={gender === "male" ? "box checked" : "box"}>
+              <p>Male</p>
+              <input
+                type="radio"
+                name="gender"
+                onChange={(e) => setGender("male")}
+              />
+            </label>
+            <label className={gender === "female" ? "box checked" : "box"}>
+              <p>Female</p>
+              <input
+                type="radio"
+                name="gender"
+                onChange={() => setGender("female")}
+              />
+            </label>
+            <label className={gender === "others" ? "box checked" : "box"}>
+              <p>Others</p>
+              <input
+                type="radio"
+                name="gender"
+                onChange={() => setGender("others")}
+              />
+            </label>
+          </div>
+
           <input
             autoFocus
             placeholder="Age"
@@ -440,33 +468,6 @@ const LoginTestModal2 = () => {
             styles={customStyles}
             className="select"
           />
-
-          <div className="gender">
-            <p>Gender: </p>
-            <RadioGroup
-              aria-label="gender"
-              className="gender-group"
-              value={gender}
-              onChange={(e) => setGender(e.target.value)}
-            >
-              <FormControlLabel
-                value="male"
-                control={<Radio size="small" color="primary" />}
-                label="Male"
-              />
-              <FormControlLabel
-                value="female"
-                control={<Radio size="small" color="primary" />}
-                label="Female"
-              />
-              <FormControlLabel
-                value="other"
-                control={<Radio size="small" color="primary" />}
-                label="Other"
-              />
-              {/* <FormControlLabel value="disabled" disabled control={<Radio />} label="(Disabled option)" /> */}
-            </RadioGroup>
-          </div>
 
           <Button
             variant="contained"

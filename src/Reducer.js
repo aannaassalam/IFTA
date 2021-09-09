@@ -17,6 +17,7 @@ export const initialState = {
 
 export const actionTypes = {
   SET_USER: "SET_USER",
+  SET_USERNAME: "SET_USERNAME",
   SET_TOKEN: "SET_TOKEN",
   SET_AWARDS: "SET_AWARDS",
   SET_EXPIREDandTOTALVOTE: "SET_EXPIREDandTOTALVOTE",
@@ -35,6 +36,12 @@ const reducer = (state = initialState, action) => {
         userIdentification: action.userIdentification,
         phone: action.phone,
         state: action.state,
+        userName: action.userName,
+      };
+
+    case actionTypes.SET_USERNAME:
+      return {
+        ...state,
         userName: action.userName,
       };
 

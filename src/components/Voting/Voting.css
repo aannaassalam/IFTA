@@ -4,6 +4,24 @@
   position: relative;
 }
 
+.voting .username {
+  padding: 10px;
+  width: max-content;
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.voting .username span {
+  font-family: Oswald, sans-serif;
+  position: relative;
+  font-size: 0.8rem;
+}
+
+.voting .username span:last-child {
+  margin-left: 10px;
+}
+
 .voting__login {
   position: absolute;
   top: 1.5rem;
@@ -15,7 +33,7 @@
   justify-content: space-between;
 }
 
-.voting__login >  div > h2 {
+.voting__login > div > h2 {
   font-size: 1.4rem;
   font-weight: 500;
 }
@@ -25,8 +43,6 @@
   font-size: 1.6rem;
   font-family: Oswald, sans-serif;
 }
-
-
 
 .voting__video {
   padding: 7rem 0;
@@ -55,21 +71,199 @@
   margin-bottom: 0;
 }
 
-.userName{
+.userName {
   font-size: 1.1rem;
 }
 
+.profile {
+  height: 500px;
+  width: 800px;
+  background-color: #f5f7f6;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 10px;
+  padding: 20px;
+  outline: none;
+  border: 1px solid #cccccc50;
+}
 
-@media screen and (max-width:768px){
+.profile i.fa-times {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  font-size: 22px;
+  cursor: pointer;
+}
+
+.profile h3 {
+  font-size: 1.7rem;
+  color: #222;
+  margin-left: 20px;
+}
+
+.profile .body {
+  height: 75%;
+  display: flex;
+}
+
+.profile .body .left {
+  height: 100%;
+  padding-top: 30px;
+  width: 30%;
+  display: flex;
+  justify-content: center;
+}
+
+.profile .body .left img {
+  width: 180px;
+  height: 180px;
+  object-fit: contain;
+  border-radius: 50%;
+}
+
+.profile .body .right {
+  padding: 40px 20px 0;
+  width: 65%;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.profile .body .right .input {
+  width: 50%;
+  margin-bottom: 15px;
+}
+
+.profile .body .right .input p {
+  font-size: 14px;
+  font-weight: 500;
+  color: #333;
+  margin-bottom: 5px;
+}
+
+.profile .body .right .input p.static {
+  margin-top: 10px;
+  margin-bottom: 20px;
+  margin-left: 5px;
+  font-weight: 500;
+  text-transform: capitalize;
+}
+
+.profile .body .right .input:nth-child(3) p.static {
+  text-transform: none;
+}
+
+.profile .body .right .input:last-child {
+  margin-top: -10px;
+}
+
+.profile .body .right .input input {
+  background-color: transparent;
+  border: none;
+  outline: none;
+  box-shadow: none;
+  color: #333;
+  font-weight: 500;
+  height: 40px;
+  width: 90%;
+  padding: 5px 10px;
+  box-sizing: border-box;
+  margin-bottom: 10px;
+  font-size: 15px;
+  border-radius: 3px;
+  border: 1px solid #ccc;
+}
+
+.profile .body .right .input input:focus,
+.profile .body .right .input input:hover {
+  border-color: #999;
+}
+
+.profile .body .right .input input::placeholder {
+  color: #555 !important;
+  letter-spacing: 0.5px;
+  font-size: 13px;
+}
+
+.profile .body .right .gender {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 45%;
+  margin-top: 10px;
+}
+
+.profile .body .right .gender .box {
+  width: 70px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  cursor: pointer;
+  user-select: none;
+}
+
+.profile .body .right .gender .box.checked {
+  background-color: #1976d2;
+  color: #fff;
+  font-weight: 600;
+  border: 1px solid #1976d2;
+}
+
+.profile .body .right .gender .box p {
+  text-align: center;
+  font-size: 14px;
+  margin: 0;
+}
+
+.profile .body .right .gender .box input {
+  display: none;
+}
+
+.profile .foot {
+  margin-top: 50px;
+  float: right;
+  margin-right: 45px;
+}
+
+.profile .foot .btn {
+  background-color: #48c5b5;
+  color: #fff;
+}
+
+.profile .foot .btn-outlined {
+  border-color: #48c5b5;
+  color: #48c5b5;
+  margin-right: 20px;
+}
+
+@media (max-width: 860px) {
+  .profile {
+    width: 90%;
+    padding: 20px;
+  }
+
+  .profile .body .right {
+    width: 60%;
+  }
+
+  .profile .body .right .gender {
+    width: 250px;
+  }
+}
+
+@media screen and (max-width: 768px) {
   .voting__video {
     margin: auto;
     width: 90%;
   }
   .voting__login {
     top: 0.5rem;
-    left:1.5%;
+    left: 1.5%;
   }
-
 
   .voting__login > div > h2 {
     font-size: 0.8rem;
@@ -82,8 +276,53 @@
     font-family: Oswald, sans-serif;
   }
 
-  .userName{
+  .username {
     font-size: 0.8rem;
   }
 
+  .profile .left img {
+    width: 130px;
+    height: 130px;
+  }
+}
+
+@media (max-width: 658px) {
+  .profile .body .right {
+    margin-left: 20px;
+  }
+
+  .profile .foot {
+    margin-right: 10px;
+  }
+}
+
+@media (max-width: 568px) {
+  .profile {
+    max-height: 80%;
+    height: auto;
+    overflow-y: scroll;
+    padding: 20px 10px;
+  }
+
+  .profile .body {
+    flex-direction: column;
+  }
+
+  .profile .body .left,
+  .profile .body .right {
+    width: 100%;
+    height: auto;
+  }
+
+  .profile .body .right {
+    margin-left: 0;
+  }
+
+  .profile .body .right .gender .box {
+    margin-bottom: 20px;
+  }
+
+  .profile .foot {
+    margin-top: 10px;
+  }
 }
